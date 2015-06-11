@@ -27,7 +27,7 @@ This exporter comes with a GUI for easier use. There is a binary release [here a
 * Happy exporting!
 
 ## How to export blueprints using source code only
-```
+```C++
 #include "source/mainExporter.h"
 int main(){
 	// Always make sure you set these variables!
