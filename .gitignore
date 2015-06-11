@@ -4,25 +4,12 @@
 *.o
 *.obj
 
-# Precompiled Headers
-*.gch
-*.pch
+log.txt
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+objects/
 
-# Fortran module files
-*.mod
+third-party-libs/wxWidgets
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+# Code::Blocks files
+*.layout
+*.depend

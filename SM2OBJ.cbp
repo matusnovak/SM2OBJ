@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="SM2OBJ" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="release/SM2OBJ" prefix_auto="1" extension_auto="1" />
+				<Option object_output="objects/debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
+				<Option projectLinkerOptionsRelation="2" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-D__WXDEBUG__" />
+					<Add directory="third-party-libs/FragmentFramework/include" />
+					<Add directory="third-party-libs/zlib/include" />
+					<Add directory="C:/wxWidgets/include" />
+				</Compiler>
+				<Linker>
+					<Add library="FragmentFramework" />
+					<Add library="libwx_mswu_core-3.0.dll.a" />
+					<Add library="libwx_baseu-3.0.dll.a" />
+					<Add directory="third-party-libs/FragmentFramework/lib" />
+					<Add directory="third-party-libs/zlib/include/lib" />
+					<Add directory="C:/wxWidgets/lib" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="release/SM2OBJ" prefix_auto="1" extension_auto="1" />
+				<Option object_output="objects/release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
+				<Option projectLinkerOptionsRelation="2" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-std=c++11" />
+					<Add directory="third-party-libs/FragmentFramework/include" />
+					<Add directory="third-party-libs/zlib/include" />
+					<Add directory="C:/wxWidgets/include" />
+					<Add directory="C:/wxWidgets/lib/wx/include/msw-unicode-3.0" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="FragmentFramework" />
+					<Add library="libwx_mswu_core-3.0.dll.a" />
+					<Add library="libwx_baseu-3.0.dll.a" />
+					<Add directory="third-party-libs/FragmentFramework/lib" />
+					<Add directory="third-party-libs/zlib/include/lib" />
+					<Add directory="C:/wxWidgets/lib" />
+				</Linker>
+				<Environment>
+					<Variable name="wx" value="C:\wxWidgets\interface" />
+				</Environment>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-pipe" />
+			<Add option="-mthreads" />
+			<Add option="-Wall" />
+			<Add option="-D__GNUWIN32__" />
+			<Add option="-D__WXMSW__" />
+		</Compiler>
+		<ResourceCompiler>
+			<Add directory="C:/wxWidgets/include" />
+		</ResourceCompiler>
+		<Linker>
+			<Add option="-mthreads" />
+			<Add library="libkernel32.a" />
+			<Add library="libuser32.a" />
+			<Add library="libgdi32.a" />
+			<Add library="libwinspool.a" />
+			<Add library="libcomdlg32.a" />
+			<Add library="libadvapi32.a" />
+			<Add library="libshell32.a" />
+			<Add library="libole32.a" />
+			<Add library="liboleaut32.a" />
+			<Add library="libuuid.a" />
+			<Add library="libcomctl32.a" />
+			<Add library="libwsock32.a" />
+			<Add library="libodbc32.a" />
+		</Linker>
+		<Unit filename="resource.rc">
+			<Option compilerVar="WINDRES" />
+		</Unit>
+		<Unit filename="source/blockConfig.cpp" />
+		<Unit filename="source/blockConfig.h" />
+		<Unit filename="source/blockConstructor.cpp" />
+		<Unit filename="source/blockConstructor.h" />
+		<Unit filename="source/blockExtractor.cpp" />
+		<Unit filename="source/blockExtractor.h" />
+		<Unit filename="source/blockVerticeData.cpp" />
+		<Unit filename="source/blockVerticeData.h" />
+		<Unit filename="source/chunkHeader.cpp" />
+		<Unit filename="source/chunkHeader.h" />
+		<Unit filename="source/chunkLoader.cpp" />
+		<Unit filename="source/chunkLoader.h" />
+		<Unit filename="source/chunkTempLoader.cpp" />
+		<Unit filename="source/chunkTempLoader.h" />
+		<Unit filename="source/config.cpp" />
+		<Unit filename="source/config.h" />
+		<Unit filename="source/mainExporter.cpp" />
+		<Unit filename="source/mainExporter.h" />
+		<Unit filename="source/materialExport.cpp" />
+		<Unit filename="source/materialExport.h" />
+		<Unit filename="source/polygonFiltering.cpp" />
+		<Unit filename="source/polygonFiltering.h" />
+		<Unit filename="source/textureExport.cpp" />
+		<Unit filename="source/textureExport.h" />
+		<Unit filename="widgets/SM2OBJApp.cpp" />
+		<Unit filename="widgets/SM2OBJApp.h" />
+		<Unit filename="widgets/SM2OBJMain.cpp" />
+		<Unit filename="widgets/SM2OBJMain.h" />
+		<Unit filename="wxsmith/SM2OBJframe.wxs" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+			<wxsmith version="1">
+				<gui name="wxWidgets" src="widgets/SM2OBJApp.cpp" main="SM2OBJFrame" init_handlers="necessary" language="CPP" />
+				<resources>
+					<wxFrame wxs="wxsmith/SM2OBJframe.wxs" src="widgets/SM2OBJMain.cpp" hdr="widgets/SM2OBJMain.h" fwddecl="0" i18n="1" name="SM2OBJFrame" language="CPP" />
+				</resources>
+			</wxsmith>
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
