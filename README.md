@@ -14,17 +14,20 @@ This program will exports blueprints from StarMade into an OBJ file. Texture exp
 
 This exporter comes with a GUI for easier use. There is a binary release [here at github](https://github.com/matusnovak/SM2OBJ/releases). If you want only the exporter itself, see code example below.
 
-![GUI Screenshot](http://i.imgur.com/hSQIBGL.png)
+![GUI Screenshot](http://i.imgur.com/GFvtaO6.jpg)
 
-* Select your blueprint by navigating to the StarMade folder. Remember to select the file which has tree zeros at the end of the file name.
-* Select the "data" folder of your StarMade. This folder must contains both "config" and "textures" sub folders. Block IDs and textures will be extracted from this folder.
-* Select output path. Make sure that output is valid! Both textures (inside folder named "textures") and *.obj file with *.mtl file will be saved here.
-* Check "export materials" You can disable this if you want. You can also select which textures you wish to be exported.
-* Select how many threads this program should use. If you have 4 core CPU, use 4 threads and so on...
-* Check "export textures" This needs to be done only once. PNG format is recommended by default.
-* Before you continue, make sure you have at least 500 MB of empty HDD space. This space is used only for temporary uses. The target OBJ file will be much smaller. If you are exporting extremely large structures, the used temporary space can be up to 2+GB.
-* Click "Start Exporting" and watch console output for error messages.
-* Happy exporting!
+Before you continue, make sure you have at least 500 MB of empty HDD space. This space is used only for temporary uses. The target OBJ file will be much smaller. If you are exporting extremely large structures, the used temporary space can be up to 2+GB.
+
+ 1. Select your blueprint by navigating to the StarMade folder. Remember to select the file which has "0.0.0" at the end of the file name.
+ 2. Select the "data" folder of your StarMade. This folder must contain both "config" and "textures" sub folders. Block IDs and textures will be extracted from this folder.
+ 3. Select the output path. Make sure that the output folder does exist. Both textures (inside folder named "textures") and *.obj file with *.mtl file will be saved here.
+ 4. Write the name of the output file. The same name will be used for the material file.
+ 5. Check "export materials" if you want to export the materials. You can also select which textures you wish to be exported.
+ 6. Select how many threads this program should use. If you have 4 core CPU, use 4 threads and so on...
+ 7. Leave the "Export UVs" option enabled. Disabling this will result in no UV maps, you will have to generate them yourself. Splitting tiles will split the atlas into separated image files. This will also create one material per generated image. Disabable this if you want to use the atlas instead. All atlases will be created alongside with the .obj file in "atlases" folder.
+ 8. Enable this if you want to export the textures. This needs to be done at least once.
+ 9. Select the texture format of exported textures/atlases.
+ 10. Happy exporting!
 
 ## How to export blueprints using source code only
 ```
@@ -34,6 +37,10 @@ int main(){
 	// Leaving them undefined may crash the program
 	// Set texture export
 	textureExport = true;
+	// Should the textures be split into multiple
+	// files or use an atlas?
+	// Set false to use atlases
+	textureSplit = true;
 	// Set materials export
 	materialExport = true;
 	// Number of threads to use
@@ -106,8 +113,6 @@ After downloading the source code, you will get these files and folders:
 * **SM2OBJ.cbp** - Code::Blocks project file
 * **resource.rc** - Required by the GUI
 
-Note that you will need to download and compile the WxWidgets yourself. The library is not distributed with this project! Does not apply if you exclude the GUI from source.
-
 **Source files of the exporter inside the source/ folder:**
 
 * **mainExporter.cpp** - Main program flow.
@@ -134,6 +139,8 @@ To compile without the GUI, include all source files in the `source` folder and 
 * `third-party-libs\zlib\include`
 
 Next, link `FragmentFramework` DLL located inside the `third-party-libs\FragmentFramework\lib` folder. (Zlib 1.2.8 is already included inside the FragmentFramework.dll)
+
+Note that you will need to download and compile the WxWidgets yourself. The library is not distributed with this project! Does not apply if you exclude the GUI from source.
 
 If you are using Visual Studio, check [FragmentFramework](https://github.com/matusnovak/fragmentframework) repository for the VS 2013 version of the library in: /FragmentFramework/lib/msvc/.
 

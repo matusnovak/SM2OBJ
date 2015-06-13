@@ -10,6 +10,7 @@
 static void addObjectCube(chunkBufferStruct* Output, const ffw::vec3f& Pos, int Rot, const blockInfoStruct* Block);
 static void addObjectWedge(chunkBufferStruct* Output, const ffw::vec3f& Pos, int Rot, const blockInfoStruct* Block);
 static void addObjectHepta(chunkBufferStruct* Output, const ffw::vec3f& Pos, int Rot, const blockInfoStruct* Block);
+static void addObjectXshape(chunkBufferStruct* Output, const ffw::vec3f& Pos, int Rot, const blockInfoStruct* Block);
 static void addObjectTetra(chunkBufferStruct* Output, const ffw::vec3f& Pos, int Rot, const blockInfoStruct* Block);
 static void addObjectCorner(chunkBufferStruct* Output, const ffw::vec3f& Pos, int RotA, int RotB, const blockInfoStruct* Block);
 
@@ -46,12 +47,21 @@ bool buildBlock(ffw::vec3i Pos, ffw::vec3i PosRel, ffw::vec3i PosFile, uint32_t 
     if(block == NULL){
         // Can not find block ID
     } else {
+        // -1 = undefined
+        //  0 = cube
+        //  1 = wedge
+        //  2 = corner
+        //  3 = X-shape
+        //  4 = tetra
+        //  5 = hepta
+
         switch (block->object){
-            case 1: addObjectCube(Output, PosF, rotA, block); break;
-            case 2: addObjectWedge(Output, PosF, rotA, block); break;
-            case 3: addObjectCorner(Output, PosF, rotA, rotB, block); break;
-            case 4: addObjectHepta(Output, PosF, rotA, block); break;
-            case 5: addObjectTetra(Output, PosF, rotA, block); break;
+            case 0: addObjectCube(Output, PosF, rotA, block); break;
+            case 1: addObjectWedge(Output, PosF, rotA, block); break;
+            case 2: addObjectCorner(Output, PosF, rotA, rotB, block); break;
+            case 3: addObjectXshape(Output, PosF, rotA, block); break;
+            case 4: addObjectTetra(Output, PosF, rotA, block); break;
+            case 5: addObjectHepta(Output, PosF, rotA, block); break;
             default: break;
         };
     }
@@ -108,6 +118,50 @@ void addObjectCube(chunkBufferStruct* Output, const ffw::vec3f& Pos, int Rot, co
 
     Output->indicesOffset += 8;
     Output->indicesCount += 6;
+}
+
+///=============================================================================
+void addObjectXshape(chunkBufferStruct* Output, const ffw::vec3f& Pos, int Rot, const blockInfoStruct* Block){
+    // Add vertices
+    for(uint32_t i = 0, p = Output->verticesCount; i < 8; i++, p++){
+        // Get vector of the vertice
+        ffw::vec3f v = XshapeVertices[i] + ffw::vec3f(-0.5f, -0.5f, +0.5f);
+
+        // Rotate it
+        if(Rot == 0){
+            v.rotateX(90);
+        } else if(Rot == 1){
+            v.rotateX(-90);
+        } else if(Rot == 2){
+            // Nothing to do
+        } else if(Rot == 3){
+            v.rotateX(180);
+        } else if(Rot == 4){
+            v.rotateX(90);
+            v.rotateY(270);
+        } else if(Rot == 5){
+            v.rotateX(90);
+            v.rotateY(90);
+        }
+
+        // Add vertice to output
+        Output->vertices[p] = v + Pos;
+    }
+
+    Output->verticesCount += 8;
+
+    // Add indices
+    for(uint32_t i = 0, p = Output->indicesCount; i < 2; i++, p++){
+        // Add indices (starting from 0) to output plus the offset
+        Output->indices[p] = XshapeFaces[i]-1 + Output->indicesOffset;
+        Output->indicesUvs[p] = XshapeFacesUvs[i];
+        Output->indicesMat[p][0] = Block->id;
+        Output->indicesMat[p][2] = uint16_t(Block->transparent) | (uint16_t(Block->object) << 8);
+        Output->indicesMat[p][1] = Block->texture[0];
+    }
+
+    Output->indicesOffset += 8;
+    Output->indicesCount += 2;
 }
 
 ///=============================================================================

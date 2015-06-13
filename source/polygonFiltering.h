@@ -10,7 +10,6 @@
 #include "config.h"
 
 bool removeDuplicatedFaces(chunkBufferStruct* Input, chunkBufferStruct* Output);
-
 bool removeDuplicatedVertices(chunkBufferStruct* Input, chunkBufferStruct* Output);
 
 #endif

@@ -40,6 +40,8 @@ extern bool (*imageSaver)(const std::string& Path, unsigned char* Pixels, int Wi
 extern std::string imageExtension;
 // Should textures be exported?
 extern bool textureExport;
+// Should textures be split?
+extern bool textureSplit;
 // Should materials be exported?
 extern bool materialExport;
 // Should UVs be exported?

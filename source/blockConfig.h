@@ -26,12 +26,13 @@ struct blockInfoStruct {
     // Light color
     ffw::color light;
     // Type of object
-    // 0 = undefined
-    // 1 = cube
-    // 2 = wedge
-    // 3 = corner
-    // 4 = hepta
-    // 5 = tetra
+    // -1 = undefined
+    //  0 = cube
+    //  1 = wedge
+    //  2 = corner
+    //  3 = X-shape
+    //  4 = tetra
+    //  5 = hepta
     int object;
 };
 

@@ -44,6 +44,94 @@ static void convertNormalToBump(unsigned char* InputPixels, int InputWidth, int 
 }
 
 ///=============================================================================
+bool exportAtlases(const std::string& FolderPath){
+    int index = 0;
+
+    for(int i = 0; i < 6; i++){
+        std::string tex = textures[i];
+        unsigned char* pixels;
+        if(i == 3)index = 0;
+        int width;
+        int height;
+        ffw::imageType type;
+
+        ffw::logger().print() << "Reading file: " << tex;
+
+        if(!ffw::loadPNG(FolderPath + "\\" + tex, &pixels, &width, &height, &type)){
+            ffw::logger().error() << "Failed to load texture: " << tex;
+            return 0;
+        }
+
+        if(width != height){
+            ffw::logger().error() << "Failed to load texture: " << tex << " Texture must have same width and height!";
+            return 0;
+        }
+
+        if(!(width == 1024 || width == 2048 || width == 4096)){
+            ffw::logger().error() << "Failed to load texture: " << tex << " Wrong texture size! Must be either 1024, 2048, or 4096!";
+            return 0;
+        }
+
+        if(!(type == ffw::imageType::RGB_888 || type == ffw::imageType::RGB_ALPHA_8888)){
+            ffw::logger().error() << "Failed to load texture: " << tex << " Wrong texture format! Must be either 8-bit RGB or 8-bit RGBA!";
+            return 0;
+        }
+
+        bool isNormal = false;
+        if(tex.find("_NRM") != std::string::npos){
+            isNormal = true;
+        }
+
+        unsigned char* outputPixelsAlpha = NULL;
+        unsigned char* outputNormals = NULL;
+
+        if(!isNormal){
+            outputPixelsAlpha = new unsigned char[width*height*1];
+        } else {
+            outputNormals = new unsigned char[width*height*1];
+        }
+
+        if(isNormal){
+            // Export bump map from normal map
+            convertNormalToBump(pixels, width, height, outputNormals);
+
+            if(!imageSaver(fileOutputFolder + "\\atlases\\Atlas_" + ffw::valToString(index) + "_bump." + imageExtension, outputNormals, width, height, ffw::imageType::GRAYSCALE_8)){
+                ffw::logger().error() << "Failed to save output texture: " << index << " Program might not have permissions or target folder " << fileOutputFolder << "\\atlases\\ does not exists!";
+                return 0;
+            }
+        } else {
+
+            // Export diffuse
+            if(!imageSaver(fileOutputFolder + "\\atlases\\Atlas_" + ffw::valToString(index) + "_diff." + imageExtension, pixels, width, height, type)){
+                ffw::logger().error() << "Failed to save output texture: " << index << " Program might not have permissions or target folder " << fileOutputFolder << "\\atlases\\ does not exists!";
+                return 0;
+            }
+            // Export alpha
+            if(!isNormal){
+                if(type == ffw::imageType::RGB_ALPHA_8888){
+                    extractAlpha(pixels, width, height, outputPixelsAlpha);
+
+                } else {
+                    // Texture is not transparent, fill all pixels with white color
+                    for(int p = 0; p < width*height; p++)outputPixelsAlpha[p] = 255;
+                }
+
+                if(!imageSaver(fileOutputFolder + "\\atlases\\Atlas_" + ffw::valToString(index) + "_alpha." + imageExtension, outputPixelsAlpha, width, height, ffw::imageType::GRAYSCALE_8)){
+                    ffw::logger().error() << "Failed to save output texture: " << index << " Program might not have permissions or target folder " << fileOutputFolder << "\\atlases\\ does not exists!";
+                    return 0;
+                }
+            }
+        }
+
+        index++;
+
+        if(!isNormal && type == ffw::imageType::RGB_ALPHA_8888)delete[] outputPixelsAlpha;
+        if(isNormal)delete[] outputNormals;
+    }
+    return true;
+}
+
+///=============================================================================
 bool exportTextures(const std::string& FolderPath){
     int index = 0;
 

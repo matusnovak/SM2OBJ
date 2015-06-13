@@ -2,7 +2,7 @@
 <wxsmith>
 	<object class="wxFrame" name="SM2OBJFrame">
 		<title>SM2OBJ</title>
-		<size>535,455</size>
+		<size>539,444</size>
 		<bg>wxSYS_COLOUR_WINDOW</bg>
 		<font>
 			<size>10</size>
@@ -13,10 +13,6 @@
 			<face>Arial</face>
 		</font>
 		<id_arg>0</id_arg>
-		<object class="wxStaticText" name="ID_StaticText3" variable="StaticText3" member="yes">
-			<label>Material options:</label>
-			<pos>8,232</pos>
-		</object>
 		<object class="wxStaticText" name="ID_StaticText7" variable="StaticText7" member="yes">
 			<label>Select blueprint file</label>
 			<pos>8,8</pos>
@@ -33,41 +29,33 @@
 			<label>Name of the exporter OBJ:</label>
 			<pos>8,176</pos>
 		</object>
-		<object class="wxStaticText" name="ID_StaticText1" variable="StaticText1" member="yes">
-			<label>Another options:</label>
-			<pos>184,232</pos>
-		</object>
-		<object class="wxStaticText" name="ID_StaticText2" variable="StaticText2" member="yes">
-			<label>Texture options:</label>
-			<pos>360,232</pos>
-		</object>
 		<object class="wxButton" name="ID_GetInputFilePath" variable="SelectFile" member="yes">
 			<label>...</label>
 			<pos>496,32</pos>
 			<size>32,26</size>
 			<handler function="OnGetInputFilePathClick" entry="EVT_BUTTON" />
 		</object>
-		<object class="wxButton" name="ID_GetDataFolderPath" variable="StarMadeFolder" member="yes">
+		<object class="wxButton" name="ID_GetDataFolderPath" variable="GetDataFolderPath" member="yes">
 			<label>...</label>
 			<pos>496,88</pos>
 			<size>32,26</size>
 			<handler function="OnGetDataFolderPathClick" entry="EVT_BUTTON" />
 		</object>
-		<object class="wxButton" name="ID_GetOutputFolderPath" variable="SelectFolder" member="yes">
+		<object class="wxButton" name="ID_GetOutputFolderPath" variable="GetOutputFolderPath" member="yes">
 			<label>...</label>
 			<pos>496,144</pos>
 			<size>32,26</size>
 			<handler function="OnGetOutputFolderPathClick" entry="EVT_BUTTON" />
 		</object>
-		<object class="wxTextCtrl" name="ID_InputFilePath" variable="FilePath" member="yes">
+		<object class="wxTextCtrl" name="ID_InputFilePath" variable="InputFilePath" member="yes">
 			<pos>8,32</pos>
 			<size>480,24</size>
 		</object>
-		<object class="wxTextCtrl" name="ID_InputDataPath" variable="StarMadeFolderPath" member="yes">
+		<object class="wxTextCtrl" name="ID_InputDataPath" variable="InputDataPath" member="yes">
 			<pos>8,88</pos>
 			<size>480,24</size>
 		</object>
-		<object class="wxTextCtrl" name="ID_OutputFolderPath" variable="FolderPath" member="yes">
+		<object class="wxTextCtrl" name="ID_OutputFolderPath" variable="OutputFolderPath" member="yes">
 			<pos>8,144</pos>
 			<size>480,24</size>
 		</object>
@@ -76,94 +64,106 @@
 			<pos>8,200</pos>
 			<size>520,24</size>
 		</object>
-		<object class="wxPanel" name="ID_Panel1" variable="Panel1" member="yes">
-			<pos>8,256</pos>
-			<size>168,136</size>
-			<bg>wxSYS_COLOUR_MENU</bg>
-			<object class="wxCheckBox" name="ID_UseDiffuse" variable="UseDiffuse" member="yes">
-				<label>Use diffuse texture</label>
-				<checked>1</checked>
-				<pos>8,32</pos>
-			</object>
-			<object class="wxCheckBox" name="ID_UseBump" variable="UseBump" member="yes">
-				<label>Use bump texture</label>
-				<checked>1</checked>
-				<pos>8,56</pos>
-			</object>
-			<object class="wxCheckBox" name="ID_UseAlpha" variable="UseAlpha" member="yes">
-				<label>Use alpha texture</label>
-				<checked>1</checked>
-				<pos>8,80</pos>
-			</object>
-			<object class="wxCheckBox" name="ID_ExportMaterials" variable="ExportMaterials" member="yes">
-				<label>Export materials</label>
-				<checked>1</checked>
-				<pos>8,8</pos>
-			</object>
-			<object class="wxCheckBox" name="ID_SpecularHighlight" variable="SpecularHighlight" member="yes">
-				<label>Specular highlight</label>
-				<checked>1</checked>
-				<pos>8,104</pos>
-			</object>
-		</object>
-		<object class="wxPanel" name="ID_Panel3" variable="Panel3" member="yes">
-			<pos>184,256</pos>
-			<size>168,136</size>
-			<bg>wxSYS_COLOUR_MENU</bg>
-			<object class="wxStaticText" name="ID_StaticText5" variable="StaticText5" member="yes">
-				<label>Thread count:</label>
-				<pos>8,8</pos>
-			</object>
-			<object class="wxSpinCtrl" name="ID_NumOfThreads" variable="NumOfThreads" member="yes">
-				<value>1</value>
-				<min>1</min>
-				<max>16</max>
-				<pos>96,8</pos>
-				<size>64,21</size>
-			</object>
-		</object>
-		<object class="wxPanel" name="ID_Panel2" variable="Panel2" member="yes">
-			<pos>360,256</pos>
-			<size>168,136</size>
-			<bg>wxSYS_COLOUR_MENU</bg>
-			<object class="wxCheckBox" name="ID_ExportTextures" variable="ExportTextures" member="yes">
-				<label>Export textures</label>
-				<pos>8,8</pos>
-			</object>
-			<object class="wxRadioButton" name="ID_TextureTga" variable="TextureTga" member="yes">
-				<label>TGA</label>
-				<pos>8,64</pos>
-			</object>
-			<object class="wxRadioButton" name="ID_TextureBmp" variable="TextureBmp" member="yes">
-				<label>BMP</label>
-				<pos>8,88</pos>
-			</object>
-			<object class="wxRadioButton" name="ID_TextureTiff" variable="TextureTiff" member="yes">
-				<label>TIFF</label>
-				<pos>96,88</pos>
-			</object>
-			<object class="wxRadioButton" name="ID_TexturePng" variable="TexturePng" member="yes">
-				<label>PNG</label>
-				<selected>1</selected>
-				<pos>96,64</pos>
-			</object>
-			<object class="wxStaticText" name="ID_StaticText6" variable="StaticText6" member="yes">
-				<label>Texture format:</label>
-				<pos>8,40</pos>
-			</object>
-			<object class="wxCheckBox" name="ID_ExportUVs" variable="ExportUVs" member="yes">
-				<label>Export UVs</label>
-				<checked>1</checked>
-				<pos>8,112</pos>
-			</object>
-		</object>
 		<object class="wxGauge" name="ID_ProgressBar" variable="ProgressBar" member="yes">
-			<pos>120,400</pos>
+			<pos>120,392</pos>
 			<size>408,28</size>
 		</object>
 		<object class="wxButton" name="ID_StartExport" variable="StartExport" member="yes">
 			<label>Start Exporting</label>
-			<pos>8,400</pos>
+			<pos>8,392</pos>
+            <handler function="OnStartExportClick" entry="EVT_BUTTON" />
+		</object>
+		<object class="wxStaticBox" name="ID_STATICBOX2" variable="StaticBox2" member="yes">
+			<label>Materials options</label>
+			<pos>8,232</pos>
+			<size>168,152</size>
+		</object>
+		<object class="wxStaticBox" name="ID_STATICBOX5" variable="StaticBox5" member="yes">
+			<label>Texture options</label>
+			<pos>360,232</pos>
+			<size>168,72</size>
+		</object>
+		<object class="wxStaticBox" name="ID_STATICBOX3" variable="StaticBox3" member="yes">
+			<label>UV options</label>
+			<pos>184,312</pos>
+			<size>168,72</size>
+		</object>
+		<object class="wxStaticBox" name="ID_STATICBOX4" variable="StaticBox4" member="yes">
+			<label>Texture format</label>
+			<pos>360,312</pos>
+			<size>168,72</size>
+		</object>
+		<object class="wxStaticBox" name="ID_STATICBOX1" variable="StaticBox1" member="yes">
+			<label>System options</label>
+			<pos>184,232</pos>
+			<size>168,72</size>
+		</object>
+		<object class="wxCheckBox" name="ID_ExportMaterials" variable="ExportMaterials" member="yes">
+			<label>Export materials</label>
+			<checked>1</checked>
+			<pos>16,256</pos>
+		</object>
+		<object class="wxCheckBox" name="ID_UseDiffuse" variable="UseDiffuse" member="yes">
+			<label>Use diffuse texture</label>
+			<checked>1</checked>
+			<pos>16,280</pos>
+		</object>
+		<object class="wxCheckBox" name="ID_UseBump" variable="UseBump" member="yes">
+			<label>Use bump texture</label>
+			<checked>1</checked>
+			<pos>16,304</pos>
+		</object>
+		<object class="wxCheckBox" name="ID_UseAlpha" variable="UseAlpha" member="yes">
+			<label>Use alpha texture</label>
+			<checked>1</checked>
+			<pos>16,328</pos>
+		</object>
+		<object class="wxCheckBox" name="ID_SpecularHighlight" variable="SpecularHighlight" member="yes">
+			<label>Specular highlight</label>
+			<checked>1</checked>
+			<pos>16,352</pos>
+		</object>
+		<object class="wxCheckBox" name="ID_CHECKBOX1" variable="CheckBox1" member="yes">
+			<label>Export textures</label>
+			<pos>368,256</pos>
+		</object>
+		<object class="wxCheckBox" name="ID_ExportTextures" variable="ExportTextures" member="yes">
+			<label>Split tiles</label>
+			<checked>1</checked>
+			<pos>192,360</pos>
+		</object>
+		<object class="wxStaticText" name="ID_StaticText5" variable="StaticText5" member="yes">
+			<label>Thread count:</label>
+			<pos>192,256</pos>
+		</object>
+		<object class="wxSpinCtrl" name="ID_NumOfThreads" variable="NumOfThreads" member="yes">
+			<value>1</value>
+			<min>1</min>
+			<max>16</max>
+			<pos>280,256</pos>
+			<size>64,21</size>
+		</object>
+		<object class="wxRadioButton" name="ID_TextureTga" variable="TextureTga" member="yes">
+			<label>TGA</label>
+			<pos>368,336</pos>
+		</object>
+		<object class="wxRadioButton" name="ID_TexturePng" variable="TexturePng" member="yes">
+			<label>PNG</label>
+			<selected>1</selected>
+			<pos>448,336</pos>
+		</object>
+		<object class="wxRadioButton" name="ID_TextureBmp" variable="TextureBmp" member="yes">
+			<label>BMP</label>
+			<pos>368,360</pos>
+		</object>
+		<object class="wxRadioButton" name="ID_TextureTiff" variable="TextureTiff" member="yes">
+			<label>TIFF</label>
+			<pos>448,360</pos>
+		</object>
+		<object class="wxCheckBox" name="ID_ExportUVs" variable="ExportUVs" member="yes">
+			<label>Export UVs</label>
+			<checked>1</checked>
+			<pos>192,336</pos>
 		</object>
 		<object class="wxMenuBar" variable="MenuBar1" member="no">
 			<object class="wxMenu" variable="Menu1" member="no">

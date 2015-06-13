@@ -12,7 +12,6 @@
 #include <wx/button.h>
 #include <wx/frame.h>
 #include <wx/gauge.h>
-#include <wx/statbox.h>
 //*)
 
 class SM2OBJFrame: public wxFrame
@@ -33,7 +32,6 @@ class SM2OBJFrame: public wxFrame
         void OnGetInputFilePathClick(wxSpinEvent& event);
         void OnGetOutputFolderPathClick(wxSpinEvent& event);
         //*)
-        
 
         //(*Identifiers(SM2OBJFrame)
         static const long ID_StaticText3;
@@ -43,11 +41,6 @@ class SM2OBJFrame: public wxFrame
         static const long ID_StaticText4;
         static const long ID_StaticText1;
         static const long ID_StaticText2;
-        static const long ID_StaticBox1;
-        static const long ID_StaticBox2;
-        static const long ID_StaticBox3;
-        static const long ID_StaticBox4;
-        static const long ID_StaticBox5;
         static const long ID_GetInputFilePath;
         static const long ID_GetDataFolderPath;
         static const long ID_GetOutputFolderPath;
@@ -59,20 +52,22 @@ class SM2OBJFrame: public wxFrame
         static const long ID_UseBump;
         static const long ID_UseAlpha;
         static const long ID_ExportMaterials;
-        static const long ID_ExportUVs;
+        static const long ID_CHECKBOX1;
+        static const long ID_Panel1;
         static const long ID_StaticText5;
         static const long ID_NumOfThreads;
-        static const long ID_SpecularHighlight;
+        static const long ID_Panel3;
+        static const long ID_ExportTextures;
         static const long ID_TextureTga;
         static const long ID_TextureBmp;
         static const long ID_TextureTiff;
         static const long ID_TexturePng;
         static const long ID_StaticText6;
-        static const long ID_ExportTextures;
+        static const long ID_CHECKBOX2;
+        static const long ID_Panel2;
         static const long ID_ProgressBar;
         static const long ID_StartExport;
         static const long ID_MENUITEM1;
-        static const long ID_SplitTiles;
         static const long idMenuAbout;
         //*)
 
@@ -88,11 +83,13 @@ class SM2OBJFrame: public wxFrame
         wxStaticText* StaticText8;
         wxCheckBox* ExportUVs;
         wxCheckBox* UseBump;
+        wxPanel* Panel1;
         wxTextCtrl* OutputFolderPath;
         wxStaticText* StaticText1;
         wxRadioButton* TextureBmp;
         wxStaticText* StaticText3;
         wxSpinCtrl* NumOfThreads;
+        wxPanel* Panel3;
         wxCheckBox* SpecularHighlight;
         wxRadioButton* TexturePng;
         wxCheckBox* ExportMaterials;
@@ -102,17 +99,12 @@ class SM2OBJFrame: public wxFrame
         wxRadioButton* TextureTga;
         wxRadioButton* TextureTiff;
         wxTextCtrl* InputDataPath;
+        wxPanel* Panel2;
         wxButton* GetInputFilePath;
         wxButton* GetOutputFolderPath;
         wxStaticText* StaticText4;
         wxGauge* ProgressBar;
         wxCheckBox* ExportTextures;
-        wxCheckBox* SplitTiles;
-        wxStaticBox* StaticBox1;
-        wxStaticBox* StaticBox2;
-        wxStaticBox* StaticBox3;
-        wxStaticBox* StaticBox4;
-        wxStaticBox* StaticBox5;
 
         //*)
 

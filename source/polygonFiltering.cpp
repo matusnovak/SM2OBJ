@@ -22,6 +22,7 @@ bool removeDuplicatedFaces(chunkBufferStruct* Input, chunkBufferStruct* Output){
 
             bool test = true;
             bool targetTransparency = false;
+            int8_t targetObjectType = -1;
             // Check if any other polygon occupies same space
             for(uint32_t t = 0; t < Input->indicesCount; t++){
                 if(t == i)continue;
@@ -33,7 +34,8 @@ bool removeDuplicatedFaces(chunkBufferStruct* Input, chunkBufferStruct* Output){
                 ffw::vec3f ct = (vt0 + vt1 + vt2) / 3.0f;
 
                 if(ffw::vec3f(c - ct).length() < 0.2){
-                    targetTransparency = Input->indicesMat[t][2];
+                    targetTransparency = Input->indicesMat[t][2] & 0x00FF;
+                    targetObjectType = (Input->indicesMat[t][2] & 0xFF00) >> 8;
                     test = false;
                     break;
                 }
@@ -41,6 +43,11 @@ bool removeDuplicatedFaces(chunkBufferStruct* Input, chunkBufferStruct* Output){
 
             // If tested polygon is not transparent and the target polygon is, add a polygon
             if(!test && !Input->indicesMat[i][2] && targetTransparency){
+                test = true;
+            }
+
+            // Exclude this for objects like grass, light rods and so on...
+            if(!test && targetObjectType == 3){
                 test = true;
             }
 
@@ -71,6 +78,7 @@ bool removeDuplicatedFaces(chunkBufferStruct* Input, chunkBufferStruct* Output){
 
             bool test = true;
             bool targetTransparency = false;
+            int8_t targetObjectType = -1;
             for(uint32_t t = 0; t < Input->indicesCount; t++){
                 if(t == i)continue;
 
@@ -84,7 +92,8 @@ bool removeDuplicatedFaces(chunkBufferStruct* Input, chunkBufferStruct* Output){
                 ffw::vec3f ct = (vt0 + vt1 + vt2 + vt3) / 4.0f;
 
                 if(ffw::vec3f(c - ct).length() < 0.2){
-                    targetTransparency = Input->indicesMat[t][2];
+                    targetTransparency = Input->indicesMat[t][2] & 0x00FF;
+                    targetObjectType = (Input->indicesMat[t][2] & 0xFF00) >> 8;
                     test = false;
                     break;
                 }
@@ -95,6 +104,10 @@ bool removeDuplicatedFaces(chunkBufferStruct* Input, chunkBufferStruct* Output){
                 test = true;
             }
 
+            // Exclude this for objects like grass, light rods and so on...
+            if(!test && targetObjectType == 3){
+                test = true;
+            }
 
             if(test){
                 Output->vertices[Output->verticesCount + 0] = v0;
@@ -163,6 +176,7 @@ bool removeDuplicatedVertices(chunkBufferStruct* Input, chunkBufferStruct* Outpu
         Output->indices[Output->indicesCount] = result;
         Output->indicesMat[Output->indicesCount][0] = Input->indicesMat[i][0];
         Output->indicesMat[Output->indicesCount][1] = Input->indicesMat[i][1];
+        Output->indicesMat[Output->indicesCount][2] = Input->indicesMat[i][2];
         Output->indicesUvs[Output->indicesCount] = Input->indicesUvs[i];
         Output->indicesCount++;
     }

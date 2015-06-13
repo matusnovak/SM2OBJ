@@ -9,7 +9,8 @@
 #include <ffw.h>
 #include "config.h"
 
-bool exportTextures(const std::string& ExecutablePath);
+bool exportTextures(const std::string& FolderPath);
+bool exportAtlases(const std::string& FolderPath);
 
 #endif
 

@@ -11,6 +11,7 @@
 
 void resetIndiceOffset();
 void resetMaterials();
+const std::vector<int>& getExtractedTiles();
 bool saveRawBlocks(const std::string& ExecutablePath, chunkBufferStruct* Input, int ChunkIndex, int FileIndex);
 bool loadRawBlocks(const std::string& ExecutablePath, chunkBufferStruct* Input, int ChunkIndex, int FileIndex);
 bool extractBlocks(const std::string& ExecutablePath, chunkBufferStruct* Input, int ChunkIndex, int FileIndex);

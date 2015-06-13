@@ -10,6 +10,7 @@
 #include "config.h"
 #include "blockConfig.h"
 
+bool createMaterialAtlas();
 bool beginMaterialExport();
 void addMaterial(const blockInfoStruct* block, int TextureIndex);
 void endMaterialExport();

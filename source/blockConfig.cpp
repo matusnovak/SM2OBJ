@@ -14,9 +14,8 @@ std::vector<blockInfoStruct> blocksInfo;
 std::vector<blockTypeStruct> blocksType;
 
 ///=============================================================================
-std::string fixName(std::string Str){
-    for(auto& chr : Str)if(chr == ' ')chr = '_';
-    return Str;
+void fixName(std::string* Str){
+    for(auto& chr : *Str)if(chr == ' ')chr = '_';
 }
 
 ///=============================================================================
@@ -78,8 +77,7 @@ bool loadBlockTypes(const std::string& Path){
                 continue;
             }
 
-            // Fix name by replacing spaces with underscore
-            blocksType.push_back({fixName(tokens[0]), id});
+            blocksType.push_back({tokens[0], id});
         }
     }
 
@@ -161,6 +159,7 @@ bool loadBlockConfig(const std::string& Path){
                     blocksInfo.pop_back();
                     continue;
                 }
+                fixName(&newBlock.name);
             }
 
             pos = tokens[3].find('"', 1);
@@ -200,22 +199,7 @@ bool loadBlockConfig(const std::string& Path){
                 }
 
                 newBlock.id = id;
-            }
-
-            if(newBlock.name.find("Wedge") != std::string::npos){
-                newBlock.object = 2;
-
-            } else if(newBlock.name.find("Corner") != std::string::npos){
-                newBlock.object = 3;
-
-            } else if(newBlock.name.find("Hepta") != std::string::npos){
-                newBlock.object = 4;
-
-            } else if(newBlock.name.find("Tetra") != std::string::npos){
-                newBlock.object = 5;
-
-            } else {
-                newBlock.object = 1;
+                newBlock.object = -1;
             }
 
         } else if(blocksInfo.size() > 0 && line.find("<Transparency>false</Transparency>") != std::string::npos){
@@ -230,23 +214,35 @@ bool loadBlockConfig(const std::string& Path){
             size_t last = line.find("</LightSourceColor>");
             if(last != std::string::npos){
                 std::vector<std::string> tokens = ffw::getTokens(line.substr(first+18, last-first-18), ',');
+                bool success = false;
                 if(tokens.size() == 4){
                     try {
                         blocksInfo[blocksInfo.size()-1].light.r = ffw::stringToVal<float>(tokens[0]);
                         blocksInfo[blocksInfo.size()-1].light.g = ffw::stringToVal<float>(tokens[1]);
                         blocksInfo[blocksInfo.size()-1].light.b = ffw::stringToVal<float>(tokens[2]);
                         blocksInfo[blocksInfo.size()-1].light.a = ffw::stringToVal<float>(tokens[3]);
+                        success = true;
 
                     } catch (std::exception& e){
-
-                        ffw::logger().warning() << "Error reading light source color as floats at line: " << lineNumber;
-                        continue;
+                        // Nothing to do
                     }
-                } else {
-                    ffw::logger().warning() << "Error reading light source color data at line: " << lineNumber;
-                    continue;
+                }
+                if(!success)ffw::logger().warning() << "Error reading light source color data at line: " << lineNumber;
+            }
+
+        } else if(blocksInfo.size() > 0 && (first = line.find("<BlockStyle>")) != std::string::npos){
+            size_t last = line.find("</BlockStyle>");
+            bool success = false;
+            if(last != std::string::npos){
+                try {
+                    blocksInfo[blocksInfo.size()-1].object = ffw::stringToVal<int>(line.substr(first+12, last-first-12));
+                    success = true;
+
+                } catch (std::exception& e){
+                    // Nothing to do
                 }
             }
+            if(!success)ffw::logger().warning() << "Error reading block style as int at line: " << lineNumber;
         }
     }
 

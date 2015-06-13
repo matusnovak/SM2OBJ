@@ -30,6 +30,10 @@ extern ffw::vec3f cornerVertices[5];
 extern ffw::vec4i cornerFaces[5];
 extern ffw::vec4i cornerFacesUvs[5];
 
+extern ffw::vec3f XshapeVertices[8];
+extern ffw::vec4i XshapeFaces[2];
+extern ffw::vec4i XshapeFacesUvs[2];
+
 #endif
 
 

@@ -10,6 +10,7 @@ chunkBufferStruct chunkBufferB;
 bool (*imageSaver)(const std::string& Path, unsigned char* Pixels, int Width, int Height, ffw::imageType Type);
 std::string imageExtension;
 bool textureExport = true;
+bool textureSplit = false;
 bool materialExport = true;
 bool uvsExport = true;
 bool useSpecularHighlight = false;

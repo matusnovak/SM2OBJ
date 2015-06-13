@@ -21,11 +21,6 @@
 #define TERMINATE(X)\
 if(exportExitFunc != NULL)exportExitFunc(X); return (void*)X;
 
-//static std::string filePath = "E:\\Program Files (x86)\\StarMade\\StarMade\\blueprints\\Home-Base-v4\\DATA\\ENTITY_SPACESTATION_Home-Base-Station-1.0.0.0.smd2";
-//static std::string filePath = "E:\\Program Files (x86)\\StarMade\\StarMade\\blueprints\\TESTTESTTEST2\\DATA\\ENTITY_SHIP_Admin_1433602931996.0.0.0.smd2";
-//static std::string filePath = "E:\\Program Files (x86)\\StarMade\\StarMade\\blueprints\\TEST_4\\DATA\\ENTITY_SHIP_Admin_1433610398998.0.0.0.smd2";
-//static std::string filePath = "E:\\Program Files (x86)\\StarMade\\StarMade\\blueprints\\Fighter-Small-01-v1\\DATA\\ENTITY_SHIP_UnknownProcess_1433512416376.0.0.0.smd2";
-
 static ffw::vec3i boundingBoxMin;
 static ffw::vec3i boundingBoxMax;
 static int fileChunksTotal = 0;
@@ -226,7 +221,9 @@ void* runExporter(void* DATA){
 
     // Begin material export
     if(materialExport){
-        if(!beginMaterialExport()){
+        if(textureSplit && !beginMaterialExport()){
+            TERMINATE(false);
+        } else if(!textureSplit && !createMaterialAtlas()){
             TERMINATE(false);
         }
         resetMaterials();
@@ -240,7 +237,6 @@ void* runExporter(void* DATA){
     // Create target directories
     ffw::createDirectory(executablePath + "\\temp");
     ffw::createDirectory(fileOutputFolder);
-    ffw::createDirectory(fileOutputFolder + "\\textures");
 
     // Load block config
     if(!loadBlockTypes(starMadeDataFolder + "\\config\\BlockTypes.properties")){
@@ -258,9 +254,16 @@ void* runExporter(void* DATA){
     }
 
     // Run texture export
-    if(textureExport){
+    if(textureExport && textureSplit){
         ffw::logger().print() << "Exporting textures...";
+        ffw::createDirectory(fileOutputFolder + "\\textures");
         if(!exportTextures(starMadeDataFolder + "\\textures\\block\\Default\\256")){
+            TERMINATE(false);
+        }
+    } else if(textureExport){
+        ffw::logger().print() << "Exporting atlases...";
+        ffw::createDirectory(fileOutputFolder + "\\atlases");
+        if(!exportAtlases(starMadeDataFolder + "\\textures\\block\\Default\\256")){
             TERMINATE(false);
         }
     }
@@ -438,7 +441,7 @@ void* runExporter(void* DATA){
     }
 
     // End material export, we do not need it anymore
-    if(materialExport)endMaterialExport();
+    if(textureSplit && materialExport)endMaterialExport();
 
     ffw::logger().print() << "Merging vertices into single OBJ...";
 
@@ -467,9 +470,25 @@ void* runExporter(void* DATA){
     }
 
     // Export UVs
-    if(uvsExport){
+    if(uvsExport && textureSplit){
         for(int i = 0; i < 4; i++){
             objOutput.writeLine("vt " + ffw::valToString(globalTextureUvs[i].x, 6) + " " + ffw::valToString(globalTextureUvs[i].y, 6));
+        }
+    } else if(uvsExport){
+        for(const auto& tile : getExtractedTiles()){
+            int atlasId = tile / 256;
+            int posY = tile / 16;
+            int posX = tile - posY*16;
+            posY -= atlasId*16;
+            ffw::vec2f tilePos(posX / 16.0f, posY / 16.0f);
+            tilePos.y = 1.0f - tilePos.y - 0.0625f;
+
+            for(int i = 0; i < 4; i++){
+                ffw::vec2f uvs = globalTextureUvs[i];
+                uvs.y = 1.0f - uvs.y;
+                ffw::vec2f texPos = uvs * ffw::vec2f(0.052734375f, 0.052734375f) + tilePos + 0.0048828125f;
+                objOutput.writeLine("vt " + ffw::valToString(texPos.x, 10) + " " + ffw::valToString(texPos.y, 10));
+            }
         }
     }
 

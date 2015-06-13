@@ -9,6 +9,7 @@
 
 static uint64_t chunkFaceTotal = 0;
 static std::vector<ffw::vec2i> extractedMaterials;
+static std::vector<int> extractedTiles;
 
 ///=============================================================================
 void resetIndiceOffset(){
@@ -18,6 +19,12 @@ void resetIndiceOffset(){
 ///=============================================================================
 void resetMaterials(){
     extractedMaterials.clear();
+    extractedTiles.clear();
+}
+
+///=============================================================================
+const std::vector<int>& getExtractedTiles(){
+    return extractedTiles;
 }
 
 ///=============================================================================
@@ -127,9 +134,11 @@ bool extractBlocks(const std::string& ExecutablePath, chunkBufferStruct* Input, 
 
     int lastId = -1;
     int lastTex = -1;
+    int lastAtlas = -1;
+    int currentTextureOffset = 0;
     const blockInfoStruct* block = NULL;
     for(uint32_t i = 0; i < Input->indicesCount; i++){
-        if(materialExport && (lastId != Input->indicesMat[i][0] || lastTex != Input->indicesMat[i][1])){
+        if(textureSplit && materialExport && (lastId != Input->indicesMat[i][0] || lastTex != Input->indicesMat[i][1])){
             lastId = Input->indicesMat[i][0];
             lastTex = Input->indicesMat[i][1];
             block = findBlock(lastId);
@@ -151,17 +160,36 @@ bool extractBlocks(const std::string& ExecutablePath, chunkBufferStruct* Input, 
             }
         }
 
+
+        if(!textureSplit && materialExport && lastTex != Input->indicesMat[i][1]){
+            lastTex = Input->indicesMat[i][1];
+
+            if(lastAtlas != Input->indicesMat[i][1] / 256){
+                lastAtlas = Input->indicesMat[i][1] / 256;
+                faces.writeLine("usemtl Mat_Atlas_" + ffw::valToString(lastAtlas));
+            }
+
+            bool found = false;
+            for(size_t f = 0; f < extractedTiles.size(); f++){
+                if(extractedTiles[f] == Input->indicesMat[i][1]){found = true; currentTextureOffset = f; break;}
+            }
+            if(!found){
+                currentTextureOffset = extractedTiles.size();
+                extractedTiles.push_back(Input->indicesMat[i][1]);
+            }
+        }
+
         if(uvsExport){
 
             if(Input->indices[i].w == -1){
-                faces.writeLine("f " + ffw::valToString(Input->indices[i].x + chunkFaceTotal +1) + "/" + ffw::valToString(Input->indicesUvs[i].x) + " "
-                                     + ffw::valToString(Input->indices[i].y + chunkFaceTotal +1) + "/" + ffw::valToString(Input->indicesUvs[i].y) + " "
-                                     + ffw::valToString(Input->indices[i].z + chunkFaceTotal +1) + "/" + ffw::valToString(Input->indicesUvs[i].z));
+                faces.writeLine("f " + ffw::valToString(Input->indices[i].x + chunkFaceTotal +1) + "/" + ffw::valToString(Input->indicesUvs[i].x + currentTextureOffset*4) + " "
+                                     + ffw::valToString(Input->indices[i].y + chunkFaceTotal +1) + "/" + ffw::valToString(Input->indicesUvs[i].y + currentTextureOffset*4) + " "
+                                     + ffw::valToString(Input->indices[i].z + chunkFaceTotal +1) + "/" + ffw::valToString(Input->indicesUvs[i].z + currentTextureOffset*4));
             } else {
-                faces.writeLine("f " + ffw::valToString(Input->indices[i].x + chunkFaceTotal +1) + "/" + ffw::valToString(Input->indicesUvs[i].x) + " "
-                                     + ffw::valToString(Input->indices[i].y + chunkFaceTotal +1) + "/" + ffw::valToString(Input->indicesUvs[i].y) + " "
-                                     + ffw::valToString(Input->indices[i].z + chunkFaceTotal +1) + "/" + ffw::valToString(Input->indicesUvs[i].z) + " "
-                                     + ffw::valToString(Input->indices[i].w + chunkFaceTotal +1) + "/" + ffw::valToString(Input->indicesUvs[i].w));
+                faces.writeLine("f " + ffw::valToString(Input->indices[i].x + chunkFaceTotal +1) + "/" + ffw::valToString(Input->indicesUvs[i].x + currentTextureOffset*4) + " "
+                                     + ffw::valToString(Input->indices[i].y + chunkFaceTotal +1) + "/" + ffw::valToString(Input->indicesUvs[i].y + currentTextureOffset*4) + " "
+                                     + ffw::valToString(Input->indices[i].z + chunkFaceTotal +1) + "/" + ffw::valToString(Input->indicesUvs[i].z + currentTextureOffset*4) + " "
+                                     + ffw::valToString(Input->indices[i].w + chunkFaceTotal +1) + "/" + ffw::valToString(Input->indicesUvs[i].w + currentTextureOffset*4));
             }
 
         } else {
