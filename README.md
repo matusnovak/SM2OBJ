@@ -30,7 +30,7 @@ Before you continue, make sure you have at least 500 MB of empty HDD space. This
  10. Happy exporting!
 
 ## How to export blueprints using source code only
-```
+```C++
 #include "source/mainExporter.h"
 int main(){
 	// Always make sure you set these variables!
