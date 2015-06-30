@@ -291,7 +291,7 @@ inline uint32_t ffw::nextPowOfTwo(uint32_t Value){
 }
 
 ///=============================================================================
-inline ffw::mat4 ffw::makeRotationMatrix(ffw::quaternion& Q){
+inline ffw::mat4 ffw::makeRotationMatrix(const ffw::quaternion& Q){
     mat4 m;
 
     m[0] = 1.0f - 2.0f * (Q.y * Q.y + Q.z * Q.z);    m[4] = 2.0f * (Q.x * Q.y + Q.z * Q.w);         m[8] = 2.0f * (Q.x * Q.z - Q.y * Q.w);

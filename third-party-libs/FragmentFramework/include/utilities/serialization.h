@@ -54,7 +54,6 @@ namespace ffw{
         */
         bool deserializeAsJson(const std::wstring& Path, std::vector<std::string>* Missing);
 
-    private:
         struct item {
             item(void* Ptr, const std::string& Name, size_t Code):ptr(Ptr),name(Name),code(Code){}
             void* ptr;
@@ -62,6 +61,7 @@ namespace ffw{
             size_t code;
         };
 
+    private:
         std::vector<item> varList;
 
     protected:

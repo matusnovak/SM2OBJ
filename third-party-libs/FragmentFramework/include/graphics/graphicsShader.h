@@ -73,31 +73,49 @@ namespace ffw {
             @ingroup Graphics
 
         */
-        void setAttributePointerf(GLint location, GLint size, GLsizei stride, GLsizei offset);
+        void setAttributePointerf(GLint Location, GLint Size, GLsizei Stride, GLsizei Offset);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void drawArrays(GLenum type, GLint first, GLsizei count);
+        void setAttributeDivisor(GLuint Index, GLuint Divisor);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void drawElements(GLenum type, GLsizei count, const GLvoid * indices);
+        void drawArrays(GLenum Mode, GLint First, GLsizei Count);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void drawElementsRange(GLenum type, GLuint start, GLuint end, GLsizei count, const GLvoid * indices);
+        void drawArraysInstanced(GLenum Mode, GLint First, GLsizei Count, GLsizei InstanceCount);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void drawElementsBaseVertex(GLenum type, GLsizei count, const GLvoid * indices, GLint offset);
+        void drawElements(GLenum Mode, GLsizei Count, GLenum Type, const GLvoid * Indices);
+        /*!
+            @memberof shader
+            @ingroup Graphics
+
+        */
+        void drawElementsRange(GLenum Mode, GLuint Start, GLuint End, GLsizei Count, GLenum Type, const GLvoid * Indices);
+        /*!
+            @memberof shader
+            @ingroup Graphics
+
+        */
+        void drawElementsBaseVertex(GLenum Mode, GLsizei Count, GLenum Type, const GLvoid * Indices, GLint Offset);
+        /*!
+            @memberof shader
+            @ingroup Graphics
+
+        */
+        void drawElementsInstanced(GLenum Mode, GLsizei Count, GLenum Type, const GLvoid * Indices, GLsizei InstanceCount);
         /*!
             @memberof shader
             @ingroup Graphics
@@ -127,85 +145,85 @@ namespace ffw {
             @ingroup Graphics
 
         */
-        void setUniform1f   (GLint location, GLfloat value);
+        void setUniform1f(GLint location, GLfloat value);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void setUniform1fv  (GLint location, GLfloat* array, GLsizei length);
+        void setUniform1fv(GLint location, const GLfloat* array, GLsizei length);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void setUniform1i   (GLint location, GLint value);
+        void setUniform1i(GLint location, GLint value);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void setUniform1iv  (GLint location, GLint* array, GLsizei length);
+        void setUniform1iv(GLint location, const GLint* array, GLsizei length);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void setUniform2f   (GLint location, GLfloat x, GLfloat y);
+        void setUniform2f(GLint location, GLfloat x, GLfloat y);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void setUniform2fv  (GLint location, GLfloat* array, GLsizei length);
+        void setUniform2fv(GLint location, const GLfloat* array, GLsizei length);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void setUniform2i   (GLint location, GLint x, GLint y);
+        void setUniform2i(GLint location, GLint x, GLint y);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void setUniform2iv  (GLint location, GLint* array, GLsizei length);
+        void setUniform2iv(GLint location, const GLint* array, GLsizei length);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void setUniform3f   (GLint location, GLfloat x, GLfloat y, GLfloat z);
+        void setUniform3f(GLint location, GLfloat x, GLfloat y, GLfloat z);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void setUniform3fv  (GLint location, GLfloat* array, GLsizei length);
+        void setUniform3fv(GLint location, const GLfloat* array, GLsizei length);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void setUniform3i   (GLint location, GLint x, GLint y, GLint z);
+        void setUniform3i(GLint location, GLint x, GLint y, GLint z);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void setUniform3iv  (GLint location, GLint* array, GLsizei length);
+        void setUniform3iv(GLint location, const GLint* array, GLsizei length);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void setUniform4f   (GLint location, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
+        void setUniform4f(GLint location, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void setUniform4fv  (GLint location, GLfloat* array, GLsizei length);
+        void setUniform4fv(GLint location, const GLfloat* array, GLsizei length);
         /*!
             @memberof shader
             @ingroup Graphics
@@ -217,109 +235,109 @@ namespace ffw {
             @ingroup Graphics
 
         */
-        void setUniform4iv  (GLint location, GLint* array, GLsizei length);
+        void setUniform4iv(GLint location, const GLint* array, GLsizei length);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void setUniform2f   (GLint location, ffw::vec2f vec);
+        void setUniform2f(GLint location, const ffw::vec2f& vec);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void setUniform2fv  (GLint location, ffw::vec2f* array, GLsizei length);
+        void setUniform2fv(GLint location, const ffw::vec2f* array, GLsizei length);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void setUniform2i   (GLint location, ffw::vec2i vec);
+        void setUniform2i(GLint location, const ffw::vec2i& vec);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void setUniform2iv  (GLint location, ffw::vec2i* array, GLsizei length);
+        void setUniform2iv(GLint location, const ffw::vec2i* array, GLsizei length);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void setUniform3f   (GLint location, ffw::vec3f vec);
+        void setUniform3f(GLint location, const ffw::vec3f& vec);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void setUniform3fv  (GLint location, ffw::vec3f* array, GLsizei length);
+        void setUniform3fv(GLint location, const ffw::vec3f* array, GLsizei length);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void setUniform3i   (GLint location, ffw::vec3i vec);
+        void setUniform3i(GLint location, const ffw::vec3i& vec);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void setUniform3iv  (GLint location, ffw::vec3i* array, GLsizei length);
+        void setUniform3iv(GLint location, const  ffw::vec3i* array, GLsizei length);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void setUniform4f   (GLint location, ffw::vec4f vec);
+        void setUniform4f(GLint location, const  ffw::vec4f& vec);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void setUniform4fv  (GLint location, ffw::vec4f*  array, GLsizei length);
+        void setUniform4fv(GLint location, const ffw::vec4f* array, GLsizei length);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void setUniform4i   (GLint location, ffw::vec4i vec);
+        void setUniform4i(GLint location, const  ffw::vec4i& vec);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void setUniform4iv  (GLint location, ffw::vec4i*  array, GLsizei length);
+        void setUniform4iv(GLint location, const ffw::vec4i*  array, GLsizei length);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void setUniform4f   (GLint location, ffw::color vec);
+        void setUniform4f(GLint location, const  ffw::color& vec);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void setUniform4fv  (GLint location, ffw::color*  array, GLsizei length);
+        void setUniform4fv(GLint location, const ffw::color* array, GLsizei length);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void setUniformMatrix2fv    (GLint location, GLfloat* mat, GLsizei length);
+        void setUniformMatrix2fv(GLint location, const  GLfloat* mat, GLsizei length);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void setUniformMatrix3fv    (GLint location, GLfloat* mat, GLsizei length);
+        void setUniformMatrix3fv(GLint location, const  GLfloat* mat, GLsizei length);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        void setUniformMatrix4fv    (GLint location, GLfloat* mat, GLsizei length);
+        void setUniformMatrix4fv(GLint location, const  GLfloat* mat, GLsizei length);
 
     private:
         // Compile shader
@@ -367,6 +385,9 @@ namespace ffw {
         PFNGLGETATTRIBLOCATIONPROC glGetAttribLocation;
         PFNGLDRAWRANGEELEMENTSPROC glDrawRangeElements;
         PFNGLDRAWELEMENTSBASEVERTEXPROC glDrawElementsBaseVertex;
+        PFNGLDRAWARRAYSINSTANCEDPROC glDrawArraysInstanced;
+        PFNGLDRAWELEMENTSINSTANCEDPROC glDrawElementsInstanced;
+        PFNGLVERTEXATTRIBDIVISORPROC glVertexAttribDivisor;
         PFNGLUNIFORM1FPROC glUniform1f;
         PFNGLUNIFORM1FVPROC glUniform1fv;
         PFNGLUNIFORM1IPROC glUniform1i;

@@ -14,7 +14,7 @@ namespace ffw {
     /*!
 		@memberof ffw
 		@ingroup Math
-		
+
 		@brief Quaternion
 	*/
     struct quaternion {
@@ -22,28 +22,28 @@ namespace ffw {
         /*!
 			@memberof quaternion
 			@ingroup Math
-			
+
 			@brief X component
 		*/
         float x;
         /*!
 			@memberof quaternion
 			@ingroup Math
-			
+
 			@brief Y component
 		*/
         float y;
         /*!
 			@memberof quaternion
 			@ingroup Math
-			
+
 			@brief Z component
 		*/
         float z;
         /*!
 			@memberof quaternion
 			@ingroup Math
-			
+
 			@brief W component
 		*/
         float w;
@@ -51,9 +51,9 @@ namespace ffw {
 			@memberof quaternion
 			@ingroup Math
 			@inline
-			
+
 			@brief Constructor
-            
+
             @details Sets the quaternion to (0.0f, 0.0f, 0.0f, 1.0f)
 		*/
         quaternion();
@@ -61,9 +61,9 @@ namespace ffw {
 			@memberof quaternion
 			@ingroup Math
 			@inline
-			
+
 			@brief Constructor
-            
+
             @param [in] X Component X
             @param [in] Y Component Y
 			@param [in] Z Component Z
@@ -74,11 +74,11 @@ namespace ffw {
 			@memberof quaternion
 			@ingroup Math
 			@inline
-			
+
 			@brief Constructor
-            
+
             @details Copies value from another quaternion.
-            
+
             @param [in] V Another quaternion
 		*/
         quaternion(const quaternion& Quat);
@@ -86,24 +86,24 @@ namespace ffw {
 			@memberof quaternion
 			@ingroup Math
 			@inline
-			
+
 			@brief Sets the quaternion
-            
+
             @param [in] X Component X
             @param [in] Y Component Y
 			@param [in] Z Component Z
 			@param [in] W Component W
 		*/
-        void set(const float X, const float Y, const float Z, const float W);
+        void set(float X, float Y, float Z, float W);
         /*!
 			@memberof quaternion
 			@ingroup Math
 			@inline
-			
+
 			@brief Sets the quaternion
-            
+
             @details Copies value from another quaternion.
-            
+
             @param [in] V Another quaternion
 		*/
         void set(const quaternion& Quat);
@@ -111,73 +111,43 @@ namespace ffw {
 			@memberof quaternion
 			@ingroup Math
 			@inline
-			
+
 			@brief Rotates the quaternion by degress
-			
+
 			@details Quaternion is automaticaly normalized after this operation!
-			
-			@param [in] Deg Degrees
-			@param [in] Axis Axis of rotation
-			
-			@return Reference to object
-		*/
-        quaternion& rotate(const float Deg, const ffw::vec3<float>& Axis);
-        /*!
-			@memberof quaternion
-			@ingroup Math
-			@inline
-			
-			@brief Rotates the quaternion by degress
-			
-			@details Quaternion is automaticaly normalized after this operation!
-			
+
 			@param [in] Deg Degrees
 			@param [in] X X component of axis of rotation
 			@param [in] Y Y component of axis of rotation
 			@param [in] Z Z component of axis of rotation
-			
+
 			@return Reference to object
 		*/
-        quaternion& rotate(const float Deg, const float X, const float Y, const float Z);
+        quaternion& rotate(float Deg, float X, float Y, float Z);
         /*!
 			@memberof quaternion
 			@ingroup Math
 			@inline
-			
+
 			@brief Rotates the quaternion by radians
-			
+
 			@details Quaternion is automaticaly normalized after this operation!
-			
-			@param [in] Rad Radians
-			@param [in] Axis Axis of rotation
-			
-			@return Reference to object
-		*/
-        quaternion& rotateRad(const float Rad, const ffw::vec3<float>& Axis);
-        /*!
-			@memberof quaternion
-			@ingroup Math
-			@inline
-			
-			@brief Rotates the quaternion by radians
-			
-			@details Quaternion is automaticaly normalized after this operation!
-			
+
 			@param [in] Rad Radians
 			@param [in] X X component of axis of rotation
 			@param [in] Y Y component of axis of rotation
 			@param [in] Z Z component of axis of rotation
-			
+
 			@return Reference to object
 		*/
-        quaternion& rotateRad(const float Rad, const float X, const float Y, const float Z);
+        quaternion& rotateRad(float Rad, float X, float Y, float Z);
         /*!
 			@memberof quaternion
 			@ingroup Math
 			@inline
-			
+
 			@brief Multiplication
-			
+
 			@return Product of multiplication
 		*/
         quaternion  operator *  (const quaternion& Quat) const;
@@ -185,9 +155,9 @@ namespace ffw {
 			@memberof quaternion
 			@ingroup Math
 			@inline
-			
+
 			@brief Multiplication assigment
-			
+
 			@return Reference to object
 		*/
         quaternion& operator *= (const quaternion& Quat);
@@ -195,7 +165,7 @@ namespace ffw {
 			@memberof quaternion
 			@ingroup Math
 			@inline
-			
+
 			@brief Normalizes the quaternion
 		*/
         void normalize();
@@ -203,9 +173,9 @@ namespace ffw {
 			@memberof quaternion
 			@ingroup Math
 			@inline
-			
+
 			@brief Get euler angles of quaterion
-			
+
 			@param [out] Roll Roll in degrees
 			@param [out] Pitch Pitch in degrees
 			@param [out] Yaw Yaw in degrees
@@ -215,3 +185,5 @@ namespace ffw {
 };
 
 #endif
+
+#include "quaternion.inl"

@@ -408,7 +408,7 @@ namespace ffw{
 		@ingroup Math
 		@inline
 	*/
-	mat4 makeRotationMatrix(quaternion& Q);
+	mat4 makeRotationMatrix(const quaternion& Q);
 };
 
 #include "baseFunctions.inl"

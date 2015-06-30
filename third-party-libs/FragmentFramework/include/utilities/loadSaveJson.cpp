@@ -10,7 +10,27 @@
 #include "../math/math.h"
 #include "file.h"
 
-#define THROW(exceptionClass, message) throw exceptionClass(__FILE__, __LINE__, (message) )
+///=============================================================================
+static void fixSpaces(const std::string& Str, size_t* Start, size_t* Length){
+    size_t begin = *Start;
+    size_t end = *Start + *Length;
+
+    for(size_t i = begin; i < end; i++){
+        if(Str[i] == ' ' || Str[i] == 10 || Str[i] == 13 || Str[i] == 9)continue;
+        *Start = i;
+        *Length = end - i;
+        break;
+    }
+
+    begin = *Start;
+    end = *Start + *Length;
+
+    for(size_t i = end-1; i >= begin; i--){
+        if(Str[i] == ' ' || Str[i] == 10 || Str[i] == 13 || Str[i] == 9)continue;
+        *Length = i - *Start +1;
+        break;
+    }
+}
 
 ///=============================================================================
 static size_t findCollon(const std::string& Str, size_t Start, size_t End){
@@ -199,6 +219,11 @@ static bool parseString(const std::string& Str, size_t Start, size_t End, std::s
         } else {
             return false;
         }
+    }
+
+    if(start+1 == end){
+        *Out = "";
+        return true;
     }
 
     if(start -end -1 == 0)return false;
@@ -479,9 +504,11 @@ static void parse(const std::string& Str, size_t Start, size_t End, ffw::var* Ou
         if(isArray){
             bool boolean;
             if(checkIfInt(Str, pos, pos+length)){
+                fixSpaces(Str, &pos, &length);
                 Output->getAsArray().push_back(ffw::stringToVal<int>(Str.substr(pos, pos-length)));
 
             } else if(checkIfFloat(Str, pos, pos+length)){
+                fixSpaces(Str, &pos, &length);
                 Output->getAsArray().push_back(ffw::stringToVal<float>(Str.substr(pos, pos-length)));
 
             } else if(checkIfBool(Str, pos, pos+length, &boolean)){
@@ -501,9 +528,10 @@ static void parse(const std::string& Str, size_t Start, size_t End, ffw::var* Ou
                 for(size_t i = newBegin; i < newEnd; i++){
                     if(Str[i] == '['){newBegin = i;break;}
                 }
-                for(size_t i = newEnd; i > newBegin; i--){
+                for(size_t i = newEnd-1; i > newBegin; i--){
                     if(Str[i] == ']'){newEnd = i;break;}
                 }
+
                 Output->getAsArray().push_back(ffw::var());
                 parse(Str, newBegin, newEnd, &Output->getAsArray().at(Output->getAsArray().size()-1));
 
@@ -513,9 +541,10 @@ static void parse(const std::string& Str, size_t Start, size_t End, ffw::var* Ou
                 for(size_t i = newBegin; i < newEnd; i++){
                     if(Str[i] == '{'){newBegin = i;break;}
                 }
-                for(size_t i = newEnd; i > newBegin; i--){
+                for(size_t i = newEnd-1; i > newBegin; i--){
                     if(Str[i] == '}'){newEnd = i;break;}
                 }
+
                 Output->getAsArray().push_back(ffw::var());
                 parse(Str, newBegin, newEnd, &Output->getAsArray().at(Output->getAsArray().size()-1));
 
@@ -561,7 +590,7 @@ static void parse(const std::string& Str, size_t Start, size_t End, ffw::var* Ou
                 for(size_t i = newBegin; i < newEnd; i++){
                     if(Str[i] == '['){newBegin = i;break;}
                 }
-                for(size_t i = newEnd-1; i > newBegin; i--){
+                for(size_t i = newEnd-1; i >= newBegin; i--){
                     if(Str[i] == ']'){newEnd = i;break;}
                 }
 

@@ -34,13 +34,13 @@ namespace ffw{
 		@ingroup Math
 		@inline
 	*/
-	std::ostream& operator << (std::ostream& os, const quaternion& Q);
+	std::ostream& operator << (std::ostream& os, const color& C);
     /*!
 		@memberof ffw
 		@ingroup Math
 		@inline
 	*/
-	template <class T> vec4<T> operator * (mat4& M, const ffw::vec4<T> &V);
+	std::ostream& operator << (std::ostream& os, const quaternion& Q);
 };
 
 #include "typesOperators.inl"

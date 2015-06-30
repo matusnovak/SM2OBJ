@@ -14,7 +14,7 @@ namespace ffw {
     /*!
 		@memberof ffw
 		@ingroup Math
-		
+
 		@brief 4D vector
 	*/
     template <class T> struct vec4 {
@@ -22,28 +22,28 @@ namespace ffw {
         /*!
 			@memberof vec4
 			@ingroup Math
-			
+
 			@brief X component
 		*/
         T x;
         /*!
 			@memberof vec4
 			@ingroup Math
-			
+
 			@brief Y component
 		*/
         T y;
         /*!
 			@memberof vec4
 			@ingroup Math
-			
+
 			@brief Z component
 		*/
         T z;
         /*!
 			@memberof vec4
 			@ingroup Math
-			
+
 			@brief W component
 		*/
         T w;
@@ -51,9 +51,9 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Constructor
-            
+
             @details Sets all components to zero.
 		*/
         vec4();
@@ -61,9 +61,9 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Constructor
-            
+
             @param [in] X Component X
             @param [in] Y Component Y
 			@param [in] Z Component Z
@@ -74,9 +74,9 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Constructor
-            
+
             @param [in] Value Value of all components
 		*/
         vec4(T Value);
@@ -84,11 +84,11 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Constructor
-            
+
             @details Copies value from another vector.
-            
+
             @param [in] V Another vector
 		*/
         vec4(const vec4<T>& V);
@@ -96,11 +96,11 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Constructor
-            
+
             @param [in] List Bracket list
-            
+
             @code
             ffw::vec4<float> v{1.0f, 1.5f, 0.2f, -9.0f};
             @endcode
@@ -110,9 +110,9 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Sets the vector
-            
+
             @param [in] X Component X
             @param [in] Y Component Y
 			@param [in] Z Component Z
@@ -123,11 +123,11 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Sets the vector
-            
+
             @details Sets same value for all component.
-            
+
             @param [in] Value Value of all components
 		*/
         void set(T Value);
@@ -135,11 +135,11 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Sets the vector
-            
+
             @details Copies value from another vector.
-            
+
             @param [in] V Another vector
 		*/
         void set(const vec4<T>& V);
@@ -147,11 +147,11 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Sets the vector
-            
+
             @param [in] List Bracket list
-            
+
             @code
             ffw::vec4<float> v;
             v.set({1.0f, 1.5f, 0.2f, -9.0f});
@@ -162,11 +162,11 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Subtraction
-            
+
             @details Returns negative value of vector if used as unary minus.
-            
+
             @return Negative vector
 		*/
         vec4<T>  operator - () const;
@@ -174,9 +174,9 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Assign a value
-            
+
             @return Reference to object
 		*/
         vec4<T>& operator =  (const vec4<T>& V);
@@ -184,9 +184,9 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Addition
-            
+
             @return Product of addition
 		*/
         vec4<T>  operator +  (const vec4<T>& V) const;
@@ -194,9 +194,9 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Addition assignment
-            
+
             @return Reference to object
 		*/
         vec4<T>& operator += (const vec4<T>& V);
@@ -204,9 +204,9 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Subtraction
-            
+
             @return Product of substraction
 		*/
         vec4<T>  operator -  (const vec4<T>& V) const;
@@ -214,9 +214,9 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Subtraction assignment
-            
+
             @return Reference to object
 		*/
         vec4<T>& operator -= (const vec4<T>& V);
@@ -224,9 +224,9 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Division
-            
+
             @return Product of division
 		*/
         vec4<T>  operator /  (const vec4<T>& V) const;
@@ -234,9 +234,9 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Division assignment
-            
+
             @return Reference to object
 		*/
         vec4<T>& operator /= (const vec4<T>& V);
@@ -244,9 +244,9 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Multiplication
-            
+
             @return Product of multiplication
 		*/
         vec4<T>  operator *  (const vec4<T>& V) const;
@@ -254,9 +254,9 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Multiplication assignment
-            
+
             @return Reference to object
 		*/
         vec4<T>& operator *= (const vec4<T>& V);
@@ -264,9 +264,9 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			 @brief Assign a value
-            
+
             @return Reference to object
 		*/
         vec4<T>& operator =  (const T& Val);
@@ -274,9 +274,9 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Addition
-            
+
             @return Product of addition
 		*/
         vec4<T>  operator +  (const T& Val) const;
@@ -284,9 +284,9 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Addition assignment
-            
+
             @return Reference to object
 		*/
         vec4<T>& operator += (const T& Val);
@@ -294,9 +294,9 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Subtraction
-            
+
             @return Product of substraction
 		*/
         vec4<T>  operator -  (const T& Val) const;
@@ -304,9 +304,9 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Subtraction assignment
-            
+
             @return Reference to object
 		*/
         vec4<T>& operator -= (const T& Val);
@@ -314,9 +314,9 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Division
-            
+
             @return Product of division
 		*/
         vec4<T>  operator /  (const T& Val) const;
@@ -324,9 +324,9 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Division assignment
-            
+
             @return Reference to object
 		*/
         vec4<T>& operator /= (const T& Val);
@@ -334,9 +334,9 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Multiplication
-            
+
             @return Product of multiplication
 		*/
         vec4<T>  operator *  (const T& Val) const;
@@ -344,9 +344,9 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Multiplication assignment
-            
+
             @return Reference to object
 		*/
         vec4<T>& operator *= (const T& Val);
@@ -354,9 +354,9 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Checks if two vectors are not equal
-            
+
             @return True if not equal
 		*/
         bool operator != (const vec4<T>& V) const;
@@ -364,9 +364,9 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Checks if two vectors are equal
-            
+
             @return True if equal
 		*/
         bool operator == (const vec4<T>& V) const;
@@ -374,9 +374,9 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Normalizes the vector to length of 1.0
-            
+
             @return Reference to object
 		*/
         vec4<T>& normalize();
@@ -384,11 +384,11 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Scales the vector by given value
-            
+
             @param [in] Val Scale
-            
+
             @return Reference to object
 		*/
         vec4<T>& scale(const T Val);
@@ -396,9 +396,9 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Returns length of vector
-            
+
             @return Length of vector
 		*/
         float length() const;
@@ -406,13 +406,37 @@ namespace ffw {
 			@memberof vec4
 			@ingroup Math
 			@inline
-			
+
 			@brief Returns squared length of vector
-            
+
             @return Squared length of vector
 		*/
         T lengthSqrd() const;
+        /*!
+			@memberof vec4
+			@ingroup Math
+			@inline
+
+			@brief Explicit operator to cast between different data types
+		*/
+		template <class S> explicit operator vec4<S>() const;
     };
+
+    /*!
+		@memberof ffw
+		@ingroup Math
+	*/
+    typedef vec4<float> vec4f;
+    /*!
+		@memberof ffw
+		@ingroup Math
+	*/
+    typedef vec4<int> vec4i;
+    /*!
+		@memberof ffw
+		@ingroup Math
+	*/
+    typedef vec4<double> vec4d;
 };
 #endif
 

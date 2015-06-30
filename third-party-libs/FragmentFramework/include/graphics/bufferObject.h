@@ -40,13 +40,25 @@ namespace ffw {
             @ingroup Graphics
 
         */
-		bool createBuffer(const void* data, GLsizei Size, GLenum Type);
+		bool createBuffer(const void* Data, GLsizei Size, GLenum Type);
         /*!
             @memberof bufferObject
             @ingroup Graphics
 
         */
-		bool uploadData(const void* data, GLsizei Offset, GLsizei Size);
+		bool uploadData(const void* Data, GLsizei Offset, GLsizei Size);
+		/*!
+            @memberof bufferObject
+            @ingroup Graphics
+
+        */
+        bool mapBuffer(void** Pointer, GLenum Access);
+        /*!
+            @memberof bufferObject
+            @ingroup Graphics
+
+        */
+        bool unmapBuffer();
         /*!
             @memberof bufferObject
             @ingroup Graphics
@@ -118,6 +130,8 @@ namespace ffw {
         PFNGLBUFFERSUBDATAPROC glBufferSubData;
         PFNGLDELETEBUFFERSPROC glDeleteBuffers;
         PFNGLCOPYBUFFERSUBDATAPROC glCopyBufferSubData;
+        PFNGLMAPBUFFERPROC glMapBuffer;
+        PFNGLUNMAPBUFFERPROC glUnmapBuffer;
     };
 };
 #endif

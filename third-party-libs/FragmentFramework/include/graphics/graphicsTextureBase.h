@@ -210,30 +210,56 @@ namespace ffw {
             @memberof textureBase
             @ingroup Graphics
 
-            @brief Sets the minification filtering flag
-
-            @details Use GL_LINEAR or GL_NEAREST as input.
+            @brief Sets the environment mode
 
             @warning Render context must be active and be on
             same thread before calling this function.
 
-            @param [in] Filtering Filtering flag
+            @param [in] Target Target parameter
+            @param [in] Name   Name of the parameter
+            @param [in] Value  Value
         */
-        void setMinFiltering(GLenum Filtering);
+        void setEnvParami(GLenum Target, GLenum Name, GLint Value);
         /*!
             @memberof textureBase
             @ingroup Graphics
 
-            @brief Sets the magnification filtering flag
-
-            @details Use GL_LINEAR or GL_NEAREST as input.
+            @brief Sets the environment mode
 
             @warning Render context must be active and be on
             same thread before calling this function.
 
-            @param [in] Filtering Filtering flag
+            @param [in] Target Target parameter
+            @param [in] Name   Name of the parameter
+            @param [in] Value  Value
         */
-        void setMagFiltering(GLenum Filtering);
+        void setEnvParamf(GLenum Target, GLenum Name, GLfloat Value);
+        /*!
+            @memberof textureBase
+            @ingroup Graphics
+
+            @brief Sets the texture parameter
+
+            @warning Render context must be active and be on
+            same thread before calling this function.
+
+            @param [in] Name   Name of the parameter
+            @param [in] Value  Value
+        */
+        void setTexParami(GLenum Name, GLint Value);
+        /*!
+            @memberof textureBase
+            @ingroup Graphics
+
+            @brief Sets the texture parameter
+
+            @warning Render context must be active and be on
+            same thread before calling this function.
+
+            @param [in] Name   Name of the parameter
+            @param [in] Value  Value
+        */
+        void setTexParamf(GLenum Name, GLfloat Value);
         /*!
             @memberof textureBase
             @ingroup Graphics

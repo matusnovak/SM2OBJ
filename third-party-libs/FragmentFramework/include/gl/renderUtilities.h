@@ -12,11 +12,6 @@
 #include <GL/wglext.h>
 
 #include "../dll.h"
-#include "../graphics/shaderArcData.h"
-#include "../graphics/shaderFontData.h"
-#include "../graphics/shaderLineData.h"
-#include "../graphics/shaderRectData.h"
-#include "../graphics/shaderTextureData.h"
 #include "../math/math.h"
 #include "../graphics/graphicsShader.h"
 #include "../graphics/graphicsTexture2D.h"
@@ -103,6 +98,11 @@ namespace ffw {
             @memberof renderUtilities
             @ingroup Core
         */
+        void drawBox(float PosX, float PosY, float PosZ, float SizeX, float SizeY, float SizeZ, const ffw::color& Color, const ffw::mat4& ModelViewProj);
+        /*!
+            @memberof renderUtilities
+            @ingroup Core
+        */
         void drawArc(float PosX, float PosY, float InnerRadius, float OuterRadius, float StartAngle, float EndAngle, const ffw::color& Color);
         /*!
             @memberof renderUtilities
@@ -179,13 +179,25 @@ namespace ffw {
             @ingroup Core
         */
         void drawLine(float StartX, float StartY, float EndX, float EndY, const ffw::color& Color);
+        /*!
+            @memberof renderUtilities
+            @ingroup Core
+        */
+        void drawLine(float StartX, float StartY, float StartZ, float EndX, float EndY, float EndZ, const ffw::color& Color, const ffw::mat4& ModelViewProj);
 
     private:
+        ffw::shader boxShader;
         ffw::shader arcShader;
         ffw::shader rectShader;
         ffw::shader textureShader;
         ffw::shader fontShader;
         ffw::shader lineShader;
+
+        int boxShaderViewProjLoc;
+        int boxShaderPosLoc;
+        int boxShaderSizeLoc;
+        int boxShaderColorLoc;
+        bool boxShaderUniform;
 
         int arcShaderViewLoc;
         int arcShaderPosLoc;
@@ -193,13 +205,13 @@ namespace ffw {
         int arcShaderColorLoc;
         int arcShaderAngleLoc;
         int arcShaderStepsLoc;
-        bool arcShaderUniform = false;
+        bool arcShaderUniform;
 
         int rectShaderViewLoc;
         int rectShaderPosLoc;
         int rectShaderSizeLoc;
         int rectShaderColorLoc;
-        bool rectShaderUniform = false;
+        bool rectShaderUniform;
 
         int textureShaderViewLoc;
         int textureShaderPosLoc;
@@ -208,17 +220,17 @@ namespace ffw {
         int textureShaderMirrorLoc;
         int textureShaderRstvLoc;
         int textureShaderColorLoc;
-        bool textureShaderUniform = false;
+        bool textureShaderUniform;
 
         int lineShaderViewLoc;
         int lineShaderStartLoc;
         int lineShaderEndLoc;
         int lineShaderColorLoc;
-        bool lineShaderUniform = true;
+        bool lineShaderUniform;
 
-        int arcShaderSteps = 24;
+        int arcShaderSteps;
 
-        bool graphicsShadersLoaded = false;
+        bool graphicsShadersLoaded;
         int mirror[2];
 
         int viewport[4];

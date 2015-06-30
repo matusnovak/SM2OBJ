@@ -77,25 +77,67 @@ namespace ffw {
 			@ingroup Math
 			@inline
 		*/
-        mat4&  operator =  (const ffw::mat4 &m);
+        mat4&  operator =  (const mat4& m);
         /*!
 			@memberof mat4
 			@ingroup Math
 			@inline
 		*/
-        mat4   operator *  (const ffw::mat4 &m) const;
+        mat4   operator *  (const mat4& m) const;
         /*!
 			@memberof mat4
 			@ingroup Math
 			@inline
 		*/
-        mat4&  operator *= (const ffw::mat4 &m);
+        mat4&  operator *= (const mat4& m);
+        /*!
+			@memberof mat4
+			@ingroup Math
+			@inline
+		*/
+		template <class T> vec4<T> operator * (const vec4<T>& V) const;
         /*!
 			@memberof mat4
 			@ingroup Math
 			@inline
 		*/
         float& operator [] (int x);
+        /*!
+			@memberof mat4
+			@ingroup Math
+			@inline
+		*/
+        const float& operator [] (int x) const;
+		/*!
+			@memberof mat4
+			@ingroup Math
+			@inline
+		*/
+		mat4& rotate(const quaternion& Q);
+		/*!
+			@memberof mat4
+			@ingroup Math
+			@inline
+		*/
+		mat4& translate(float X, float Y, float Z);
+		/*!
+			@memberof mat4
+			@ingroup Math
+			@inline
+		*/
+		mat4& scale(float X, float Y, float Z);
+		/*!
+			@memberof mat4
+			@ingroup Math
+			@inline
+		*/
+		mat4& transpose();
+		/*!
+			@memberof mat4
+			@ingroup Math
+			@inline
+		*/
+		mat4& inverse();
     };
 };
 #endif

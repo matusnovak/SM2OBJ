@@ -326,6 +326,39 @@ inline ffw::vec3<T>& ffw::vec3<T>::rotateZRad(const float Rad){
 
 ///=============================================================================
 template <class T>
+inline ffw::vec3<T>& ffw::vec3<T>::rotateByQuaternion(const ffw::quaternion& Q){
+    /*float oldX = x;
+    float oldY = y;
+    float oldZ = z;
+    x = (1.0f - 2.0f*Q.y*Q.y - 2.0f*Q.z*Q.z)*oldX +     (2.0f*Q.x*Q.y - 2.0f*Q.z*Q.w)   *oldY +    (2.0f*Q.x*Q.z + 2.0f*Q.y*Q.w)    *oldZ;
+    y =    (2.0f*Q.x*Q.y + 2.0f*Q.z*Q.w)    *oldX + (1.0f - 2.0f*Q.x*Q.x - 2.0f*Q.z*Q.z)*oldY +    (2.0f*Q.y*Q.z - 2.0f*Q.x*Q.w)    *oldZ;
+    y =    (2.0f*Q.x*Q.z - 2.0f*Q.y*Q.w)    *oldX +    (2.0f*Q.y*Q.z + 2.0f*Q.x*Q.w)    *oldY + (1.0f - 2.0f*Q.x*Q.x - 2.0f*Q.y*Q.y)*oldZ;
+    return *this;*/
+
+    /*ofVec3f uv, uuv;
+    ofVec3f qvec(_v.x, _v.y, _v.z);
+    uv = qvec.getCrossed(v);
+    uuv = qvec.getCrossed(uv);
+    uv *= (2.0f * _v.w);
+    uuv *= 2.0f;
+    return v + uv + uuv;*/
+
+    ffw::vec3f qvc;
+    qvc.x = Q.y*z - Q.z*y;
+    qvc.y = Q.z*x - Q.x*z;
+    qvc.z = Q.x*y - Q.y*x;
+    ffw::vec3f qvcc;
+    qvcc.x = Q.y*qvc.z - Q.z*qvc.y;
+    qvcc.y = Q.z*qvc.x - Q.x*qvc.z;
+    qvcc.z = Q.x*qvc.y - Q.y*qvc.x;
+    qvc *= (2.0f * Q.w);
+    qvcc *= 2.0f;
+    *this += qvc + qvcc;
+    return *this;
+}
+
+///=============================================================================
+template <class T>
 inline ffw::vec3<T>& ffw::vec3<T>::normalize(){
     float l = sqrtf(x*x + y*y + z*z);
     if( l > 0 ) {
@@ -355,6 +388,13 @@ inline float ffw::vec3<T>::length() const{
 template <class T>
 inline T ffw::vec3<T>::lengthSqrd() const{
     return (x*x + y*y + z*z);
+}
+
+///=============================================================================
+template <class T>
+template <class S>
+inline ffw::vec3<T>::operator ffw::vec3<S>() const {
+    return ffw::vec3<S>((S)x, (S)y, (S)z);
 }
 
 #endif

@@ -35,16 +35,9 @@ inline std::ostream& ffw::operator << (std::ostream& os, const ffw::quaternion& 
 }
 
 ///=============================================================================
-template <class T>
-ffw::vec4<T> ffw::operator * (ffw::mat4& M, const ffw::vec4<T> &V){
-    ffw::vec4<T> r;
-
-    r.x = V.x*M[0]; + V.y*M[4]; + V.z*M[8];  + V.w*M[12];
-    r.y = V.x*M[1]; + V.y*M[5]; + V.z*M[9];  + V.w*M[13];
-    r.z = V.x*M[2]; + V.y*M[6]; + V.z*M[10]; + V.w*M[14];
-    r.w = V.x*M[3]; + V.y*M[7]; + V.z*M[11]; + V.w*M[15];
-
-    return r;
+inline std::ostream& ffw::operator << (std::ostream& os, const ffw::color& C){
+    os << C.r << ", " << C.g << ", " << C.b << ", " << C.a;
+    return os;
 }
 
 #endif

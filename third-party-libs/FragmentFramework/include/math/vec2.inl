@@ -270,4 +270,11 @@ inline T ffw::vec2<T>::lengthSqrd() const{
     return (x*x + y*y);
 }
 
+///=============================================================================
+template <class T>
+template <class S>
+inline ffw::vec2<T>::operator ffw::vec2<S>() const {
+    return ffw::vec2<S>((S)x, (S)y);
+}
+
 #endif

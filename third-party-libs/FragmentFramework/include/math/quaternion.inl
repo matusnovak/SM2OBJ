@@ -8,7 +8,7 @@
 #define FFW_QUATERNION_INL
 
 ///=============================================================================
-inline ffw::uaternion::uaternion(){
+inline ffw::quaternion::quaternion(){
     x = 0.0f;
     y = 0.0f;
     z = 0.0f;
@@ -16,7 +16,7 @@ inline ffw::uaternion::uaternion(){
 }
 
 ///=============================================================================
-inline ffw::uaternion::quaternion(float X, float Y, float Z, float W){
+inline ffw::quaternion::quaternion(float X, float Y, float Z, float W){
     x = X;
     y = Y;
     z = Z;
@@ -24,7 +24,7 @@ inline ffw::uaternion::quaternion(float X, float Y, float Z, float W){
 }
 
 ///=============================================================================
-inline ffw::uaternion::quaternion(const quaternion& Quat){
+inline ffw::quaternion::quaternion(const quaternion& Quat){
     x = Quat.x;
     y = Quat.y;
     z = Quat.z;
@@ -32,7 +32,7 @@ inline ffw::uaternion::quaternion(const quaternion& Quat){
 }
 
 ///=============================================================================
-inline void ffw::uaternion::set(const float X, const float Y, const float Z, const float W){
+inline void ffw::quaternion::set(float X, float Y, float Z, float W){
     x = X;
     y = Y;
     z = Z;
@@ -40,7 +40,7 @@ inline void ffw::uaternion::set(const float X, const float Y, const float Z, con
 }
 
 ///=============================================================================
-inline void ffw::uaternion::set(const quaternion& Quat){
+inline void ffw::quaternion::set(const quaternion& Quat){
     x = Quat.x;
     y = Quat.y;
     z = Quat.z;
@@ -48,20 +48,8 @@ inline void ffw::uaternion::set(const quaternion& Quat){
 }
 
 ///=============================================================================
-inline ffw::uaternion::quaternion& ffw::uaternion::rotate(const float Deg, const ffw::vec3<float>& Axis){
-    float angle = deg*DEG_TO_RAD;
-    double result = sin(angle/2.0);
-    x = Axis.x * result;
-    y = Axis.y * result;
-    z = Axis.z * result;
-    w = cos(angle/2.0);
-    normalize();
-    return *this;
-}
-
-///=============================================================================
-inline ffw::uaternion::quaternion& ffw::uaternion::rotate(const float Deg, const float Z, const float Y, const float Z){
-    float angle = deg*DEG_TO_RAD;
+inline ffw::quaternion& ffw::quaternion::rotate(float Deg, float X, float Y, float Z){
+    float angle = Deg*DEG_TO_RAD;
     double result = sin(angle/2.0);
     x = X * result;
     y = Y * result;
@@ -72,18 +60,7 @@ inline ffw::uaternion::quaternion& ffw::uaternion::rotate(const float Deg, const
 }
 
 ///=============================================================================
-inline ffw::uaternion::quaternion& ffw::uaternion::rotateRad(const float Rad, const ffw::vec3<float>& Axis){
-    double result = sin(Rad/2.0);
-    x = Axis.x * result;
-    y = Axis.y * result;
-    z = Axis.z * result;
-    w = cos(Rad/2.0);
-    normalize();
-    return *this;
-}
-
-///=============================================================================
-inline ffw::uaternion::quaternion& ffw::uaternion::rotateRad(const float Rad, const float Z, const float Y, const float Z){
+inline ffw::quaternion& ffw::quaternion::rotateRad(float Rad, float X, float Y, float Z){
     double result = sin(Rad/2.0);
     x = X * result;
     y = Y * result;
@@ -94,23 +71,23 @@ inline ffw::uaternion::quaternion& ffw::uaternion::rotateRad(const float Rad, co
 }
 
 ///=============================================================================
-inline ffw::uaternion::quaternion  ffw::uaternion::operator *  (const quaternion& Quat) const{
+inline ffw::quaternion  ffw::quaternion::operator *  (const quaternion& Quat) const{
     quaternion result;
 
-    result.x = q.w*x + q.x*w + q.y*z - q.z*y;
-    result.y = q.w*y - q.x*z + q.y*w + q.z*x;
-    result.z = q.w*z + q.x*y - q.y*x + q.z*w;
-    result.w = q.w*w - q.x*x - q.y*y - q.z*z;
+    result.x = Quat.w*x + Quat.x*w + Quat.y*z - Quat.z*y;
+    result.y = Quat.w*y - Quat.x*z + Quat.y*w + Quat.z*x;
+    result.z = Quat.w*z + Quat.x*y - Quat.y*x + Quat.z*w;
+    result.w = Quat.w*w - Quat.x*x - Quat.y*y - Quat.z*z;
 
     return result;
 }
 
 ///=============================================================================
-inline ffw::uaternion::quaternion& ffw::uaternion::operator *= (const quaternion& Quat){
-    float rx = q.w*x + q.x*w + q.y*z - q.z*y;
-    float ry = q.w*y - q.x*z + q.y*w + q.z*x;
-    float rz = q.w*z + q.x*y - q.y*x + q.z*w;
-    float rw = q.w*w - q.x*x - q.y*y - q.z*z;
+inline ffw::quaternion& ffw::quaternion::operator *= (const quaternion& Quat){
+    float rx = Quat.w*x + Quat.x*w + Quat.y*z - Quat.z*y;
+    float ry = Quat.w*y - Quat.x*z + Quat.y*w + Quat.z*x;
+    float rz = Quat.w*z + Quat.x*y - Quat.y*x + Quat.z*w;
+    float rw = Quat.w*w - Quat.x*x - Quat.y*y - Quat.z*z;
 
     x = rx;
     y = ry;
@@ -121,7 +98,7 @@ inline ffw::uaternion::quaternion& ffw::uaternion::operator *= (const quaternion
 }
 
 ///=============================================================================
-inline void ffw::uaternion::normalize(){
+inline void ffw::quaternion::normalize(){
     float n = 1.0f/sqrt(x*x+y*y+z*z+w*w);
     x = x * n;
     y = y * n;
@@ -130,7 +107,7 @@ inline void ffw::uaternion::normalize(){
 }
 
 ///=============================================================================
-inline void ffw::uaternion::getEuler(float* Roll, float* Pitch, float* Yaw) const{
+inline void ffw::quaternion::getEuler(float* Roll, float* Pitch, float* Yaw) const{
     // http://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToEuler/
     float test = x*y + z*w;
     float heading;

@@ -18,12 +18,12 @@ namespace ffw {
         @memberof ffw
         @ingroup System
     */
-	std::wstring FFW_API openFileDialog(const std::wstring& title);
+	std::wstring FFW_API openFileDialog(const std::wstring& title, const std::wstring& Path);
     /*!
         @memberof ffw
         @ingroup System
     */
-	std::wstring FFW_API openFolderDialog(const std::wstring& title);
+	std::wstring FFW_API openFolderDialog(const std::wstring& title, const std::wstring& Path);
     /*!
         @memberof ffw
         @ingroup System

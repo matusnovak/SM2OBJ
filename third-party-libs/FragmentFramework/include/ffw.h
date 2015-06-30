@@ -28,7 +28,7 @@
 #include "network/tcpServer.h"
 #include "network/tcpClient.h"
 #include "serial/serialManager.h"
-#include "systemUtils/listDirectory.h"
+#include "systemUtils/directory.h"
 #include "systemUtils/win32SysUtils.h"
 #include "userInterface/manager.h"
 #include "userInterface/window.h"

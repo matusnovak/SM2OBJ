@@ -7,6 +7,7 @@
 #ifndef FFW_VEC4_INL
 #define FFW_VEC4_INL
 
+///=============================================================================
 template <class T>
 inline ffw::vec4<T>::vec4(){
     x = 0;
@@ -15,6 +16,7 @@ inline ffw::vec4<T>::vec4(){
     w = 0;
 }
 
+///=============================================================================
 template <class T>
 inline ffw::vec4<T>::vec4(T X, T Y, T Z, T W){
     x = X;
@@ -23,6 +25,7 @@ inline ffw::vec4<T>::vec4(T X, T Y, T Z, T W){
     w = W;
 }
 
+///=============================================================================
 template <class T>
 inline ffw::vec4<T>::vec4(T Value){
     x = Value;
@@ -31,6 +34,7 @@ inline ffw::vec4<T>::vec4(T Value){
     w = Value;
 }
 
+///=============================================================================
 template <class T>
 inline ffw::vec4<T>::vec4(const vec4<T>& V){
     x = V.x;
@@ -39,6 +43,7 @@ inline ffw::vec4<T>::vec4(const vec4<T>& V){
     w = V.w;
 }
 
+///=============================================================================
 template <class T>
 inline ffw::vec4<T>::vec4(std::initializer_list<T> List){
     if(List.size() != 4){
@@ -54,6 +59,7 @@ inline ffw::vec4<T>::vec4(std::initializer_list<T> List){
     w = *(List.begin()+3);
 }
 
+///=============================================================================
 template <class T>
 inline void ffw::vec4<T>::set(T X, T Y, T Z, T W){
     x = X;
@@ -62,6 +68,7 @@ inline void ffw::vec4<T>::set(T X, T Y, T Z, T W){
     w = W;
 }
 
+///=============================================================================
 template <class T>
 inline void ffw::vec4<T>::set(T Value){
     x = Value;
@@ -70,6 +77,7 @@ inline void ffw::vec4<T>::set(T Value){
     w = Value;
 }
 
+///=============================================================================
 template <class T>
 inline void ffw::vec4<T>::set(const vec4<T>& V){
     x = V.x;
@@ -78,6 +86,7 @@ inline void ffw::vec4<T>::set(const vec4<T>& V){
     w = V.w;
 }
 
+///=============================================================================
 template <class T>
 inline void ffw::vec4<T>::set(std::initializer_list<T> List){
     if(List.size() != 4)return;
@@ -87,11 +96,13 @@ inline void ffw::vec4<T>::set(std::initializer_list<T> List){
     w = *(List.begin()+2);
 }
 
+///=============================================================================
 template <class T>
 inline ffw::vec4<T>  ffw::vec4<T>::operator - () const{
     return vec4<T>(-x, -y, -z, -w);
 }
 
+///=============================================================================
 template <class T>
 inline ffw::vec4<T>& ffw::vec4<T>::operator =  (const vec4<T>& V){
     x = V.x;
@@ -101,11 +112,13 @@ inline ffw::vec4<T>& ffw::vec4<T>::operator =  (const vec4<T>& V){
     return *this;
 }
 
+///=============================================================================
 template <class T>
 inline ffw::vec4<T>  ffw::vec4<T>::operator +  (const vec4<T>& V) const{
     return vec4<T>(x + V.x, y + V.y, z + V.z, w + V.w);
 }
 
+///=============================================================================
 template <class T>
 inline ffw::vec4<T>& ffw::vec4<T>::operator += (const vec4<T>& V){
     x += V.x;
@@ -115,11 +128,13 @@ inline ffw::vec4<T>& ffw::vec4<T>::operator += (const vec4<T>& V){
     return *this;
 }
 
+///=============================================================================
 template <class T>
 inline ffw::vec4<T>  ffw::vec4<T>::operator -  (const vec4<T>& V) const{
     return vec4<T>(x - V.x, y - V.y, z - V.z, w - V.w);
 }
 
+///=============================================================================
 template <class T>
 inline ffw::vec4<T>& ffw::vec4<T>::operator -= (const vec4<T>& V){
     x -= V.x;
@@ -129,11 +144,13 @@ inline ffw::vec4<T>& ffw::vec4<T>::operator -= (const vec4<T>& V){
     return *this;
 }
 
+///=============================================================================
 template <class T>
 inline ffw::vec4<T>  ffw::vec4<T>::operator /  (const vec4<T>& V) const{
     return vec4<T>(x / V.x, y / V.y, z / V.z, w / V.w);
 }
 
+///=============================================================================
 template <class T>
 inline ffw::vec4<T>& ffw::vec4<T>::operator /= (const vec4<T>& V){
     x /= V.x;
@@ -143,11 +160,13 @@ inline ffw::vec4<T>& ffw::vec4<T>::operator /= (const vec4<T>& V){
     return *this;
 }
 
+///=============================================================================
 template <class T>
 inline ffw::vec4<T>  ffw::vec4<T>::operator *  (const vec4<T>& V) const{
     return vec4<T>(x * V.x, y * V.y, z * V.z, w * V.w);
 }
 
+///=============================================================================
 template <class T>
 inline ffw::vec4<T>& ffw::vec4<T>::operator *= (const vec4<T>& V){
     x *= V.x;
@@ -157,6 +176,7 @@ inline ffw::vec4<T>& ffw::vec4<T>::operator *= (const vec4<T>& V){
     return *this;
 }
 
+///=============================================================================
 template <class T>
 inline ffw::vec4<T>& ffw::vec4<T>::operator =  (const T& Val){
     x = Val;
@@ -166,11 +186,13 @@ inline ffw::vec4<T>& ffw::vec4<T>::operator =  (const T& Val){
     return *this;
 }
 
+///=============================================================================
 template <class T>
 inline ffw::vec4<T>  ffw::vec4<T>::operator +  (const T& Val) const{
     return vec4<T>(x + Val, y + Val, z + Val, w + Val);
 }
 
+///=============================================================================
 template <class T>
 inline ffw::vec4<T>& ffw::vec4<T>::operator += (const T& Val){
     x += Val;
@@ -180,11 +202,13 @@ inline ffw::vec4<T>& ffw::vec4<T>::operator += (const T& Val){
     return *this;
 }
 
+///=============================================================================
 template <class T>
 inline ffw::vec4<T>  ffw::vec4<T>::operator -  (const T& Val) const{
     return vec4<T>(x - Val, y - Val, z - Val, w - Val);
 }
 
+///=============================================================================
 template <class T>
 inline ffw::vec4<T>& ffw::vec4<T>::operator -= (const T& Val){
     x -= Val;
@@ -194,11 +218,13 @@ inline ffw::vec4<T>& ffw::vec4<T>::operator -= (const T& Val){
     return *this;
 }
 
+///=============================================================================
 template <class T>
 inline ffw::vec4<T>  ffw::vec4<T>::operator /  (const T& Val) const{
     return vec4<T>(x / Val, y / Val, z / Val, w / Val);
 }
 
+///=============================================================================
 template <class T>
 inline ffw::vec4<T>& ffw::vec4<T>::operator /= (const T& Val){
     x /= Val;
@@ -208,11 +234,13 @@ inline ffw::vec4<T>& ffw::vec4<T>::operator /= (const T& Val){
     return *this;
 }
 
+///=============================================================================
 template <class T>
 inline ffw::vec4<T>  ffw::vec4<T>::operator *  (const T& Val) const{
     return vec4<T>(x * Val, y * Val, z * Val, w * Val);
 }
 
+///=============================================================================
 template <class T>
 inline ffw::vec4<T>& ffw::vec4<T>::operator *= (const T& Val){
     x *= Val;
@@ -222,16 +250,19 @@ inline ffw::vec4<T>& ffw::vec4<T>::operator *= (const T& Val){
     return *this;
 }
 
+///=============================================================================
 template <class T>
 inline bool ffw::vec4<T>::operator != (const vec4<T>& V) const{
     return (x != V.x || y != V.y || z != V.z || w != V.w);
 }
 
+///=============================================================================
 template <class T>
 inline bool ffw::vec4<T>::operator == (const vec4<T>& V) const{
     return (x == V.x && y == V.y && z == V.z && w == V.w);
 }
 
+///=============================================================================
 template <class T>
 inline ffw::vec4<T>& ffw::vec4<T>::normalize(){
     float l = sqrtf(x*x + y*y + z*z + w*w);
@@ -244,6 +275,7 @@ inline ffw::vec4<T>& ffw::vec4<T>::normalize(){
     return *this;
 }
 
+///=============================================================================
 template <class T>
 inline ffw::vec4<T>& ffw::vec4<T>::scale(const T Val){
     x = x*Val;
@@ -253,14 +285,23 @@ inline ffw::vec4<T>& ffw::vec4<T>::scale(const T Val){
     return *this;
 }
 
+///=============================================================================
 template <class T>
 inline float ffw::vec4<T>::length() const{
     return sqrtf(x*x + y*y + z*z + w*w);
 }
 
+///=============================================================================
 template <class T>
 inline T ffw::vec4<T>::lengthSqrd() const{
     return (x*x + y*y + z*z + w*w);
+}
+
+///=============================================================================
+template <class T>
+template <class S>
+inline ffw::vec4<T>::operator ffw::vec4<S>() const {
+    return ffw::vec4<S>((S)x, (S)y, (S)z, (S)w);
 }
 
 #endif
