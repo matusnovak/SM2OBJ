@@ -33,7 +33,7 @@ Before you continue, make sure that you have at least 500 MB of empty HDD space.
 
 8. Write a number of how many threads this export should use. (Using more threads than the number of cores your CPU has can result in lower performance).
 
-9. Select this option if you want your attachments (ships and turrets) to be exported alongside with the OBJ file. Note that objects are NOT merged together. After importing the OBJ into your favorite 3D editor, all attachments will be separated and located at [0,0,0] This ensures that the pivot of all ships and turrets is the axis of the rotation. However, the center of the mothership is located at the ship's core. This is due to the limitations of the OBJ file.
+9. Select this option if you want your attachments (ships and turrets) to be exported alongside with the OBJ file. Note that objects are NOT merged together. After importing the OBJ into your favorite 3D editor, all attachments will be separated and located at [0,0,0] This ensures that the pivot of all ships and turrets is the axis of the rotation.
 
 10. Select the output folder for the textures. Make sure that the folder is valid, otherwise an error will appear. 
 
@@ -292,9 +292,7 @@ If you are using Visual Studio, check [FragmentFramework](https://github.com/mat
 
 ## Please comment
 
-If bug occurs or you have problems please report the issue. Use github's issue tracker.
-
-If you have questions or suggestions please feel free to contact me at GitHub or at at my email address.
+If bug occurs or you have problems please report the issue. Use github issue tracker. If you have questions or suggestions please feel free to contact me at GitHub or at at my email address.
 
 ## Copyright and license
 
