@@ -50,32 +50,32 @@ Before you continue, make sure that you have at least 500 MB of empty HDD space.
 #include "source/exporter/textureExport.h"
 #include "source/exporter/exportBlueprint.h"
 
-void sm2obj::window::callbackExportExit(bool Success){
+static void callbackExportExit(bool Success){
 	// Success <- true if the exporter finished without error
 }
 
-void sm2obj::window::callbackExportProgress(int Progress, int Total){
+static void callbackExportProgress(int Progress, int Total){
 	// Progress <- current progress
 	// Total <- progress out of maximum
 }
 
-void sm2obj::window::callbackExportLogDebug(const std::string& Message){
+static void callbackExportLogDebug(const std::string& Message){
 	// Debug message
 }
 
-void sm2obj::window::callbackExportLogError(const std::string& Message){
+static void callbackExportLogError(const std::string& Message){
 	// Error message
 	// After this error, the exportExitFunc function will
 	// be automatically called with "false" as argument.
 }
 
-void sm2obj::window::callbackExportLogWarning(const std::string& Message){
+static void callbackExportLogWarning(const std::string& Message){
 	// Warning message
 	// If this function is called, the exported OBJ might not be
 	// valid! Always check for warning messages!
 }
 
-void sm2obj::window::callbackExportLogInfo(const std::string& Message){
+static void callbackExportLogInfo(const std::string& Message){
 	// Info message
 	// This serves only for information about current progress
 }
