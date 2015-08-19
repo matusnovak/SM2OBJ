@@ -8,6 +8,7 @@ This program will exports blueprints from StarMade into the OBJ file alongside w
 
 * [FragmentFramework](http://matusnovak.github.io/fragmentframework/index.html) - A framework and a wrapper for several libraries listed in [FFW home page](http://matusnovak.github.io/fragmentframework/index.html) 
 * [Zlib](http://www.zlib.net/) - Data decompression, required to decompress chunks.
+* [pthreads](https://www.sourceware.org/pthreads-win32/) - POSIX win32 thread library.
 
 ## How to export the blueprint
 
@@ -50,123 +51,139 @@ Before you continue, make sure that you have at least 500 MB of empty HDD space.
 #include "source/exporter/textureExport.h"
 #include "source/exporter/exportBlueprint.h"
 
-static void callbackExportExit(bool Success){
-	// Success <- true if the exporter finished without error
+static void callbackExit(bool Success){
+    // Success <- true if the exporter finished without error
 }
 
-static void callbackExportProgress(int Progress, int Total){
-	// Progress <- current progress
-	// Total <- progress out of maximum
+static void callbackProgress(int Progress, int Total){
+    // Progress <- current progress
+    // Total <- progress out of maximum
 }
 
-static void callbackExportLogDebug(const std::string& Message){
-	// Debug message
+static void callbackLogDebug(const std::string& Message){
+    // Debug message
 }
 
-static void callbackExportLogError(const std::string& Message){
-	// Error message
-	// After this error, the exportExitFunc function will
-	// be automatically called with "false" as argument.
+static void callbackLogError(const std::string& Message){
+    // Error message
+    // After this error, the exportExitFunc function will
+    // be automatically called with "false" as argument.
 }
 
-static void callbackExportLogWarning(const std::string& Message){
-	// Warning message
-	// If this function is called, the exported OBJ might not be
-	// valid! Always check for warning messages!
+static void callbackLogWarning(const std::string& Message){
+    // Warning message
+    // If this function is called, the exported OBJ might not be
+    // valid! Always check for warning messages!
 }
 
-static void callbackExportLogInfo(const std::string& Message){
-	// Info message
-	// This serves only for information about current progress
+static void callbackLogInfo(const std::string& Message){
+    // Info message
+    // This serves only for information about current progress
 }
 
-int main(){
-	// First, you need to set the callbacks for log messages
-	// Member non-static functions are not allowed!
-	sm2obj::config::exportLogErrorFunc = &callbackExportLogError;
-    sm2obj::config::exportLogDebugFunc = &callbackExportLogDebug;
-    sm2obj::config::exportLogInfoFunc = &callbackExportLogInfo;
-    sm2obj::config::exportLogWarningFunc = &callbackExportLogWarning;
-    sm2obj::config::exportExitFunc = &callbackExportExit;
-    sm2obj::config::exportProgressFunc = &callbackExportProgress;
-
-	// Exporting the blueprint
-
-	// Input and output folders (UTF-8 compatible)
-	std::string blueprintFolder 
-		= "C:\\Program Files(x86)\\StarMade\\Blueprints\\...";
-	std::string starMadeConfigFolder
-		= "C:\\Program Files(x86)\\StarMade\\data\\config";
-	std::string outputFolder = "C:\\output";
-	
-	// Output name without file extension
-	std::string outputName = "Blueprint";
-	
-	// Threads
-	int numOfThreads = 8;
-	
-	// Set the texture extension
-	config::imageExtension = "png";
-	
-	// Material options (see options #4, #5, #6 and #7 in GUI screenshot)
-	bool exportMaterials = true;
-	bool exportDiffuse = true;
-    bool exportAlpha = true;
-    bool exportNormal = true;
-    bool exportEmissive = true;
-    bool specularHighloght = false;
-    bool exportUvs = true;
-    bool useAtlas = false; // If true, the atlases will be used
-
-    // Attachments options
-    bool attachments = true;
-	
-	// Start the exported by running this function
-	// You can run this function multiple times in parallel
-	// with different blueprints. 
-	// However, variables that are set by sm2obj::config::
-	// cannot be changed!
-	// The return value is either 0 (error) or 1 (success)
-	// The return type is void*
-	sm2obj::exportBlueprint(starMadeConfigFolder, blueprintFolder,
-	                outputFolder, outputName, exportUvs, useAtlas,
-	                exportMaterials, exportDiffuse, exportAlpha,
-	                exportNormal, exportEmissive, specularHighloght,
-	                numOfThreads, attachments);
-
-	// Exporting textures
-	
-	// Set the texture function
-	// Can be either ffw::savePNG, ffw::saveBMP,
-	// ffw::saveTGA, ffw::saveTIFF or ffw::savePBM
-	sm2obj::config::imageSaverFunc = &ffw::savePNG;
-	// Set file extention 
-	sm2obj::config::imageExtension = "png";
-	
-	// Input and output folders (UTF-8 compatible)
-	std::string inputFolder
-		= "C:\\Program Files(x86)\\StarMade\\data" + 
-		  "\\textures\\block\\Default\\256";
-	std::string starMadeConfigFolder
-		= "C:\\Program Files(x86)\\StarMade\\data\\config";
-	std::string outputFolder = "C:\\output\\textures";	
-
-	// Texture size
-	// This needs to match variable "inputFolder"
-	int textureSize = 256;
-	
-	// Convert normal maps to bump maps
-	// If false, original normals will be used
-	bool normals = false;
-
-	// Export as separated tiles
-	sm2obj::exportTextures(inputFolder, outputFolder, normals);
-
-	// Or export as atlases
-	//sm2obj::exportAtlases(inputFolder, outputFolder, normals);
-	//sm2obj::exportEmissiveAtlas(starMadeConfigFolder, outputFolder, textureSize);
-	
-	return 0;
+int main(...){
+    // Arguments structure
+    sm2obj::exportBlueprintArgs args;
+    
+    // StarMade config folder
+    args.inputConfigFolder = "C:\\Program Files(x86)\\StarMade\\data\\config";
+    // Path to blueprint folder
+    args.inputFolder = "C:\\Program Files(x86)\\StarMade\\Blueprints\\xyz";
+    // Output folder
+    // Here the OBJ and the MTL files are going to be exported
+    // The folder must exists!
+    args.outputFolder = "C:\\output";
+    // Output name
+    args.outputName = "xyz";
+    
+    // If you do not want to export UV maps:
+    args.useAtlas = false;
+    args.exportUV = false;
+    
+    // If you want to export UV and split atlas to separate tiles:
+    // args.exportUV = true;
+    // args.useAtlas = false;
+    
+    // if you want to export UV and use atlas (no texture splitting)
+    // args.exportUV = true;
+    // args.useAtlas = true;
+    
+    // Export materials?
+    args.exportMaterials = true;
+    // Which textures should be included in MTL file?
+    args.exportDiffuse = true;
+    args.exportNormal = true;
+    args.exportAlpha = true;
+    args.exportEmissive = true;
+    
+    // Should specular highlight be added to materials?
+    args.specularHighlight = true;
+    
+    // Number of threads to use
+    args.numOfThreads = 1;
+    
+    // Texture extension (must be same as in texture export!)
+    args.textureExtension = "png";
+    
+    // Export attachments?
+    args.exportAttachments = true;
+    
+    // Set callbacks
+    // See functions above
+    args.callbackLogError = &callbackLogError;
+    args.callbackLogInfo = &callbackLogInfo;
+    args.callbackLogDebug = &callbackLogDebug;
+    args.callbackLogWarning = &callbackLogWarning;
+    args.callbackProgress = &callbackProgress;
+    args.callbackTerminate = &callbackExit;
+    
+    // Export object
+    bool success = sm2obj::exportBlueprint(args);
+    
+    /////////////// Now we can export the textures ///////////////
+    
+    // Arguments structure
+    exportBlueprintArgs args;
+    
+    // StarMade config folder
+    args.inputConfigFolder = "C:\\Program Files(x86)\\StarMade\\data\\config";
+    // StarMade texture folder and texture size
+    args.inputConfigFolder = "C:\\Program Files(x86)\\StarMade\\data\\textures\\block\\Default\\256";
+    args.width = 256; // Must be same as above
+    // Where should textures go?
+    // The folder must exists!
+    args.outputFolder = "C:\\output\\textures";
+    
+    // Texture format
+    args.textureExtension = "png";
+    args.imageSaver = &ffw::savePNG;
+    // Or, use one of following:
+    // "tga" & ffw::saveTGA()
+    // "bmp" & ffw::saveBMP()
+    // "tiff" & ffw::saveTIFF()
+    // Or, use your own function:
+    // bool myImageSaver(unsigned char* Pixels, int Width, int Height, ffw::imageType Type);
+    // When called, the "Type" argument is going to be ffw::imageType::RGB_ALPHA_8888
+    
+    // Convert normals to bump?
+    args.normalToBump = true;
+    
+    // Set callbacks
+    // See functions above
+    args.callbackLogError = &callbackLogError;
+    args.callbackLogInfo = &callbackLogInfo;
+    args.callbackLogDebug = &callbackLogDebug;
+    args.callbackLogWarning = &callbackLogWarning;
+    args.callbackProgress = &callbackProgress;
+    args.callbackTerminate = &callbackExit;
+    
+    // To export separated textures, run this:
+    bool success = sm2obj::exportTextures(args);
+    
+    // To export whole atlas, run this:
+    // Order does matter!
+    bool success = sm2obj::exportAtlases(args);
+    if(success)sm2obj::exportEmissiveAtlas(args);
 }
 ```
 
