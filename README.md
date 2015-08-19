@@ -269,11 +269,12 @@ After downloading the source code, you will get these files and folders:
 
 * **source/** - GUI window classes.
 * **source/exported** - Source files of the exporter only.
-* **third-party-libs/** - Contains [FragmentFramework](http://matusnovak.github.io/fragmentframework/index.html) and [Zlib](http://www.zlib.net/) (both include headers and binaries)
+* **dependencies/** - Contains [FragmentFramework](http://matusnovak.github.io/fragmentframework/index.html), [Zlib](http://www.zlib.net/) and [pthreads](https://www.sourceware.org/pthreads-win32/) (both include headers and binaries)
 * **resources/** - Resource file and application icon.
 * **LICENSE** - License file.
 * **README.md** - You are reading it now.
 * **SM2OBJ.cbp** - Code::Blocks project file.
+* **SM2OBJ.vcproj - Visual Studio 2013 project file
 
 **Source files of the exporter inside the source/exporter folder:**
 
@@ -295,13 +296,11 @@ After downloading the source code, you will get these files and folders:
 
 ## How to compile:
 
-The binary releases are compiled with MinGW-w64 i686 GCC 4.9.2 I suggest that you use the same compiler.
+The libraries are compiled with MinGW-w64 i686 GCC 4.9.2 and with Visual Studio 2013 I suggest that you use the same compiler.
 
-Prefer to use Code::Blocks project file `SM2OBJ.cbp`
+Prefer to use Code::Blocks project file `SM2OBJ.cbp` (or Visual Studio project file `SM2OBJ.vcproj`)
 
-Or, to compile with command line: Include all source files in the `source` and `source/exporter` folders. Add compile search path to third party libraries located in `third-party-libs\FragmentFramework\include` and `third-party-libs\zlib\include` No other libraries are needed. Only `FragmentFramework.dll` is needed to be linked with the exe file (zlib is already linked in this DLL).
-
-If you are using Visual Studio, check [FragmentFramework](https://github.com/matusnovak/fragmentframework) repository for the VS 2013 version of the library in: /FragmentFramework/lib/msvc/.
+Or, to compile with command line: Include all source files in the `source` and `source/exporter` folders. Add compile search path to dependency libraries (FragmentFramework, pthread, zlib) located in `dependencies/` folder and look for `include` sub-folders and link *.DLL files located in `lib/mingw` (MinGW) or `lib/msvc` (Visual Studio).
 
 ## ToDo
 
