@@ -1,15 +1,38 @@
 # Compiled Object files
+*.obj
 *.slo
 *.lo
-*.o
 *.obj
+*.o
 
+# Visual Studio
+*.pdb
+*.ilk
+*.sdf
+*.suo
+*.log
+*.tlog
+*.ipch
+*.pdb
+*.exp
+*.opensdf
+*.user
+*.filters
+*.exe.manifest
+
+*.exe
 log.txt
 
-objects/
+!FragmentFramework.exp
+!FragmentFramework.pdb
+!FragmentFramework-debug.exp
+!FragmentFramework-debug.pdb
 
-third-party-libs/wxWidgets
-
-# Code::Blocks files
+# Code::Blocks
 *.layout
+*.save
+*.save-failed
+*.save-fail
 *.depend
+
+objects/

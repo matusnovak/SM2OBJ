@@ -12,9 +12,9 @@
 #include "blockConfig.h"
 
 namespace sm2obj{
-    bool createMaterialAtlas(ffw::file* Output, bool UseDiffuse, bool UseNormal, bool UseAlpha, bool UseEmissive, bool Specular);
+    bool createMaterialAtlas(const exportBlueprintArgs& Args, ffw::file* Output);
     //bool beginMaterialExport();
-    void createMaterialTile(ffw::file* Output, const blockInfoStruct* block, int TextureIndex, bool UseDiffuse, bool UseNormal, bool UseAlpha, bool UseEmissive, bool Specular);
+    void createMaterialTile(const exportBlueprintArgs& Args, ffw::file* Output, const blockInfoStruct* block, int TextureIndex);
     //void endMaterialExport();
 }
 

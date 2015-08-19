@@ -32,7 +32,7 @@ static void getBlock(uint32_t Buffer[][16][16], int* BlockID, int* RotA, int* Ro
 }
 
 ///=============================================================================
-bool sm2obj::buildBlock(ffw::vec3i Pos, ffw::vec3i PosRel, ffw::vec3i PosFile, uint32_t ChunkData[][16][16], chunkBufferStruct* Output){
+bool sm2obj::buildBlock(const exportBlueprintArgs& Args, ffw::vec3i Pos, ffw::vec3i PosRel, ffw::vec3i PosFile, uint32_t ChunkData[][16][16], chunkBufferStruct* Output){
     int id;
     int rotA;
     int rotB;
@@ -47,7 +47,7 @@ bool sm2obj::buildBlock(ffw::vec3i Pos, ffw::vec3i PosRel, ffw::vec3i PosFile, u
     const blockInfoStruct* block = findBlock(id);
     if(block == NULL){
         // Can not find block ID
-        LOG_WARNING("Can not find block ID: " + ffw::valToString(id));
+        Args.callbackLogWarning("Can not find block ID: " + ffw::valToString(id));
     } else {
         // -1 = undefined
         //  0 = cube

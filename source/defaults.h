@@ -14,7 +14,7 @@ namespace sm2obj {
     public:
         defaults();
         ~defaults();
-        bool load(const std::string& Path);
+        bool load(const std::string& Path, std::vector<std::string>* Missing);
         bool save(const std::string& Path);
 
         std::string inputBlueprintFolder;

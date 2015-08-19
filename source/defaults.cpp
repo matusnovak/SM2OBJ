@@ -29,8 +29,8 @@ sm2obj::defaults::defaults(){
 sm2obj::defaults::~defaults(){
 }
 
-bool sm2obj::defaults::load(const std::string& Path){
-    return deserializeAsJson(Path, NULL);
+bool sm2obj::defaults::load(const std::string& Path, std::vector<std::string>* Missing){
+    return deserializeAsJson(Path, Missing);
 }
 
 bool sm2obj::defaults::save(const std::string& Path){

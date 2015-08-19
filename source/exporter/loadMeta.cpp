@@ -33,19 +33,19 @@ static size_t findName(ffw::file* Input, const std::string& Name){
 }
 
 ///=============================================================================
-bool sm2obj::loadMeta(entityInfoStruct* Output, const std::string& Path, const std::string& Name){
+bool sm2obj::loadMeta(const exportBlueprintArgs& Args, entityInfoStruct* Output, const std::string& Path, const std::string& Name){
     ffw::file input;
     if(!input.open(Path, true, false, false)){
-        LOG_ERROR("Failed to open meta file from: " + Path);
+        Args.callbackLogError("Failed to open meta file from: " + Path);
         return false;
     }
 
-    LOG_DEBUG("Reading: " + Path);
+    Args.callbackLogDebug("Reading: " + Path);
 
     size_t pos = findName(&input, Name);
 
     if(pos == 0){
-        LOG_DEBUG("Could not load attachments for blueprint: " + Name + " Blueprint might be outdated or there are no attachments!");
+        Args.callbackLogDebug("Could not load attachments for blueprint: " + Name + " Blueprint might be outdated or there are no attachments!");
         return true;
     }
 
@@ -55,7 +55,7 @@ bool sm2obj::loadMeta(entityInfoStruct* Output, const std::string& Path, const s
 
     uint32_t totalEntries;
     input.read(&totalEntries, sizeof(uint32_t));
-    totalEntries = __builtin_bswap32(totalEntries);
+    totalEntries = ffw::byteSwap32(totalEntries);
 
     for(uint32_t i = 0; i < totalEntries; i++){
         std::string name0;
@@ -66,14 +66,14 @@ bool sm2obj::loadMeta(entityInfoStruct* Output, const std::string& Path, const s
 
         uint16_t strLength;
         input.read(&strLength, sizeof(uint16_t));
-        strLength = __builtin_bswap16(strLength);
+        strLength = ffw::byteSwap16(strLength);
         name0.resize(strLength);
         input.read(&name0[0], strLength);
 
         input.read(&bytes0[0], sizeof(bytes0));
 
         input.read(&strLength, sizeof(uint16_t));
-        strLength = __builtin_bswap16(strLength);
+        strLength = ffw::byteSwap16(strLength);
         name1.resize(strLength);
         input.read(&name1[0], strLength);
 
@@ -84,14 +84,14 @@ bool sm2obj::loadMeta(entityInfoStruct* Output, const std::string& Path, const s
         input.read(&pos.x, sizeof(pos.x));
         input.read(&pos.y, sizeof(pos.y));
         input.read(&pos.z, sizeof(pos.z));
-        pos.x = __builtin_bswap32(pos.x);
-        pos.y = __builtin_bswap32(pos.y);
-        pos.z = __builtin_bswap32(pos.z);
+        pos.x = ffw::byteSwap32(pos.x);
+        pos.y = ffw::byteSwap32(pos.y);
+        pos.z = ffw::byteSwap32(pos.z);
 
         input.read(&orientation, sizeof(orientation));
 
         input.read(&strLength, sizeof(uint16_t));
-        strLength = __builtin_bswap16(strLength);
+        strLength = ffw::byteSwap16(strLength);
         name2.resize(strLength);
         input.read(&name2[0], strLength);
 
@@ -100,9 +100,9 @@ bool sm2obj::loadMeta(entityInfoStruct* Output, const std::string& Path, const s
         input.read(&dockModule.x, sizeof(dockModule.x));
         input.read(&dockModule.y, sizeof(dockModule.y));
         input.read(&dockModule.z, sizeof(dockModule.z));
-        dockModule.x = __builtin_bswap32(dockModule.x);
-        dockModule.y = __builtin_bswap32(dockModule.y);
-        dockModule.z = __builtin_bswap32(dockModule.z);
+        dockModule.x = ffw::byteSwap32(dockModule.x);
+        dockModule.y = ffw::byteSwap32(dockModule.y);
+        dockModule.z = ffw::byteSwap32(dockModule.z);
 
         input.read(&additionalInformation[0], sizeof(additionalInformation));
 
@@ -110,7 +110,7 @@ bool sm2obj::loadMeta(entityInfoStruct* Output, const std::string& Path, const s
         if(slash != std::string::npos){
             name0 = name0.substr(slash+1, name0.size()-slash-1);
         } else {
-            LOG_ERROR("Failed to read next attachment path from meta: " + Path);
+            Args.callbackLogError("Failed to read next attachment path from meta: " + Path);
             continue;
         }
 

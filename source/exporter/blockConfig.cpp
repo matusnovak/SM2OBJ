@@ -43,15 +43,15 @@ static std::string fixSpaces(const std::string& Str){
 }
 
 ///=============================================================================
-bool sm2obj::loadBlockTypes(const std::string& Path){
+bool sm2obj::loadBlockTypes(const exportBlueprintArgs& Args, const std::string& Path){
     // Open file for input
     ffw::file input;
     if(!input.open(Path, false, false, false)){
-        LOG_ERROR("Failed to read block types from: " + Path);
+        Args.callbackLogError("Failed to read block types from: " + Path);
         return false;
     }
 
-    LOG_INFO("Reading block type properties...");
+    Args.callbackLogInfo("Reading block type properties...");
 
     int lineNumber = 0;
     while(!input.eof()){
@@ -70,13 +70,13 @@ bool sm2obj::loadBlockTypes(const std::string& Path){
             try {
                 id = ffw::stringToVal<int>(tokens[1]);
 
-            } catch (std::exception& e){
-                LOG_WARNING("Error reading type ID at line: " + ffw::valToString(lineNumber));
+            } catch (std::exception e){
+                Args.callbackLogWarning("Error reading type ID at line: " + ffw::valToString(lineNumber));
                 continue;
             }
 
             if(tokens[0].size() == 0){
-                LOG_WARNING("Error reading type name at line: " + ffw::valToString(lineNumber));
+                Args.callbackLogWarning("Error reading type name at line: " + ffw::valToString(lineNumber));
                 continue;
             }
 
@@ -84,7 +84,7 @@ bool sm2obj::loadBlockTypes(const std::string& Path){
         }
     }
 
-    LOG_DEBUG("Loaded: " + ffw::valToString(blocksType.size()) + " block types!");
+    Args.callbackLogDebug("Loaded: " + ffw::valToString(blocksType.size()) + " block types!");
     return true;
 }
 
@@ -121,15 +121,15 @@ void sm2obj::clearBlockConfig(){
 }
 
 ///=============================================================================
-bool sm2obj::loadBlockConfig(const std::string& Path){
+bool sm2obj::loadBlockConfig(const exportBlueprintArgs& Args, const std::string& Path){
     // Open file for input
     ffw::file input;
     if(!input.open(Path, false, false, false)){
-        LOG_ERROR("Failed to read block config from: " + Path);
+        Args.callbackLogError("Failed to read block config from: " + Path);
         return false;
     }
 
-    LOG_INFO("Reading block config...");
+    Args.callbackLogInfo("Reading block config...");
 
     // Loop through all lines
     int lineNumber = 0;
@@ -143,7 +143,7 @@ bool sm2obj::loadBlockConfig(const std::string& Path){
         if(line.find("<Block icon=") != std::string::npos){
             std::vector<std::string> tokens = ffw::getTokens(line, '=');
             if(tokens.size() != 5){
-                LOG_WARNING("Wrong number of tokens at line: " + ffw::valToString(lineNumber) + " expecting 5!");
+                Args.callbackLogWarning("Wrong number of tokens at line: " + ffw::valToString(lineNumber) + " expecting 5!");
                 continue;
             }
 
@@ -154,8 +154,8 @@ bool sm2obj::loadBlockConfig(const std::string& Path){
             if(pos != std::string::npos){
                 try {
                     newBlock.icon = ffw::stringToVal<int>(tokens[1].substr(1, pos-1));
-                } catch (std::exception& e){
-                    LOG_WARNING("Error reading icon data at line: " + ffw::valToString(lineNumber));
+                } catch (std::exception e){
+                    Args.callbackLogWarning("Error reading icon data at line: " + ffw::valToString(lineNumber));
                     blocksInfo.pop_back();
                     continue;
                 }
@@ -165,7 +165,7 @@ bool sm2obj::loadBlockConfig(const std::string& Path){
             if(pos != std::string::npos){
                 newBlock.name = tokens[2].substr(1, pos-1);
                 if(newBlock.name.size() == 0){
-                    LOG_WARNING("Error reading name data at line: " + ffw::valToString(lineNumber));
+                    Args.callbackLogWarning("Error reading name data at line: " + ffw::valToString(lineNumber));
                     blocksInfo.pop_back();
                     continue;
                 }
@@ -176,7 +176,7 @@ bool sm2obj::loadBlockConfig(const std::string& Path){
             if(pos != std::string::npos){
                 std::vector<std::string> texTokens = ffw::getTokens(tokens[3].substr(1, pos-1), ',');
                 if(texTokens.size() != 6){
-                    LOG_WARNING("Error reading texture data at line: " + ffw::valToString(lineNumber));
+                    Args.callbackLogWarning("Error reading texture data at line: " + ffw::valToString(lineNumber));
                     blocksInfo.pop_back();
                     continue;
                 }
@@ -186,8 +186,8 @@ bool sm2obj::loadBlockConfig(const std::string& Path){
                         newBlock.texture[i] = ffw::stringToVal<int>(texTokens[i]);
                     }
 
-                } catch (std::exception& e){
-                    LOG_WARNING("Error reading texture data at line: " + ffw::valToString(lineNumber));
+                } catch (std::exception e){
+                    Args.callbackLogWarning("Error reading texture data at line: " + ffw::valToString(lineNumber));
                     blocksInfo.pop_back();
                     continue;
                 }
@@ -197,14 +197,14 @@ bool sm2obj::loadBlockConfig(const std::string& Path){
             if(pos != std::string::npos){
                 std::string type = tokens[4].substr(1, pos-1);
                 if(type.size() == 0){
-                    LOG_WARNING("Error reading type data at line: " + ffw::valToString(lineNumber));
+                    Args.callbackLogWarning("Error reading type data at line: " + ffw::valToString(lineNumber));
                     blocksInfo.pop_back();
                     continue;
                 }
 
                 int id = findBlockType(type);
                 if(id == -1){
-                    LOG_WARNING("Could not find ID for type: " + type);
+                    Args.callbackLogWarning("Could not find ID for type: " + type);
                     continue;
                 }
 
@@ -233,11 +233,11 @@ bool sm2obj::loadBlockConfig(const std::string& Path){
                         blocksInfo[blocksInfo.size()-1].light.a = ffw::stringToVal<float>(tokens[3]);
                         success = true;
 
-                    } catch (std::exception& e){
+                    } catch (std::exception e){
                         // Nothing to do
                     }
                 }
-                if(!success)LOG_WARNING("Error reading light source color data at line: " + ffw::valToString(lineNumber));
+                if(!success)Args.callbackLogWarning("Error reading light source color data at line: " + ffw::valToString(lineNumber));
             }
 
         } else if(blocksInfo.size() > 0 && (first = line.find("<BlockStyle>")) != std::string::npos){
@@ -248,15 +248,15 @@ bool sm2obj::loadBlockConfig(const std::string& Path){
                     blocksInfo[blocksInfo.size()-1].object = ffw::stringToVal<int>(line.substr(first+12, last-first-12));
                     success = true;
 
-                } catch (std::exception& e){
+                } catch (std::exception e){
                     // Nothing to do
                 }
             }
-            if(!success)LOG_WARNING("Error reading block style as int at line: " + ffw::valToString(lineNumber));
+            if(!success)Args.callbackLogWarning("Error reading block style as int at line: " + ffw::valToString(lineNumber));
         }
     }
 
-    LOG_DEBUG("Loaded: " + ffw::valToString(blocksInfo.size()) + " blocks!");
+    Args.callbackLogDebug("Loaded: " + ffw::valToString(blocksInfo.size()) + " blocks!");
     return true;
 }
 

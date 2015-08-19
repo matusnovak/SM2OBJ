@@ -11,6 +11,6 @@
 #include "config.h"
 
 namespace sm2obj{
-    bool loadMeta(entityInfoStruct* Output, const std::string& Path, const std::string& Name);
+    bool loadMeta(const exportBlueprintArgs& Args, entityInfoStruct* Output, const std::string& Path, const std::string& Name);
 };
 #endif

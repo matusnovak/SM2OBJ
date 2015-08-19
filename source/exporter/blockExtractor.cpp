@@ -13,11 +13,11 @@
 //static std::vector<int> extractedTiles;
 
 ///=============================================================================
-bool sm2obj::loadRawBlocks(const std::string& TempFolder, chunkBufferStruct* Input, int FileIndex){
+bool sm2obj::loadRawBlocks(const exportBlueprintArgs& Args, const std::string& TempFolder, chunkBufferStruct* Input, int FileIndex){
     ffw::file input;
 
     if(!input.open(TempFolder + "\\chunk-temp-processed-" + ffw::valToString(FileIndex) + ".raw", true, false, false)){
-        LOG_ERROR("Failed to load processed raw chunk data! Chunk index: " + ffw::valToString(FileIndex));
+        Args.callbackLogError("Failed to load processed raw chunk data! Chunk index: " + ffw::valToString(FileIndex));
         return false;
     }
 
@@ -54,11 +54,11 @@ bool sm2obj::loadRawBlocks(const std::string& TempFolder, chunkBufferStruct* Inp
 }
 
 ///=============================================================================
-bool sm2obj::saveRawBlocks(const std::string& TempFolder, chunkBufferStruct* Input, int FileIndex){
+bool sm2obj::saveRawBlocks(const exportBlueprintArgs& Args, const std::string& TempFolder, chunkBufferStruct* Input, int FileIndex){
     ffw::file output;
 
     if(!output.open(TempFolder + "\\chunk-temp-processed-" + ffw::valToString(FileIndex) + ".raw", true, true, true)){
-        LOG_ERROR("Failed to svae processed raw chunk data! Chunk index: " + ffw::valToString(FileIndex));
+        Args.callbackLogError("Failed to svae processed raw chunk data! Chunk index: " + ffw::valToString(FileIndex));
         return false;
     }
 
@@ -95,18 +95,17 @@ bool sm2obj::saveRawBlocks(const std::string& TempFolder, chunkBufferStruct* Inp
 }
 
 ///=============================================================================
-bool sm2obj::extractBlocks(const std::string& TempFolder, chunkBufferStruct* Input, int FileIndex,
-                           bool ExportMaterials, bool SplitTextures, bool ExportUvMaps, uint64_t* IndicesOffset, uint64_t* TexPosOffset){
+bool sm2obj::extractBlocks(const exportBlueprintArgs& Args, const std::string& TempFolder, chunkBufferStruct* Input, int FileIndex, uint64_t* IndicesOffset, uint64_t* TexPosOffset){
     ffw::file vertices;
     ffw::file indices;
 
     if(!vertices.open(TempFolder + "\\chunk-temp-" + ffw::valToString(FileIndex) + ".vertices", false, true, true)){
-        LOG_ERROR("Failed to svae chunk vertices! Chunk index: " + ffw::valToString(FileIndex));
+        Args.callbackLogError("Failed to svae chunk vertices! Chunk index: " + ffw::valToString(FileIndex));
         return false;
     }
 
     if(!indices.open(TempFolder + "\\chunk-temp-" + ffw::valToString(FileIndex) + ".indices", false, true, true)){
-        LOG_ERROR("Failed to svae chunk indices! Chunk index: " + ffw::valToString(FileIndex));
+        Args.callbackLogError("Failed to svae chunk indices! Chunk index: " + ffw::valToString(FileIndex));
         return false;
     }
 
@@ -124,7 +123,7 @@ bool sm2obj::extractBlocks(const std::string& TempFolder, chunkBufferStruct* Inp
     int currentTextureOffset = 0;
     const blockInfoStruct* block = NULL;
     for(uint32_t i = 0; i < Input->indicesCount; i++){
-        if(SplitTextures && ExportMaterials && (lastId != Input->indicesMat[i][0] || lastTex != Input->indicesMat[i][1])){
+        if(!Args.useAtlas && Args.exportMaterials && (lastId != Input->indicesMat[i][0] || lastTex != Input->indicesMat[i][1])){
             lastId = Input->indicesMat[i][0];
             lastTex = Input->indicesMat[i][1];
             block = findBlock(lastId);
@@ -147,7 +146,7 @@ bool sm2obj::extractBlocks(const std::string& TempFolder, chunkBufferStruct* Inp
         }
 
 
-        if(!SplitTextures && ExportMaterials && lastTex != Input->indicesMat[i][1]){
+        if(Args.useAtlas && Args.exportMaterials && lastTex != Input->indicesMat[i][1]){
             lastTex = Input->indicesMat[i][1];
 
             if(lastAtlas != Input->indicesMat[i][1] / 256){
@@ -165,7 +164,7 @@ bool sm2obj::extractBlocks(const std::string& TempFolder, chunkBufferStruct* Inp
             }
         }
 
-        if(ExportUvMaps){
+        if(Args.exportUV){
 
             if(Input->indices[i].w == -1){
                 indices.writeLine("f " + ffw::valToString(Input->indices[i].x + (*IndicesOffset) +1) + "/" + ffw::valToString(Input->indicesUvs[i].x + (*TexPosOffset) + currentTextureOffset*4) + " "

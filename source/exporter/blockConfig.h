@@ -8,6 +8,7 @@
 #define SMD2OBJ_BLOCK_CONFIG
 
 #include <ffw.h>
+#include "config.h"
 
 namespace sm2obj{
     // Block info
@@ -39,8 +40,8 @@ namespace sm2obj{
     };
 
     void clearBlockConfig();
-    bool loadBlockTypes(const std::string& Path);
-    bool loadBlockConfig(const std::string& Path);
+    bool loadBlockTypes(const exportBlueprintArgs& Args, const std::string& Path);
+    bool loadBlockConfig(const exportBlueprintArgs& Args, const std::string& Path);
     const blockInfoStruct* findBlock(int ID);
     const blockInfoStruct* findBlockByTexture(int Index);
 };

@@ -1,0 +1,19 @@
+{
+    "export-attachments": true,
+    "exportMaterials": true,
+    "input-blueprint-folder": "E:\\Program Files (x86)\\StarMade\\StarMade\\blueprints\\BLUEPRINT_1439984067219",
+    "input-data-folder": "E:\\Program Files (x86)\\StarMade\\StarMade\\data",
+    "num-of-threads": "8",
+    "output-file-folder": "C:\\output",
+    "output-texture-folder": "C:\\output\\textures",
+    "specular-highlight": false,
+    "texture-export-type": 1,
+    "texture-normals": 1,
+    "texture-output-format": 0,
+    "texture-tile-size": 2,
+    "use-alpha-textures": true,
+    "use-diffuse-textures": true,
+    "use-emissive-textures": true,
+    "use-normal-textures": true,
+    "uv-maps-options": 2
+}

@@ -11,9 +11,9 @@
 #include "config.h"
 
 namespace sm2obj{
-    bool exportEmissiveAtlas(const std::string& InputConfigFolder, const std::string& OutputFolder, int TileWidth);
-    bool exportTextures(const std::string& InputFolder, const std::string& OutputFolder, bool ConvertNormals);
-    bool exportAtlases(const std::string& InputFolder, const std::string& OutputFolder, bool ConvertNormals);
+	bool exportEmissiveAtlas(const exportBlueprintArgs& Args);
+    bool exportTextures(const exportBlueprintArgs& Args);
+    bool exportAtlases(const exportBlueprintArgs& Args);
 };
 
 #endif

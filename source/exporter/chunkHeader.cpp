@@ -42,11 +42,11 @@ bool sm2obj::loadChunkHeader(ffw::file* File, int* ChunkIndex, int* TotalChunks)
                 auto& currentIndex = chunkIndex[x][y][z];
 
                 // Swap bytes due to endianness
-                currentIndex.chunkID = __builtin_bswap32(currentIndex.chunkID);
-                currentIndex.chunkLen = __builtin_bswap32(currentIndex.chunkLen);
+                currentIndex.chunkID = ffw::byteSwap32(currentIndex.chunkID);
+                currentIndex.chunkLen = ffw::byteSwap32(currentIndex.chunkLen);
 
                 auto& currentStamp = timeStampIndex[z][y][x];
-                currentStamp = __builtin_bswap64(currentStamp);
+                currentStamp = ffw::byteSwap64(currentStamp);
 
                 if(currentIndex.chunkID >= 0){
                     (*TotalChunks)++;

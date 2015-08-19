@@ -11,7 +11,7 @@
 
 // Load chunk and decompress data
 ///=============================================================================
-bool sm2obj::loadChunk(ffw::file* File, size_t FileOffset, int ChunkIndex, uint32_t ChunkData[][16][16], ffw::vec3i* Pos){
+bool sm2obj::loadChunk(const exportBlueprintArgs& Args, ffw::file* File, size_t FileOffset, int ChunkIndex, uint32_t ChunkData[][16][16], ffw::vec3i* Pos){
     uint64_t timeStamp;
     int32_t relativePosition[3];
     uint8_t chunkType;
@@ -24,20 +24,20 @@ bool sm2obj::loadChunk(ffw::file* File, size_t FileOffset, int ChunkIndex, uint3
            File->read(&chunkType, sizeof(uint8_t)) &&
            File->read(&compressedDataLength, sizeof(uint32_t)) &&
            File->read(&compressedData, 5095)) ){
-        LOG_ERROR("Chunk error while reading chunk header!");
+        Args.callbackLogError("Chunk error while reading chunk header!");
         return false;
     }
 
-    timeStamp = __builtin_bswap64(timeStamp);
-    relativePosition[0] = __builtin_bswap32(relativePosition[0]);
-    relativePosition[1] = __builtin_bswap32(relativePosition[1]);
-    relativePosition[2] = __builtin_bswap32(relativePosition[2]);
-    compressedDataLength = __builtin_bswap32(compressedDataLength);
+    timeStamp = ffw::byteSwap64(timeStamp);
+    relativePosition[0] = ffw::byteSwap32(relativePosition[0]);
+    relativePosition[1] = ffw::byteSwap32(relativePosition[1]);
+    relativePosition[2] = ffw::byteSwap32(relativePosition[2]);
+    compressedDataLength = ffw::byteSwap32(compressedDataLength);
 
     if(relativePosition[0] > 9999 || relativePosition[0] < -9999 ||
        relativePosition[1] > 9999 || relativePosition[1] < -9999 ||
        relativePosition[2] > 9999 || relativePosition[2] < -9999){
-        LOG_WARNING("Chunk error while reading chunk header! Wrong relative position!");
+        Args.callbackLogWarning("Chunk error while reading chunk header! Wrong relative position!");
         return false;
     }
 
@@ -49,7 +49,7 @@ bool sm2obj::loadChunk(ffw::file* File, size_t FileOffset, int ChunkIndex, uint3
     strm.next_in = Z_NULL;
     int ret = inflateInit(&strm);
     if(ret != Z_OK){
-        LOG_WARNING("Chunk failed to load! Z-Lib init error!");
+        Args.callbackLogWarning("Chunk failed to load! Z-Lib init error!");
         inflateEnd(&strm);
         return false;
     }
@@ -65,7 +65,7 @@ bool sm2obj::loadChunk(ffw::file* File, size_t FileOffset, int ChunkIndex, uint3
     int have = (16*16*16*3) - strm.avail_out;
 
     if(have != 12288){
-        LOG_WARNING("Can not decompress data! Chunk might be corrupted!");
+        Args.callbackLogWarning("Can not decompress data! Chunk might be corrupted!");
         return false;
     }
 

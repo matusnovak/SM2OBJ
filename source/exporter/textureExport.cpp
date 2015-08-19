@@ -8,18 +8,16 @@
 #include "blockConfig.h"
 #include <math.h>
 
-static std::string textures[6] = {"t000.png", "t001.png", "t002.png", "t000_NRM.png", "t001_NRM.png", "t002_NRM.png"};
-
-static bool loadBlocks(const std::string& InputConfigFolder){
+static bool loadBlocks(const sm2obj::exportBlueprintArgs& Args){
     sm2obj::clearBlockConfig();
     // Load block types
-    if(!sm2obj::loadBlockTypes(InputConfigFolder + "\\BlockTypes.properties")){
-        TERMINATE(false);
+    if(!sm2obj::loadBlockTypes(Args, Args.inputConfigFolder + "\\BlockTypes.properties")){
+        return false;
     }
 
     // Load block config
-    if(!sm2obj::loadBlockConfig(InputConfigFolder + "\\BlockConfig.xml")){
-        TERMINATE(false);
+    if(!sm2obj::loadBlockConfig(Args, Args.inputConfigFolder + "\\BlockConfig.xml")){
+        return false;
     }
     return true;
 }
@@ -59,29 +57,29 @@ static void convertNormalToBump(unsigned char* InputPixels, int InputWidth, int 
 }
 
 ///=============================================================================
-bool sm2obj::exportEmissiveAtlas(const std::string& InputConfigFolder, const std::string& OutputFolder, int TileWidth){
-    LOG_DEBUG("Exporting emissive atlas");
+bool sm2obj::exportEmissiveAtlas(const exportBlueprintArgs& Args){
+    Args.callbackLogDebug("Exporting emissive atlas");
 
-    if(!loadBlocks(InputConfigFolder))return false;
+    if(!loadBlocks(Args))return false;
 
     int index = 0;
-    unsigned char* pixels = new unsigned char[TileWidth*16*TileWidth*16*3];
-    int width = TileWidth*16;
+    unsigned char* pixels = new unsigned char[Args.width*16*Args.width*16*3];
+    int width = Args.width*16;
 
     for(int i = 0; i < 3; i++){
 
-        for(int p = 0; p < TileWidth*16*TileWidth*16*3; p++)pixels[p] = 0;
+        for(int p = 0; p < Args.width*16*Args.width*16*3; p++)pixels[p] = 0;
 
         for(int y = 15; y >= 0; y--){
             for(int x = 0; x < 16; x++){
                 const blockInfoStruct* block = findBlockByTexture(index);
                 if(block != NULL && block->emissive){
 
-                    for(int h = 0; h < TileWidth; h++){
-                        for(int w = 0; w < TileWidth; w++){
-                            pixels[width*(y*TileWidth+h)*3 + (x*TileWidth+w)*3 +0] = block->light.r * 255;
-                            pixels[width*(y*TileWidth+h)*3 + (x*TileWidth+w)*3 +1] = block->light.g * 255;
-                            pixels[width*(y*TileWidth+h)*3 + (x*TileWidth+w)*3 +2] = block->light.b * 255;
+                    for(int h = 0; h < Args.width; h++){
+                        for(int w = 0; w < Args.width; w++){
+                            pixels[width*(y*Args.width+h)*3 + (x*Args.width+w)*3 +0] = char(block->light.r * 255);
+                            pixels[width*(y*Args.width+h)*3 + (x*Args.width+w)*3 +1] = char(block->light.g * 255);
+                            pixels[width*(y*Args.width+h)*3 + (x*Args.width+w)*3 +2] = char(block->light.b * 255);
                         }
                     }
 
@@ -90,9 +88,11 @@ bool sm2obj::exportEmissiveAtlas(const std::string& InputConfigFolder, const std
             }
         }
 
-        if(!config::imageSaverFunc(OutputFolder + "\\Atlas_" + ffw::valToString(i) + "_emissive." + config::imageExtension, pixels, TileWidth*16, TileWidth*16, ffw::imageType::RGB_888)){
-            LOG_ERROR("Failed to save texture: " + OutputFolder + "\\Atlas_" + ffw::valToString(i) + "_emissive." + config::imageExtension + " Program might not have permissions or target folder " + OutputFolder + " does not exists!");
-            TERMINATE(false);
+		std::string outputFile = Args.outputFolder + "\\Atlas_" + ffw::valToString(i) + "_emissive." + Args.textureExtension;
+        if(!Args.imageSaver(outputFile, pixels, Args.width*16, Args.width*16, ffw::imageType::RGB_888)){
+            Args.callbackLogError("Failed to save texture: " + outputFile + " Program might not have permissions or target folder " + Args.outputFolder + " does not exists!");
+            Args.callbackTerminate(false);
+            return false;
         }
     }
 
@@ -101,14 +101,14 @@ bool sm2obj::exportEmissiveAtlas(const std::string& InputConfigFolder, const std
 }
 
 ///=============================================================================
-bool sm2obj::exportAtlases(const std::string& InputFolder, const std::string& OutputFolder, bool ConvertNormals){
+bool sm2obj::exportAtlases(const exportBlueprintArgs& Args){
     int index = 0;
-
-    LOG_DEBUG("Exporting textures from: " + InputFolder);
+    Args.callbackLogDebug("Exporting textures from: " + Args.inputFolder);
 
     int total = 6;
     int progress = 1;
 
+	std::string textures[6] = {"t000.png", "t001.png", "t002.png", "t000_NRM.png", "t001_NRM.png", "t002_NRM.png"};
     for(int i = 0; i < 6; i++){
         std::string tex = textures[i];
         if(i == 3)index = 0;
@@ -117,29 +117,30 @@ bool sm2obj::exportAtlases(const std::string& InputFolder, const std::string& Ou
         int height;
         int channels;
         ffw::imageType type;
+		ffw::logger().info() << "Texture: " << tex;
 
-        LOG_DEBUG("Reading file: " + InputFolder + "\\" + tex);
+        Args.callbackLogDebug("Reading file: " + Args.inputFolder + "\\" + tex);
 
-        if(!ffw::loadPNG(InputFolder + "\\" + tex, &pixels, &width, &height, &type)){
-            LOG_ERROR("Failed to load texture: " + InputFolder + "\\" + tex);
-            TERMINATE(false);
+        if(!ffw::loadPNG(Args.inputFolder + "\\" + tex, &pixels, &width, &height, &type)){
+            Args.callbackLogError("Failed to load texture: " + Args.inputFolder + "\\" + tex);
+            Args.callbackTerminate(false);  return false;
         }
 
         if(width != height){
-            LOG_ERROR("Failed to load texture: " + InputFolder + "\\" + tex + " Texture must have same width and height!");
-            TERMINATE(false);
+            Args.callbackLogError("Failed to load texture: " + Args.inputFolder + "\\" + tex + " Texture must have same width and height!");
+            Args.callbackTerminate(false);  return false;
         }
 
         if(!(width == 1024 || width == 2048 || width == 4096)){
-            LOG_ERROR("Failed to load texture: " + InputFolder + "\\" + tex + " Wrong texture size! Must be either 1024, 2048, or 4096!");
-            TERMINATE(false);
+            Args.callbackLogError("Failed to load texture: " + Args.inputFolder + "\\" + tex + " Wrong texture size! Must be either 1024, 2048, or 4096!");
+            Args.callbackTerminate(false);  return false;
         }
 
         if(type == ffw::imageType::RGB_888)channels = 3;
         else if(type == ffw::imageType::RGB_ALPHA_8888)channels = 4;
         else {
-            LOG_ERROR("Failed to load texture: " + InputFolder + "\\" + tex + " Wrong texture format! Must be either 8-bit RGB or 8-bit RGBA!");
-            TERMINATE(false);
+            Args.callbackLogError("Failed to load texture: " + Args.inputFolder + "\\" + tex + " Wrong texture format! Must be either 8-bit RGB or 8-bit RGBA!");
+            Args.callbackTerminate(false);  return false;
         }
 
         unsigned char* outputAlphaPixels = new unsigned char[width*height*1];
@@ -150,15 +151,16 @@ bool sm2obj::exportAtlases(const std::string& InputFolder, const std::string& Ou
             isNormal = true;
         }
 
-        LOG_INFO("Processing texture: " + tex);
+        Args.callbackLogInfo("Processing texture: " + tex);
 
-        PROGRESS(progress, total);
+        Args.callbackProgress(progress, total);
 
         // Diffuse
         if(!isNormal){
-            if(!config::imageSaverFunc(OutputFolder + "\\Atlas_" + ffw::valToString(index) + "_diff." + config::imageExtension, pixels, width, height, type)){
-                LOG_ERROR("Failed to save texture: " + OutputFolder + "\\Atlas_" + ffw::valToString(index) + "_diff." + config::imageExtension + " Program might not have permissions or target folder " + OutputFolder + " does not exists!");
-                TERMINATE(false);
+            std::string outputFile = Args.outputFolder + "\\Atlas_" + ffw::valToString(index) + "_diff." + Args.textureExtension;
+			if(!Args.imageSaver(outputFile, pixels, width, height, type)){
+                Args.callbackLogError("Failed to save texture: " + outputFile + " Program might not have permissions or target folder " + Args.outputFolder + " does not exists!");
+                Args.callbackTerminate(false);  return false;
             }
         }
 
@@ -166,36 +168,41 @@ bool sm2obj::exportAtlases(const std::string& InputFolder, const std::string& Ou
         if(!isNormal && type == ffw::imageType::RGB_ALPHA_8888){
             extractAlpha(pixels, width, height, outputAlphaPixels);
 
-            if(!config::imageSaverFunc(OutputFolder + "\\Atlas_" + ffw::valToString(index) + "_alpha." + config::imageExtension, outputAlphaPixels, width, height, ffw::imageType::GRAYSCALE_8)){
-                LOG_ERROR("Failed to save texture: " + OutputFolder + "\\Atlas_" + ffw::valToString(index) + "_alpha." + config::imageExtension + " Program might not have permissions or target folder " + OutputFolder + " does not exists!");
-                TERMINATE(false);
+			std::string outputFile = Args.outputFolder + "\\Atlas_" + ffw::valToString(index) + "_alpha." + Args.textureExtension;
+            if(!Args.imageSaver(outputFile, outputAlphaPixels, width, height, ffw::imageType::GRAYSCALE_8)){
+                Args.callbackLogError("Failed to save texture: " + outputFile + " Program might not have permissions or target folder " + Args.outputFolder + " does not exists!");
+                Args.callbackTerminate(false);  return false;
             }
 
         // Alpha alternative
         } else if(!isNormal){
             for(int p = 0; p < width*height*1; p++)outputAlphaPixels[p] = 255;
 
-            if(!config::imageSaverFunc(OutputFolder + "\\Atlas_" + ffw::valToString(index) + "_alpha." + config::imageExtension, outputAlphaPixels, width, height, ffw::imageType::GRAYSCALE_8)){
-                LOG_ERROR("Failed to save texture: " + OutputFolder + "\\Atlas_" + ffw::valToString(index) + "_alpha." + config::imageExtension + " Program might not have permissions or target folder " + OutputFolder + " does not exists!");
-                TERMINATE(false);
+			std::string outputFile = Args.outputFolder + "\\Atlas_" + ffw::valToString(index) + "_alpha." + Args.textureExtension;
+            if(!Args.imageSaver(outputFile, outputAlphaPixels, width, height, ffw::imageType::GRAYSCALE_8)){
+                Args.callbackLogError("Failed to save texture: " + outputFile + " Program might not have permissions or target folder " + Args.outputFolder + " does not exists!");
+                Args.callbackTerminate(false);  return false;
             }
         }
 
         // Normals
-        if(isNormal && !ConvertNormals){
-            if(!config::imageSaverFunc(OutputFolder + "\\Atlas_" + ffw::valToString(index) + "_bump." + config::imageExtension, pixels, width, height, type)){
-                LOG_ERROR("Failed to save texture: " + OutputFolder + "\\Atlas_" + ffw::valToString(index) + "_bump." + config::imageExtension + " Program might not have permissions or target folder " + OutputFolder + " does not exists!");
-                TERMINATE(false);
+        if(isNormal && !Args.normalToBump){
+
+			std::string outputFile = Args.outputFolder + "\\Atlas_" + ffw::valToString(index) + "_bump." + Args.textureExtension;
+			if(!Args.imageSaver(outputFile, pixels, width, height, type)){
+                Args.callbackLogError("Failed to save texture: " + outputFile + " Program might not have permissions or target folder " + Args.outputFolder + " does not exists!");
+                Args.callbackTerminate(false);  return false;
             }
         }
 
         // Bump
-        if(isNormal && ConvertNormals){
+        if(isNormal && Args.normalToBump){
             convertNormalToBump(pixels, width, height, outputBumpPixels);
 
-            if(!config::imageSaverFunc(OutputFolder + "\\Atlas_" + ffw::valToString(index) + "_bump." + config::imageExtension, outputBumpPixels, width, height, ffw::imageType::GRAYSCALE_8)){
-                LOG_ERROR("Failed to save texture: " + OutputFolder + "\\Atlas_" + ffw::valToString(index) + "_bump." + config::imageExtension + " Program might not have permissions or target folder " + OutputFolder + " does not exists!");
-                TERMINATE(false);
+			std::string outputFile = Args.outputFolder + "\\Atlas_" + ffw::valToString(index) + "_bump." + Args.textureExtension;
+            if(!Args.imageSaver(outputFile, outputBumpPixels, width, height, ffw::imageType::GRAYSCALE_8)){
+                Args.callbackLogError("Failed to save texture: " + outputFile + " Program might not have permissions or target folder " + Args.outputFolder + " does not exists!");
+                Args.callbackTerminate(false);  return false;
             }
         }
 
@@ -207,19 +214,20 @@ bool sm2obj::exportAtlases(const std::string& InputFolder, const std::string& Ou
         delete[] outputBumpPixels;
     }
 
-    TERMINATE(true);
+    Args.callbackTerminate(true);
     return true;
 }
 
 ///=============================================================================
-bool sm2obj::exportTextures(const std::string& InputFolder, const std::string& OutputFolder, bool ConvertNormals){
+bool sm2obj::exportTextures(const exportBlueprintArgs& Args){
     int index = 0;
 
-    LOG_DEBUG("Exporting textures from: " + InputFolder);
+    Args.callbackLogDebug("Exporting textures from: " + Args.inputFolder);
 
     int total = 16*16*6;
     int progress = 1;
 
+	std::string textures[6] = {"t000.png", "t001.png", "t002.png", "t000_NRM.png", "t001_NRM.png", "t002_NRM.png"};
     for(int i = 0; i < 6; i++){
         std::string tex = textures[i];
         if(i == 3)index = 0;
@@ -229,34 +237,34 @@ bool sm2obj::exportTextures(const std::string& InputFolder, const std::string& O
         int channels;
         ffw::imageType type;
 
-        LOG_DEBUG("Reading file: " + InputFolder + "\\" + tex);
+        Args.callbackLogDebug("Reading file: " + Args.inputFolder + "\\" + tex);
 
-        if(!ffw::loadPNG(InputFolder + "\\" + tex, &pixels, &width, &height, &type)){
-            LOG_ERROR("Failed to load texture: " + InputFolder + "\\" + tex);
-            TERMINATE(false);
+        if(!ffw::loadPNG(Args.inputFolder + "\\" + tex, &pixels, &width, &height, &type)){
+            Args.callbackLogError("Failed to load texture: " + Args.inputFolder + "\\" + tex);
+            Args.callbackTerminate(false);  return false;
         }
 
         if(width != height){
-            LOG_ERROR("Failed to load texture: " + InputFolder + "\\" + tex + " Texture must have same width and height!");
-            TERMINATE(false);
+            Args.callbackLogError("Failed to load texture: " + Args.inputFolder + "\\" + tex + " Texture must have same width and height!");
+            Args.callbackTerminate(false);  return false;
         }
 
         if(!(width == 1024 || width == 2048 || width == 4096)){
-            LOG_ERROR("Failed to load texture: " + InputFolder + "\\" + tex + " Wrong texture size! Must be either 1024, 2048, or 4096!");
-            TERMINATE(false);
+            Args.callbackLogError("Failed to load texture: " + Args.inputFolder + "\\" + tex + " Wrong texture size! Must be either 1024, 2048, or 4096!");
+            Args.callbackTerminate(false);  return false;
         }
 
         if(type == ffw::imageType::RGB_888)channels = 3;
         else if(type == ffw::imageType::RGB_ALPHA_8888)channels = 4;
         else {
-            LOG_ERROR("Failed to load texture: " + InputFolder + "\\" + tex + " Wrong texture format! Must be either 8-bit RGB or 8-bit RGBA!");
-            TERMINATE(false);
+            Args.callbackLogError("Failed to load texture: " + Args.inputFolder + "\\" + tex + " Wrong texture format! Must be either 8-bit RGB or 8-bit RGBA!");
+            Args.callbackTerminate(false);  return false;
         }
 
-        int bleeding = (width / 16)*0.15625f;
+        int bleeding = int((width / 16)*0.15625f);
 
         int splitSize = (width / 16) - bleeding;
-        LOG_DEBUG("Splitting texture to: " + ffw::valToString(splitSize) + "x" + ffw::valToString(splitSize) + " chunks");
+        Args.callbackLogDebug("Splitting texture to: " + ffw::valToString(splitSize) + "x" + ffw::valToString(splitSize) + " chunks");
 
         unsigned char* outputDiffusePixels = new unsigned char[splitSize*splitSize*channels];
         unsigned char* outputAlphaPixels = new unsigned char[splitSize*splitSize*1];
@@ -267,19 +275,20 @@ bool sm2obj::exportTextures(const std::string& InputFolder, const std::string& O
             isNormal = true;
         }
 
-        LOG_INFO("Processing texture: " + tex);
+        Args.callbackLogInfo("Processing texture: " + tex);
 
         for(int y = 0; y < height; y += (width / 16)){
             for(int x = 0; x < width; x += (width / 16)){
-                PROGRESS(progress, total);
+                Args.callbackProgress(progress, total);
 
                 subsection(pixels, width, height, x + bleeding/2, y + bleeding/2, channels, outputDiffusePixels, splitSize, splitSize);
 
                 // Diffuse
                 if(!isNormal){
-                    if(!config::imageSaverFunc(OutputFolder + "\\Tex_" + ffw::valToString(index) + "_diff." + config::imageExtension, outputDiffusePixels, splitSize, splitSize, type)){
-                        LOG_ERROR("Failed to save texture: " + OutputFolder + "\\Tex_" + ffw::valToString(index) + "_diff." + config::imageExtension + " Program might not have permissions or target folder " + OutputFolder + " does not exists!");
-                        TERMINATE(false);
+                    std::string outputFile = Args.outputFolder + "\\Tex_" + ffw::valToString(index) + "_diff." + Args.textureExtension;
+					if(!Args.imageSaver(outputFile, outputDiffusePixels, splitSize, splitSize, type)){
+                        Args.callbackLogError("Failed to save texture: " + outputFile + " Program might not have permissions or target folder " + Args.outputFolder + " does not exists!");
+                        Args.callbackTerminate(false);  return false;
                     }
                 }
 
@@ -287,9 +296,10 @@ bool sm2obj::exportTextures(const std::string& InputFolder, const std::string& O
                 if(!isNormal && type == ffw::imageType::RGB_ALPHA_8888){
                     extractAlpha(outputDiffusePixels, splitSize, splitSize, outputAlphaPixels);
 
-                    if(!config::imageSaverFunc(OutputFolder + "\\Tex_" + ffw::valToString(index) + "_alpha." + config::imageExtension, outputAlphaPixels, splitSize, splitSize, ffw::imageType::GRAYSCALE_8)){
-                        LOG_ERROR("Failed to save texture: " + OutputFolder + "\\Tex_" + ffw::valToString(index) + "_alpha." + config::imageExtension + " Program might not have permissions or target folder " + OutputFolder + " does not exists!");
-                        TERMINATE(false);
+					std::string outputFile = Args.outputFolder + "\\Tex_" + ffw::valToString(index) + "_alpha." + Args.textureExtension;
+                    if(!Args.imageSaver(outputFile, outputAlphaPixels, splitSize, splitSize, ffw::imageType::GRAYSCALE_8)){
+                        Args.callbackLogError("Failed to save texture: " + outputFile + " Program might not have permissions or target folder " + Args.outputFolder + " does not exists!");
+                        Args.callbackTerminate(false);  return false;
                     }
                 }
 
@@ -297,27 +307,31 @@ bool sm2obj::exportTextures(const std::string& InputFolder, const std::string& O
                 if(!isNormal && type == ffw::imageType::RGB_ALPHA_8888){
                     for(int p = 0; p < splitSize*splitSize*1; p++)outputAlphaPixels[p] = 255;
 
-                    if(!config::imageSaverFunc(OutputFolder + "\\Tex_" + ffw::valToString(index) + "_alpha." + config::imageExtension, outputAlphaPixels, splitSize, splitSize, ffw::imageType::GRAYSCALE_8)){
-                        LOG_ERROR("Failed to save texture: " + OutputFolder + "\\Tex_" + ffw::valToString(index) + "_alpha." + config::imageExtension + " Program might not have permissions or target folder " + OutputFolder + " does not exists!");
-                        TERMINATE(false);
+					std::string outputFile = Args.outputFolder + "\\Tex_" + ffw::valToString(index) + "_alpha." + Args.textureExtension;
+                    if(!Args.imageSaver(outputFile, outputAlphaPixels, splitSize, splitSize, ffw::imageType::GRAYSCALE_8)){
+                        Args.callbackLogError("Failed to save texture: " + outputFile + " Program might not have permissions or target folder " + Args.outputFolder + " does not exists!");
+                        Args.callbackTerminate(false);  return false;
                     }
                 }
 
                 // Normals
-                if(isNormal && !ConvertNormals){
-                    if(!config::imageSaverFunc(OutputFolder + "\\Tex_" + ffw::valToString(index) + "_bump." + config::imageExtension, outputDiffusePixels, splitSize, splitSize, type)){
-                        LOG_ERROR("Failed to save texture: " + OutputFolder + "\\Tex_" + ffw::valToString(index) + "_bump." + config::imageExtension + " Program might not have permissions or target folder " + OutputFolder + " does not exists!");
-                        TERMINATE(false);
+                if(isNormal && !Args.normalToBump){
+
+					std::string outputFile = Args.outputFolder + "\\Tex_" + ffw::valToString(index) + "_bump." + Args.textureExtension;
+					if(!Args.imageSaver(outputFile, outputDiffusePixels, splitSize, splitSize, type)){
+                        Args.callbackLogError("Failed to save texture: " + outputFile + " Program might not have permissions or target folder " + Args.outputFolder + " does not exists!");
+                        Args.callbackTerminate(false);  return false;
                     }
                 }
 
                 // Bump
-                if(isNormal && ConvertNormals){
+                if(isNormal && Args.normalToBump){
                     convertNormalToBump(outputDiffusePixels, splitSize, splitSize, outputBumpPixels);
 
-                    if(!config::imageSaverFunc(OutputFolder + "\\Tex_" + ffw::valToString(index) + "_bump." + config::imageExtension, outputBumpPixels, splitSize, splitSize, ffw::imageType::GRAYSCALE_8)){
-                        LOG_ERROR("Failed to save texture: " + OutputFolder + "\\Tex_" + ffw::valToString(index) + "_bump." + config::imageExtension + " Program might not have permissions or target folder " + OutputFolder + " does not exists!");
-                        TERMINATE(false);
+					std::string outputFile = Args.outputFolder + "\\Tex_" + ffw::valToString(index) + "_bump." + Args.textureExtension;
+                    if(!Args.imageSaver(outputFile, outputBumpPixels, splitSize, splitSize, ffw::imageType::GRAYSCALE_8)){
+                        Args.callbackLogError("Failed to save texture: " + outputFile + " Program might not have permissions or target folder " + Args.outputFolder + " does not exists!");
+                        Args.callbackTerminate(false);  return false;
                     }
                 }
 
@@ -331,6 +345,6 @@ bool sm2obj::exportTextures(const std::string& InputFolder, const std::string& O
         delete[] outputBumpPixels;
         delete[] pixels;
     }
-    TERMINATE(true);
+    Args.callbackTerminate(true);
     return true;
 }
