@@ -4,8 +4,8 @@
 *   Licensed under the MIT License
 */
 
-#ifndef FFW_GRAPHICS_TEXTURE_2D
-#define FFW_GRAPHICS_TEXTURE_2D
+#ifndef FFW_TEXTURE_2D
+#define FFW_TEXTURE_2D
 
 #include "texture.hpp"
 
@@ -21,7 +21,9 @@ namespace ffw {
     */
 	class FFW_API texture2D: public texture {
     public:
-        texture2D();
+        static bool checkCompability(const renderContext* Renderer);
+		
+		texture2D();
         ~texture2D();
         /*!
             @memberof texture2D
@@ -40,7 +42,7 @@ namespace ffw {
 
             @return True on success
         */
-        bool create(GLsizei Width, GLsizei Height, GLenum InternalFormat, GLenum Format, GLenum PixelFormat);
+        bool create(const ffw::renderContext* Renderer, GLsizei Width, GLsizei Height, GLenum InternalFormat, GLenum Format, GLenum PixelFormat);
         /*!
             @memberof texture2D
             @ingroup Graphics
@@ -58,10 +60,14 @@ namespace ffw {
             @param [in] Yoffset     Offset position Y
             @param [in] Width       Width of the pixel buffer
             @param [in] Height      Height of the pixel buffer
-            @param [in] PixelFormat Pixel format of the pixel buffer (e.g, GL_BYTE, GL_FLOAT, ...)
             @param [in] Pixels      Pointer to the pixel buffer
         */
-        bool upload(GLint Level, GLint Xoffset, GLint Yoffset, GLsizei Width, GLsizei Height, GLenum PixelFormat, unsigned char* Pixels);
+        bool setPixels(GLint Level, GLint Xoffset, GLint Yoffset, GLsizei Width, GLsizei Height, const void* Pixels);
+		/*!
+            @memberof texture2D
+            @ingroup Graphics
+		*/
+		bool getPixels(void* Pixels);
     };
 };
 #endif

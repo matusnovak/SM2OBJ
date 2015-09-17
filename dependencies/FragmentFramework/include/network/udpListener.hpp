@@ -7,7 +7,7 @@
 #ifndef FFW_UDP_LISTENER
 #define FFW_UDP_LISTENER
 
-#include "networkUtils.hpp"
+#include "../common.h"
 
 /*!
     @ingroup Network

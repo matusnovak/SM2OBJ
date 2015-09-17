@@ -7,15 +7,7 @@
 #ifndef FFW_THREAD
 #define FFW_THREAD
 
-#include "../config.h"
-
-// Compile for Visual Studio
-#if defined(_USING_MSVC)
-#include <thread>
-#elif defined(_USING_MINGW)
-#include <pthread.h>
-#endif
-#include <functional>
+#include "../common.h"
 
 namespace ffw{
 	class FFW_API thread{
@@ -26,18 +18,15 @@ namespace ffw{
 		bool join();
 		bool join(void** ReturnValue);
 		void bindFunction(void* (*Func)(void*));
-		void bindFunction(std::function<void*(void*)> Func);
+		template <class T> void bindFunction(void* (T::*MemFuncPtr)(void*), T* Instance){
+			this->setFunction(std::bind(MemFuncPtr, Instance, std::placeholders::_1));
+		}
 
 	private:
+		void setFunction(std::function<void*(void*)> Func);
 		static void *internalThreadFunc(void* This);
-		void* (*threadFunc)(void*);
-		std::function<void*(void*)> threadFuncMem;
-		#if defined(_USING_MSVC)
-		std::thread* sthread;
-		#elif defined(_USING_MINGW)
-        pthread_t pthread;
-		#endif
-        void* dataPtr;
+		class impl;
+		impl* pimpl;
 	};
 };
 

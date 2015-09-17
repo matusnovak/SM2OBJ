@@ -15,9 +15,6 @@ namespace ffw{
 		uiGroup(void* Handle, int ID, int PosX, int PosY, int Width, int Height, const std::wstring& Label);
 		~uiGroup();
 
-		void setPos(int PosX, int PosY) override;
-		void setSize(int Width, int Height) override;
-
 		static const size_t hash;
 	};
 };

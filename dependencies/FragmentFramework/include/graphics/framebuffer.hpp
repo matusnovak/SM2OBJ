@@ -7,10 +7,11 @@
 #ifndef FFW_GRAPHICS_FRAMEBUFFER
 #define FFW_GRAPHICS_FRAMEBUFFER
 
-#include "../config.h"
-#include <vector>
+#include "../common.h"
 #include "texture2D.hpp"
-#include "../gl/extensions.hpp"
+#include "texture2DMS.hpp"
+#include "renderbuffer2D.hpp"
+#include "renderbuffer2DMS.hpp"
 
 /*!
     @ingroup Graphics
@@ -33,13 +34,10 @@ namespace ffw {
     */
 	class FFW_API framebuffer {
     public:
-        framebuffer();
+        static bool checkCompability(const renderContext* Renderer);
+		
+		framebuffer();
         ~framebuffer();
-        /*!
-            @memberof framebuffer
-            @ingroup Graphics
-        */
-        bool init(const renderContext* Context);
         /*!
             @memberof framebuffer
             @ingroup Graphics
@@ -50,29 +48,57 @@ namespace ffw {
             @ingroup Graphics
             @return True on success
         */
-        bool create();
+        bool create(const renderContext* Renderer);
         /*!
             @memberof framebuffer
             @ingroup Graphics
             @return True if attachment has been added
         */
-        bool addDepthAttachment(const ffw::texture2D* DepthTexture);
+        bool addColorTexture(const ffw::texture2D* DepthTexture);
         /*!
             @memberof framebuffer
             @ingroup Graphics
         */
-        bool addColorAttachment(const ffw::texture2D* ColorTexture);
+        bool addDepthTexture(const ffw::texture2D* ColorTexture);
+		/*!
+            @memberof framebuffer
+            @ingroup Graphics
+            @return True if attachment has been added
+        */
+        bool addColorTextureMS(const ffw::texture2DMS* DepthTexture);
+        /*!
+            @memberof framebuffer
+            @ingroup Graphics
+        */
+        bool addDepthTextureMS(const ffw::texture2DMS* ColorTexture);
+		/*!
+            @memberof framebuffer
+            @ingroup Graphics
+            @return True if attachment has been added
+        */
+        bool addColorRenderbuffer(const ffw::renderbuffer2D* DepthTexture);
+        /*!
+            @memberof framebuffer
+            @ingroup Graphics
+        */
+        bool addDepthRenderbuffer(const ffw::renderbuffer2D* ColorTexture);
+		/*!
+            @memberof framebuffer
+            @ingroup Graphics
+            @return True if attachment has been added
+        */
+        bool addColorRenderbufferMS(const ffw::renderbuffer2DMS* DepthTexture);
+        /*!
+            @memberof framebuffer
+            @ingroup Graphics
+        */
+        bool addDepthRenderbufferMS(const ffw::renderbuffer2DMS* ColorTexture);
 		/*!
             @memberof framebuffer
             @ingroup Graphics
         */
 		bool checkStatus();
-        /*!
-            @memberof framebuffer
-            @ingroup Graphics
-            @return True on success
-        */
-        bool resize();
+		unsigned int getHandle() const;
         /*!
             @memberof framebuffer
             @ingroup Graphics
@@ -94,7 +120,7 @@ namespace ffw {
             @warning Render context must be active and be on
             same thread before calling this function.
         */
-        void bind();
+        void bind() const;
         /*!
             @memberof framebuffer
             @ingroup Graphics
@@ -104,11 +130,9 @@ namespace ffw {
             @warning Render context must be active and be on
             same thread before calling this function.
         */
-        void unbind();
+        void unbind() const;
 
     private:
-        // Is framebuffer loaded?
-        bool initialized;
         bool created;
         unsigned int fbo;
 		int colorCount;

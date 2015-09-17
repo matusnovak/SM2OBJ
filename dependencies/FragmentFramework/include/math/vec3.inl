@@ -323,7 +323,7 @@ inline ffw::vec3<T>& ffw::vec3<T>::rotateZRad(const float Rad){
 
 ///=============================================================================
 template <class T>
-inline ffw::vec3<T>& ffw::vec3<T>::rotateByQuaternion(const ffw::quaternion& Q){
+inline ffw::vec3<T>& ffw::vec3<T>::rotateByQuaternion(const ffw::quat<T>& Q){
     /*float oldX = x;
     float oldY = y;
     float oldZ = z;

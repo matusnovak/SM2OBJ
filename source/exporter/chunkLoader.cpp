@@ -19,6 +19,8 @@ bool sm2obj::loadChunk(const exportBlueprintArgs& Args, ffw::file* File, size_t 
     uint8_t compressedData[5095];
     unsigned char rawChunkData[16][16][16][3];
 
+	std::cout << "chunk size: " << File->getSize() << std::endl;
+
     if( ! (File->read(&timeStamp, sizeof(uint64_t)) &&
            File->read(&relativePosition, sizeof(int32_t)*3) &&
            File->read(&chunkType, sizeof(uint8_t)) &&

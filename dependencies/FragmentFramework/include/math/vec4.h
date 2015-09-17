@@ -8,434 +8,328 @@
 #define FFW_VEC4
 
 /*!
-	@ingroup Math
-*/
+ * @ingroup Math
+ * @brief FFW
+ */
 namespace ffw {
     /*!
-		@memberof ffw
-		@ingroup Math
-
-		@brief 4D vector
-	*/
+	 * @memberof ffw
+	 * @ingroup Math
+	 *
+     * @brief 4D vector
+	 */
     template <class T> struct vec4 {
     public:
         /*!
-			@memberof vec4
-			@ingroup Math
-
-			@brief X component
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 *
+         * @brief X component
+		 */
         T x;
         /*!
-			@memberof vec4
-			@ingroup Math
-
-			@brief Y component
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 *
+         * @brief Y component
+		 */
         T y;
         /*!
-			@memberof vec4
-			@ingroup Math
-
-			@brief Z component
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 *
+         * @brief Z component
+		 */
         T z;
         /*!
-			@memberof vec4
-			@ingroup Math
-
-			@brief W component
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 *
+         * @brief W component
+		 */
         T w;
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Constructor
-
-            @details Sets all components to zero.
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 *
+         * @brief Constructor
+		 * @details X, Y, Z, and W are set to zero.
+		 */
         vec4();
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Constructor
-
-            @param [in] X Component X
-            @param [in] Y Component Y
-			@param [in] Z Component Z
-			@param [in] W Component W
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 *
+         * @brief Constructor
+		 */
         vec4(T X, T Y, T Z, T W);
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Constructor
-
-            @param [in] Value Value of all components
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 *
+         * @brief Constructor
+		 * @details X, Y, Z, and W are set to the same value.
+		 */
         vec4(T Value);
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Constructor
-
-            @details Copies value from another vector.
-
-            @param [in] V Another vector
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 *
+         * @brief Constructor
+		 */
         vec4(const vec4<T>& V);
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Constructor
-
-            @param [in] List Bracket list
-
-            @code
-            ffw::vec4<float> v{1.0f, 1.5f, 0.2f, -9.0f};
-            @endcode
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 *
+         * @brief Constructor
+		 * @details Initializes vector from bracket list, for example:
+		 *
+		 * ```C++
+		 * ffw::vec4f v ({0.707f, 3.14f, 1.414f, 92.0f});
+		 * // Or
+		 * ffw::vec4f v {0.707f, 3.14f, 1.414f, 92.0f};
+		 * // Or
+		 * ffw::vec4f v = {0.707f, 3.14f, 1.414f, 92.0f};
+		 * ```
+		 */
         vec4(std::initializer_list<T> List);
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Sets the vector
-
-            @param [in] X Component X
-            @param [in] Y Component Y
-			@param [in] Z Component Z
-			@param [in] W Component W
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 *
+         * @brief Sets the vector
+		 */
         void set(T X, T Y, T Z, T W);
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Sets the vector
-
-            @details Sets same value for all component.
-
-            @param [in] Value Value of all components
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 
+		 * @inline
+		 *
+         * @brief Sets the vector
+		 * @details X, Y, Z, and W are set to the same value.
+		 */
         void set(T Value);
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Sets the vector
-
-            @details Copies value from another vector.
-
-            @param [in] V Another vector
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 *
+         * @brief Sets the vector
+		 */
         void set(const vec4<T>& V);
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Sets the vector
-
-            @param [in] List Bracket list
-
-            @code
-            ffw::vec4<float> v;
-            v.set({1.0f, 1.5f, 0.2f, -9.0f});
-            @endcode
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 *
+         * @brief Sets the vector
+		 */
         void set(std::initializer_list<T> List);
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Returns negative value
-
-            @details Returns negative value of vector if used as unary minus.
-
-            @return Inversed vector
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 */
         vec4<T>  operator - () const;
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Assign a value
-
-            @return Reference to object
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 */
         vec4<T>& operator =  (const vec4<T>& V);
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Addition
-
-            @return Product of addition
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 */
         vec4<T>  operator +  (const vec4<T>& V) const;
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Addition assignment
-
-            @return Reference to object
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 */
         vec4<T>& operator += (const vec4<T>& V);
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Subtraction
-
-            @return Product of substraction
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 */
         vec4<T>  operator -  (const vec4<T>& V) const;
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Subtraction assignment
-
-            @return Reference to object
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 */
         vec4<T>& operator -= (const vec4<T>& V);
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Division
-
-            @return Product of division
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 
+		 * @inline
+		 */
         vec4<T>  operator /  (const vec4<T>& V) const;
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Division assignment
-
-            @return Reference to object
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 */
         vec4<T>& operator /= (const vec4<T>& V);
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Multiplication
-
-            @return Product of multiplication
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 */
         vec4<T>  operator *  (const vec4<T>& V) const;
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Multiplication assignment
-
-            @return Reference to object
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 */
         vec4<T>& operator *= (const vec4<T>& V);
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			 @brief Assign a value
-
-            @return Reference to object
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 */
         vec4<T>& operator =  (const T& Val);
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Addition
-
-            @return Product of addition
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 */
         vec4<T>  operator +  (const T& Val) const;
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Addition assignment
-
-            @return Reference to object
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 */
         vec4<T>& operator += (const T& Val);
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Subtraction
-
-            @return Product of substraction
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 */
         vec4<T>  operator -  (const T& Val) const;
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Subtraction assignment
-
-            @return Reference to object
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 */
         vec4<T>& operator -= (const T& Val);
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Division
-
-            @return Product of division
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 */
         vec4<T>  operator /  (const T& Val) const;
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Division assignment
-
-            @return Reference to object
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 */
         vec4<T>& operator /= (const T& Val);
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Multiplication
-
-            @return Product of multiplication
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 */
         vec4<T>  operator *  (const T& Val) const;
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Multiplication assignment
-
-            @return Reference to object
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 */
         vec4<T>& operator *= (const T& Val);
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Checks if two vectors are not equal
-
-            @return True if not equal
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 */
         bool operator != (const vec4<T>& V) const;
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Checks if two vectors are equal
-
-            @return True if equal
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 */
         bool operator == (const vec4<T>& V) const;
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Normalizes the vector to length of 1.0
-
-            @return Reference to object
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 *
+		 * @brief Normalizes the vector
+		 */
         vec4<T>& normalize();
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Scales the vector by given value
-
-            @param [in] Val Scale
-
-            @return Reference to object
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 *
+		 * @brief Scales the vector by given value
+		 */
         vec4<T>& scale(const T Val);
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Returns length of vector
-
-            @return Length of vector
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 * @const
+		 *
+		 * @brief Returns the length of the vector
+		 */
         float length() const;
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Returns squared length of vector
-
-            @return Squared length of vector
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 * @const
+		 *
+		 * @brief Returns the squared length of the vector
+		 */
         T lengthSqrd() const;
         /*!
-			@memberof vec4
-			@ingroup Math
-			@inline
-
-			@brief Explicit operator to cast between different data types
-		*/
+		 * @memberof vec4
+		 * @ingroup Math
+		 * @inline
+		 * @const
+		 *
+		 * @brief Explicit cast operator
+		 * @details Use this if you want to cast from one type
+		 * to another, for example:
+		 *
+		 * ```C++
+		 * // The wrong way, procudes an error:
+		 * ffw::vec4<int> vi (21, 42, 41, 92);
+		 * ffw::vec4<float> vf = vi;
+		 * 
+		 * // The right way:
+		 * ffw::vec4<int> vi (21, 42, 41, 92);
+		 * ffw::vec4<float> vf = static_cast<ffw::vec4<float>>(vi);
+		 * ```
+		 */
 		template <class S> explicit operator vec4<S>() const;
     };
-
     /*!
-		@memberof ffw
-		@ingroup Math
-	*/
+	 * @memberof ffw
+	 * @ingroup Math
+	 */
     typedef vec4<float> vec4f;
     /*!
-		@memberof ffw
-		@ingroup Math
-	*/
+	 * @memberof ffw
+	 * @ingroup Math
+	 */
     typedef vec4<int> vec4i;
     /*!
-		@memberof ffw
-		@ingroup Math
-	*/
+	 * @memberof ffw
+	 * @ingroup Math
+	 */
     typedef vec4<double> vec4d;
 };
 

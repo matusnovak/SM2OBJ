@@ -7,8 +7,7 @@
 #ifndef FFW_UI_FONT
 #define FFW_UI_FONT
 
-#include "../config.h"
-#include <string>
+#include "../common.h"
 
 namespace ffw{
 	class uiFont;

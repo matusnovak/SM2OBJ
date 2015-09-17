@@ -4,10 +4,10 @@
 *   Licensed under the MIT License
 */
 
-#ifndef FFW_BASIC_DRAW
-#define FFW_BASIC_DRAW
+#ifndef FFW_GRAPHICS
+#define FFW_GRAPHICS
 
-#include "../config.h"
+#include "../common.h"
 #include "../render/renderContext.hpp"
 #include "texture2D.hpp"
 #include "font.hpp"
@@ -16,6 +16,11 @@
     @ingroup Graphics
 */
 namespace ffw{
+	/*!
+        @memberof ffw
+        @ingroup Graphics
+    */
+	void FFW_API setDrawColor(const ffw::renderContext* Context, const ffw::color& Color);
     /*!
         @memberof ffw
         @ingroup Graphics
@@ -30,22 +35,22 @@ namespace ffw{
         @memberof ffw
         @ingroup Graphics
     */
-    void FFW_API drawTexture(const ffw::renderContext* Context, int PosX, int PosY, int Width, int Height, const ffw::texture2D* Texture);
+    void FFW_API drawTexture2D(const ffw::renderContext* Context, int PosX, int PosY, int Width, int Height, const ffw::texture2D* Texture);
     /*!
         @memberof ffw
         @ingroup Graphics
     */
-    void FFW_API drawTexture(const ffw::renderContext* Context, int PosX, int PosY, int Width, int Height, const ffw::texture2D* Texture, bool MirrorX, bool MirrorY);
+    void FFW_API drawTexture2DMirror(const ffw::renderContext* Context, int PosX, int PosY, int Width, int Height, const ffw::texture2D* Texture, bool MirrorX, bool MirrorY);
     /*!
         @memberof ffw
         @ingroup Graphics
     */
-    void FFW_API drawTextureSubsection(const ffw::renderContext* Context, int PosX, int PosY, int Width, int Height, const ffw::texture2D* Texture, float SubX, float SubY, float SubW, float SubH);
+    void FFW_API drawTexture2DSub(const ffw::renderContext* Context, int PosX, int PosY, int Width, int Height, const ffw::texture2D* Texture, float SubX, float SubY, float SubW, float SubH);
     /*!
         @memberof ffw
         @ingroup Graphics
     */
-    void FFW_API drawTextureSubsection(const ffw::renderContext* Context, int PosX, int PosY, int Width, int Height, const ffw::texture2D* Texture, float SubX, float SubY, float SubW, float SubH, bool MirrorX, bool MirrorY);
+    void FFW_API drawTexture2DSubMirror(const ffw::renderContext* Context, int PosX, int PosY, int Width, int Height, const ffw::texture2D* Texture, float SubX, float SubY, float SubW, float SubH, bool MirrorX, bool MirrorY);
     /*!
         @memberof ffw
         @ingroup Graphics
@@ -76,6 +81,11 @@ namespace ffw{
         @ingroup Graphics
     */
 	void FFW_API drawString(const ffw::renderContext* Context, int PosX, int PosY, const font* Font, const std::wstring& Str);
+	/*!
+        @memberof ffw
+        @ingroup Graphics
+    */
+	void FFW_API drawText(const ffw::renderContext* Context, int PosX, int PosY, const font* Font, const ffw::text* Text);
 	/*!
         @memberof ffw
         @ingroup Graphics
@@ -111,5 +121,15 @@ namespace ffw{
         @ingroup Graphics
     */
 	void FFW_API setDrawBuffers(const ffw::renderContext* Context, int Num, const unsigned int* Buffs);
+	/*!
+        @memberof ffw
+        @ingroup Graphics
+    */
+	ffw::vec4i FFW_API containImage(int ImgWidth, int ImgHeight, int MaxWidth, int MaxHeight);
+	/*!
+        @memberof ffw
+        @ingroup Graphics
+    */
+	ffw::vec4i FFW_API coverImage(int ImgWidth, int ImgHeight, int MaxWidth, int MaxHeight);
 };
 #endif

@@ -117,7 +117,7 @@ bool sm2obj::exportAtlases(const exportBlueprintArgs& Args){
         int height;
         int channels;
         ffw::imageType type;
-		ffw::logger().info() << "Texture: " << tex;
+		ffw::logInfo() << "Texture: " << tex;
 
         Args.callbackLogDebug("Reading file: " + Args.inputFolder + "\\" + tex);
 

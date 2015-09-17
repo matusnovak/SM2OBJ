@@ -12,18 +12,14 @@
 namespace ffw{
 	class FFW_API uiTextArea: public uiWidget{
 	public:
-		uiTextArea(void* Handle, int ID, int PosX, int PosY, int Width, int Height, const std::wstring& Label, bool HScroll, bool VScroll);
+		uiTextArea(void* Handle, int ID, int PosX, int PosY, int Width, int Height, const std::wstring& Label, bool HScroll, bool VScroll, bool ReadOnly);
 		~uiTextArea();
-
-		void disable() override;
-		void enable() override;
-		void setPos(int PosX, int PosY) override;
-		void setSize(int Width, int Height) override;
-
-		void setValue(const std::wstring& Value) const;
-		void setLimit(size_t Limit) const;
+		void setValue(const std::wstring& Value);
+		void append(const std::wstring& Value);
+		void setLimit(size_t Limit);
 		std::wstring getValue() const;
 		int getTextLength() const;
+
 		static const size_t hash;
 	};
 };

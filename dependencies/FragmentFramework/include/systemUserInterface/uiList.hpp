@@ -14,15 +14,9 @@ namespace ffw{
 	public:
 		uiList(void* Handle, int ID, int PosX, int PosY, int Width, int Height, int Scroll);
 		~uiList();
-
-		void disable() override;
-		void enable() override;
-		void setPos(int PosX, int PosY) override;
-		void setSize(int Width, int Height) override;
-
-		void addItem(const std::wstring& Text) const;
+		void addItem(const std::wstring& Text);
 		int getSelected() const;
-		void setSelected(int Index) const;
+		void setSelected(int Index);
 
 		static const size_t hash;
 		static const int noScroll = 0;

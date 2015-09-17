@@ -7,10 +7,6 @@
 #ifndef FFW_MEM_POOL
 #define FFW_MEM_POOL
 
-#include <stdlib.h>
-#include <vector>
-#include <iostream>
-
 /*!
 	@ingroup Math
 */

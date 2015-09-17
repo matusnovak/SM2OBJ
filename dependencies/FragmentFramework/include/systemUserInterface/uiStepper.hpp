@@ -14,14 +14,8 @@ namespace ffw{
 	public:
 		uiStepper(void* Handle, int ID, int PosX, int PosY, int Width, int Height);
 		~uiStepper();
-
-		void disable() override;
-		void enable() override;
-		void setPos(int PosX, int PosY) override;
-		void setSize(int Width, int Height) override;
-
-		void setRange(int Min, int Max) const;
-		void setValue(int Value) const;
+		void setRange(int Min, int Max);
+		void setValue(int Value);
 		int getValue() const;
 
 		static const size_t hash;

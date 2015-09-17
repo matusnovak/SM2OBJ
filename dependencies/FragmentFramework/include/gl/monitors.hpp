@@ -7,10 +7,7 @@
 #ifndef FFW_GL_MONITORS
 #define FFW_GL_MONITORS
 
-#include "../config.h"
-#include "../math/math.h"
-#include <string>
-#include <vector>
+#include "../common.h"
 
 /*!
     @ingroup Graphics

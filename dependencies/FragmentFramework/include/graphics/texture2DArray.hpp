@@ -4,8 +4,8 @@
 *   Licensed under the MIT License
 */
 
-#ifndef FFW_GRAPHICS_TEXTURE_2D_ARRAY
-#define FFW_GRAPHICS_TEXTURE_2D_ARRAY
+#ifndef FFW_TEXTURE_2D_ARRAY
+#define FFW_TEXTURE_2D_ARRAY
 
 #include "texture.hpp"
 
@@ -21,7 +21,9 @@ namespace ffw {
     */
 	class FFW_API texture2DArray: public texture {
     public:
-        texture2DArray();
+        static bool checkCompability(const renderContext* Renderer);
+		
+		texture2DArray();
         ~texture2DArray();
         /*!
             @memberof texture2DArray
@@ -41,7 +43,7 @@ namespace ffw {
 
             @return True on success
         */
-        bool create(GLsizei Width, GLsizei Height, GLsizei Layers, GLenum InternalFormat, GLenum Format, GLenum PixelFormat);
+        bool create(const ffw::renderContext* Renderer, GLsizei Width, GLsizei Height, GLsizei Layers, GLenum InternalFormat, GLenum Format, GLenum PixelFormat);
         /*!
             @memberof texture2DArray
             @ingroup Graphics
@@ -60,10 +62,14 @@ namespace ffw {
             @param [in] Loffset     Offset of the layer
             @param [in] Width       Width of the pixel buffer
             @param [in] Height      Height of the pixel buffer
-            @param [in] PixelFormat Pixel format of the pixel buffer (e.g, GL_BYTE, GL_FLOAT, ...)
             @param [in] Pixels      Pointer to the pixel buffer
         */
-        bool upload(GLint Level, GLint Xoffset, GLint Yoffset, GLint Loffset, GLsizei Width, GLsizei Height, GLenum PixelFormat, unsigned char* pixels);
+        bool setPixels(GLint Level, GLint Xoffset, GLint Yoffset, GLint Loffset, GLsizei Width, GLsizei Height, const void* pixels);
+		/*!
+            @memberof texture2DArray
+            @ingroup Graphics
+		*/
+		bool getPixels(void* pixels);
     };
 };
 #endif

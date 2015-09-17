@@ -126,7 +126,7 @@ void sm2obj::window::setup(){
 
     std::vector<std::string> missingValues;
 	if(userDefaults.load(ffw::getExecutablePath() + "\\defaults.json", &missingValues)){
-		ffw::logger().print() << "User defaults loaded!";
+		ffw::log() << "User defaults loaded!";
 
 		textInputFolder			->setValue		(ffw::utf8ToWstr(userDefaults.inputBlueprintFolder));
         textInputData			->setValue		(ffw::utf8ToWstr(userDefaults.inputDataFolder));
@@ -145,8 +145,8 @@ void sm2obj::window::setup(){
         comboTextureSize		->setSelected	(userDefaults.textureTileSize);
         checkboxAttachments		->setValue		(userDefaults.exportAttachments);
 	} else {
-		ffw::logger().warning() << "User defaults failed to load! Missing values:";
-        for(const auto& item : missingValues)ffw::logger().warning() << "    > " << item;
+		ffw::logWarning() << "User defaults failed to load! Missing values:";
+        for(const auto& item : missingValues)ffw::logWarning() << "    > " << item;
 	}
 
 	ffw::var data;
@@ -179,9 +179,9 @@ void sm2obj::window::windowCloseEvent(){
     userDefaults.exportAttachments		= checkboxAttachments->getValue();
 
 	if(userDefaults.save(ffw::getExecutablePath() + "\\defaults.json")){
-		ffw::logger().print() << "User defaults saved!";
+		ffw::log() << "User defaults saved!";
 	} else {
-		ffw::logger().warning() << "User defaults failed to save!";
+		ffw::logWarning() << "User defaults failed to save!";
 	}
 
 	// Remove temp folder
@@ -192,24 +192,24 @@ void sm2obj::window::windowCloseEvent(){
 
 ///=============================================================================
 void sm2obj::window::callbackLogError(const std::string& Message){
-	ffw::logger().error() << Message;
+	ffw::logError() << Message;
 	ffw::showModalError(windowPtr, L"Error", ffw::utf8ToWstr(Message));
 }
 
 ///=============================================================================
 void sm2obj::window::callbackLogInfo(const std::string& Message){
-	ffw::logger().info() << Message;
+	ffw::logInfo() << Message;
 	windowPtr->progress->setValue(ffw::utf8ToWstr(Message));
 }
 
 ///=============================================================================
 void sm2obj::window::callbackLogDebug(const std::string& Message){
-	ffw::logger().debug() << Message;
+	ffw::logDebug() << Message;
 }
 
 ///=============================================================================
 void sm2obj::window::callbackLogWarning(const std::string& Message){
-	ffw::logger().warning() << Message;
+	ffw::logWarning() << Message;
 	windowPtr->logWarning = true;
 }
 
@@ -437,7 +437,7 @@ void sm2obj::window::widgetEvent(const ffw::uiWidget* Widget){
 			return;
 		} else {
 		    exportThreadMutex.unlock();
-		    exportThread.bindFunction(std::bind(&sm2obj::window::exportBlueprintFunc, this, std::placeholders::_1));
+		    exportThread.bindFunction(&sm2obj::window::exportBlueprintFunc, this);
 		    exportThread.start(NULL);
 		}
 	}
@@ -448,7 +448,7 @@ void sm2obj::window::widgetEvent(const ffw::uiWidget* Widget){
 			return;
 		} else {
 		    exportThreadMutex.unlock();
-		    exportThread.bindFunction(std::bind(&sm2obj::window::exportTexturesFunc, this, std::placeholders::_1));
+		    exportThread.bindFunction(&sm2obj::window::exportTexturesFunc, this);
 		    exportThread.start(NULL);
 		}
 	}

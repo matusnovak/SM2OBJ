@@ -61,30 +61,6 @@ inline void ffw::color::set(float Grey){
 }
 
 ///=============================================================================
-inline void ffw::color::setUbyte(unsigned char R, unsigned char G, unsigned char B, unsigned char A){
-    r = float(R)/255.0f;
-    g = float(G)/255.0f;
-    b = float(B)/255.0f;
-    a = float(A)/255.0f;
-}
-
-///=============================================================================
-inline void ffw::color::setUbyte(unsigned char R, unsigned char G, unsigned char B){
-    r = float(R)/255.0f;
-    g = float(G)/255.0f;
-    b = float(B)/255.0f;
-    a = 1.0f;
-}
-
-///=============================================================================
-inline void ffw::color::setUbyte(unsigned char Grey){
-    r = float(Grey)/255.0f;
-    g = float(Grey)/255.0f;
-    b = float(Grey)/255.0f;
-    a = 1.0f;
-}
-
-///=============================================================================
 inline ffw::color& ffw::color::operator =  (const color &Col){
     r = Col.r;
     g = Col.g;
@@ -146,3 +122,24 @@ inline ffw::color& ffw::color::normalize(){
     if(a > 1.0f)a = 1.0f;
     return *this;
 }
+
+///=============================================================================
+inline ffw::color ffw::rgb(unsigned long Hex){
+	return ffw::color(
+		((Hex & 0xFF0000) >> 16) / 255.0f,
+		((Hex & 0x00FF00) >> 8) / 255.0f,
+		(Hex & 0x0000FF) / 255.0f,
+		1.0f
+	);
+}
+
+///=============================================================================
+inline ffw::color ffw::rgba(unsigned long Hex){
+	return ffw::color(
+		((Hex & 0xFF000000) >> 24) / 255.0f,
+		((Hex & 0x00FF0000) >> 16) / 255.0f,
+		((Hex & 0x0000FF00) >> 8) / 255.0f,
+		(Hex & 0x000000FF) / 255.0f
+	);
+}
+

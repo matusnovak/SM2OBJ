@@ -88,37 +88,3 @@ inline unsigned int ffw::getTokensNum(const T& Line, char Delim){
     }
     return num;
 }
-
-///=============================================================================
-inline std::string ffw::wstrToAnsi(const std::wstring& Str){
-    int size = WideCharToMultiByte(CP_ACP, 0, Str.c_str(), Str.size(), NULL, 0, NULL, NULL);
-    std::string out(size, ' ');
-    WideCharToMultiByte(CP_ACP, 0, Str.c_str(), Str.size(), &out[0], size, 0, 0);
-    return out;
-
-}
-
-///=============================================================================
-inline std::wstring ffw::ansiToWstr(const std::string& Str){
-    int size = MultiByteToWideChar(CP_ACP, 0, Str.c_str(), Str.size(), NULL, 0);
-    std::wstring out(size, L' ');
-    MultiByteToWideChar(CP_ACP, 0, Str.c_str(), Str.size(), &out[0], size);
-    return out;
-}
-
-///=============================================================================
-inline std::string ffw::wstrToUtf8(const std::wstring& Str){
-    int size = WideCharToMultiByte(CP_UTF8, 0, Str.c_str(), Str.size(), NULL, 0, NULL, NULL);
-    std::string out(size, ' ');
-    WideCharToMultiByte(CP_UTF8, 0, Str.c_str(), Str.size(), &out[0], size, 0, 0);
-    return out;
-
-}
-
-///=============================================================================
-inline std::wstring ffw::utf8ToWstr(const std::string& Str){
-    int size = MultiByteToWideChar(CP_UTF8, 0, Str.c_str(), Str.size(), NULL, 0);
-    std::wstring out(size, L' ');
-    MultiByteToWideChar(CP_UTF8, 0, Str.c_str(), Str.size(), &out[0], size);
-    return out;
-}

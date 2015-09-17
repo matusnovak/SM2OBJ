@@ -7,7 +7,7 @@
 #ifndef FFW_SYS_UI_BITMAP
 #define FFW_SYS_UI_BITMAP
 
-#include "../utilities/fileUtilities.hpp"
+#include "../common.h"
 
 namespace ffw{
 	class uiBitmap;

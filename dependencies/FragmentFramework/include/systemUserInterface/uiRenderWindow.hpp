@@ -20,20 +20,19 @@ namespace ffw{
 		void setSize(int Width, int Height) override;
 		bool create(void* Handle, void* HandleInst, uiRenderWindow* Other, int ID, int PosX, int PosY, int Width, int Height);
 		void destroy();
-		void update();
+		bool update();
 		bool isInitialized() const;
-		bool isClosed() const;
-		void shouldClose();
+		void shouldClose(bool Close);
 		bool runSetup();
 
 		void setViewport(int PosX, int PosY, int Width, int Height) override;
-        const ffw::mat4& getViewMatrix() const override;
+        const ffw::mat4x4f& getViewMatrix() const override;
         void getViewport(int *PosX, int *PosY, int *Width, int *Height) const override;
         void* getGlextFunc(const std::string& FunctionName) const override;
         bool isGlextFuncPresent(const std::string& FunctionName) const override;
         void setSwapInterval(int Interval) override;
         const glExtensions& getGlExtensions() const override;
-        const basicShaders& getBasicShaders() const override;
+        const drawShaders& getdrawShaders() const override;
 	
 		static const size_t hash;
 

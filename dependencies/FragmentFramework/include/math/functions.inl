@@ -75,8 +75,9 @@ inline ffw::vec4<T> ffw::normalize(const vec4<T>& V){
 }
 
 ///=============================================================================
-inline ffw::quaternion ffw::normalize(const quaternion& Q){
-    quaternion result;
+template <class T>
+inline ffw::quat<T> ffw::normalize(const quat<T>& Q){
+    ffw::quat<T> result;
     float n = 1.0f/sqrt(Q.x*Q.x+Q.y*Q.y+Q.z*Q.z+Q.w*Q.w);
     result.x = Q.x * n;
     result.y = Q.y * n;
@@ -143,8 +144,9 @@ inline unsigned long ffw::nextPowOfTwo(unsigned long Value){
 }
 
 ///=============================================================================
-inline ffw::mat4 ffw::makeRotationMatrix(const ffw::quaternion& Q){
-    mat4 m;
+template <class T>
+inline ffw::mat4x4<T> ffw::makeRotationMatrix(const ffw::quat<T>& Q){
+    mat4x4<T> m;
 
     m[0] = 1.0f - 2.0f * (Q.y * Q.y + Q.z * Q.z);    m[4] = 2.0f * (Q.x * Q.y + Q.z * Q.w);         m[8] = 2.0f * (Q.x * Q.z - Q.y * Q.w);
     m[1] = 2.0f * (Q.x * Q.y - Q.z * Q.w);           m[5] = 1.0f - 2.0f * (Q.x * Q.x + Q.z * Q.z);  m[9] = 2.0f * (Q.y * Q.z + Q.x * Q.w);
@@ -190,17 +192,20 @@ inline ffw::vec2<T> ffw::vec3ToVec2(const ffw::vec3<T>& Vec){
 }
 
 ///=============================================================================
-inline ffw::vec3f ffw::quatToVec3(const ffw::quaternion& Quat){
-    return vec3f(Quat.x, Quat.y, Quat.z);
+template <class T>
+inline ffw::vec3<T> ffw::quatToVec3(const ffw::quat<T>& Quat){
+    return vec3<T>(Quat.x, Quat.y, Quat.z);
 }
 
 ///=============================================================================
-inline ffw::vec4f ffw::quatToVec4(const ffw::quaternion& Quat){
-    return vec4f(Quat.x, Quat.y, Quat.z, Quat.w);
+template <class T>
+inline ffw::vec4<T> ffw::quatToVec4(const ffw::quat<T>& Quat){
+    return vec4<T>(Quat.x, Quat.y, Quat.z, Quat.w);
 }
 
 ///=============================================================================
-template<class T> ffw::quaternion ffw::vec4ToQuat(const ffw::vec4<T>& Vec){
+template<class T>
+ffw::quat<T> ffw::vec4ToQuat(const ffw::vec4<T>& Vec){
     return quaternion(Vec.x, Vec.y, Vec.z, Vec.w);
 }
 
@@ -255,7 +260,8 @@ inline std::ostream& ffw::operator << (std::ostream& os, const ffw::vec4<T>& V){
 }
 
 ///=============================================================================
-inline std::ostream& ffw::operator << (std::ostream& os, const ffw::quaternion& Q){
+template <class T>
+inline std::ostream& ffw::operator << (std::ostream& os, const ffw::quat<T>& Q){
     os << Q.x << ", " << Q.y << ", " << Q.z << ", " << Q.w;
     return os;
 }

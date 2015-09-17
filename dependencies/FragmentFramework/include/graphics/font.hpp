@@ -7,7 +7,7 @@
 #ifndef FFW_GRAPHICS_FONT
 #define FFW_GRAPHICS_FONT
 
-#include "../config.h"
+#include "../common.h"
 #include "texture2D.hpp"
 #include "bufferObject.hpp"
 #include "shader.hpp"
@@ -24,14 +24,10 @@ namespace ffw {
     */
     class FFW_API font {
     public:
-        font();
+        static bool checkCompability(const renderContext* Renderer);
+		
+		font();
         virtual ~font();
-        /*!
-            @memberof font
-            @ingroup Graphics
-
-        */
-        bool init(const renderContext* Context);
         /*!
             @memberof font
             @ingroup Graphics
@@ -49,13 +45,13 @@ namespace ffw {
             @ingroup Graphics
 
         */
-        bool loadFromData(const unsigned char* Buffer, size_t Length, int Points, int Dpi);
+        bool createFromData(const renderContext* Renderer, const unsigned char* Buffer, size_t Length, int Points, int Dpi);
         /*!
             @memberof font
             @ingroup Graphics
 
         */
-        bool loadFromFile(const std::string& Path, int Points, int Dpi);
+        bool createFromFile(const renderContext* Renderer, const std::string& Path, int Points, int Dpi);
         /*!
             @memberof font
             @ingroup Graphics
@@ -162,9 +158,10 @@ namespace ffw {
             unsigned short unicode;
         };
 
+		const ffw::renderContext* rendererPtr;
         std::vector<charStruct> allCharacters;
         ffw::texture2D fontTexture;
-        ffw::bufferObject fontVBO;
+        ffw::vbo fontVBO;
         int fontSizePixels;
         int fontSizePoints;
         int fontDpi;

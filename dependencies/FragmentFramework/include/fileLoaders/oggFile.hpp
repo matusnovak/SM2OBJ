@@ -13,74 +13,73 @@
     @ingroup Utilities
 */
 namespace ffw{
-	class oggFile{};
 	/*!
         @memberof ffw
         @ingroup Utilities
-        @sa audioFileLoader
-        @inherit audioFileLoader
+        @sa audioLoader
+        @inherit audioLoader
     */
-    template<> class FFW_API audioLoader<oggFile>: public audioFileLoader {
+    class FFW_API oggLoader: public audioLoader {
     public:
-        audioLoader();
+        oggLoader();
 		/*!
-            @memberof audioLoader<oggFile>
+            @memberof oggLoader
             @ingroup Utilities
         */
-		audioLoader(audioLoader&& Other);
-        ~audioLoader();
+		oggLoader(oggLoader&& Other);
+        ~oggLoader();
         /*!
-            @memberof audioLoader<oggFile>
+            @memberof oggLoader
             @ingroup Utilities
         */
         bool open(const std::string& Path) override;
         /*!
-            @memberof audioLoader<oggFile>
+            @memberof oggLoader
             @ingroup Utilities
         */
         bool open(const std::wstring& Path) override;
         /*!
-            @memberof audioLoader<oggFile>
+            @memberof oggLoader
             @ingroup Utilities
         */
         void close() override;
         /*!
-            @memberof audioLoader<oggFile>
+            @memberof oggLoader
             @ingroup Utilities
         */
         bool readChunk(unsigned char* Bytes, size_t* BytesOut) override;
 		/*!
-            @memberof audioLoader<oggFile>
+            @memberof oggLoader
             @ingroup Utilities
             @pure
         */
 		bool skipChunk(size_t* BytesOut) override;
 		/*!
-            @memberof audioLoader<oggFile>
+            @memberof oggLoader
             @ingroup Utilities
             @pure
         */
 		bool reset() override;
 		/*!
-            @memberof audioLoader<oggFile>
+            @memberof oggLoader
             @ingroup Utilities
             @pure
         */
 		bool eof() override;
 		/*!
-            @memberof audioLoader<oggFile>
+            @memberof oggLoader
             @ingroup Utilities
         */
 		size_t getPos() override;
 		/*!
-            @memberof audioLoader<oggFile>
+            @memberof oggLoader
             @ingroup Utilities
         */
-		audioLoader& operator = (audioLoader&& Other);
+		oggLoader& operator = (oggLoader&& Other);
 		// Copy constructor is not allowed
-		audioLoader(const audioLoader& Other) = delete;
+		oggLoader(const oggLoader& Other) = delete;
 		// Copy assigment is not allowed
-		audioLoader& operator = (const audioLoader& Other) = delete;
+		oggLoader& operator = (const oggLoader& Other) = delete;
 
     private:
         class impl;
@@ -89,64 +88,64 @@ namespace ffw{
 	/*!
         @memberof ffw
         @ingroup Utilities
-        @sa audioFileLoader
-        @inherit audioFileLoader
+        @sa audioLoader
+        @inherit audioLoader
     */
-    template<> class FFW_API audioSaver<oggFile>: public audioFileSaver {
+    class FFW_API oggSaver: public audioSaver {
     public:
-        audioSaver();
+        oggSaver();
 		/*!
-            @memberof audioSaver<oggFile>
+            @memberof oggSaver
             @ingroup Utilities
         */
-		audioSaver(audioSaver&& Other);
-        ~audioSaver();
+		oggSaver(oggSaver&& Other);
+        ~oggSaver();
         /*!
-            @memberof audioSaver<oggFile>
+            @memberof oggSaver
             @ingroup Utilities
         */
         bool open(const std::string& Path, int BitsPerSample, size_t Size, int SampleRate, int NumChannels, int Kbps = 500) override;
         /*!
-            @memberof audioSaver<oggFile>
+            @memberof oggSaver
             @ingroup Utilities
         */
         bool open(const std::wstring& Path, int BitsPerSample, size_t Size, int SampleRate, int NumChannels, int Kbps = 500) override;
         /*!
-            @memberof audioSaver<oggFile>
+            @memberof oggSaver
             @ingroup Utilities
         */
         void close() override;
         /*!
-            @memberof audioSaver<oggFile>
+            @memberof oggSaver
             @ingroup Utilities
         */
         bool writeChunk(unsigned char* Data, size_t* BytesWritten) override;
 		/*!
-            @memberof audioSaver<oggFile>
+            @memberof oggSaver
             @ingroup Utilities
             @pure
         */
 		bool writeFooter() override;
 		/*!
-            @memberof audioSaver<oggFile>
+            @memberof oggSaver
             @ingroup Utilities
             @pure
         */
 		bool eof() override;
 		/*!
-            @memberof audioSaver<oggFile>
+            @memberof oggSaver
             @ingroup Utilities
         */
 		size_t getPos() override;
 		/*!
-            @memberof audioSaver<oggFile>
+            @memberof oggSaver
             @ingroup Utilities
         */
-		audioSaver& operator = (audioSaver&& Other);
+		oggSaver& operator = (oggSaver&& Other);
 		// Copy constructor is not allowed
-		audioSaver(const audioSaver& Other) = delete;
+		oggSaver(const oggSaver& Other) = delete;
 		// Copy assigment is not allowed
-		audioSaver& operator = (const audioSaver& Other) = delete;
+		oggSaver& operator = (const oggSaver& Other) = delete;
 
     private:
         class impl;

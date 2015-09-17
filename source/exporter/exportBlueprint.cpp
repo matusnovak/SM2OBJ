@@ -200,7 +200,7 @@ bool recursiveMetaLoader(const sm2obj::exportBlueprintArgs& Args, sm2obj::entity
     }
 
     for(auto& item : Output->attachments){
-        if(!recursiveMetaLoader(Args, &item, "\\" + item.path)){
+        if(!recursiveMetaLoader(Args, &item, item.path)){
             return false;
         }
     }
@@ -300,7 +300,7 @@ bool recursiveChunkLoader(const sm2obj::exportBlueprintArgs& Args, sm2obj::entit
         int chunkIndex[SM2OBJ_CHUNK_SIZE];
         int totalChunks = 0;
         if(!sm2obj::loadChunkHeader(&fileInput, &chunkIndex[0], &totalChunks)){
-            //ffw::logger().error() << "Failed to load chunk header!";
+            //ffw::logError() << "Failed to load chunk header!";
             return false;
         }
 
@@ -407,7 +407,7 @@ void recursiveChunkExport(const sm2obj::exportBlueprintArgs& Args, sm2obj::entit
 }
 
 ///=============================================================================
-void constructRotation(sm2obj::entityInfoStruct* Parent, ffw::mat4* Matrix){
+void constructRotation(sm2obj::entityInfoStruct* Parent, ffw::mat4x4f* Matrix){
     while(Parent != NULL){
         Matrix->rotate(Parent->orientation);
         Parent = Parent->parent;
@@ -467,8 +467,8 @@ void* processChunk(void* ThreadInfoPtr){
 
     // Transform vertices
     ffw::vec3f translation(-8.0f, -8.0f, -8.0f);
-    ffw::vec3f dockOffset = threadInfo->entityPtr->dockModule - ffw::vec3f(8.0f, 8.0f, 8.0f);
-    translation -= dockOffset;
+    //ffw::vec3f dockOffset = threadInfo->entityPtr->dockModule - ffw::vec3f(8.0f, 8.0f, 8.0f);
+    //translation -= dockOffset;
 
     /*ffw::mat4 m;
     ffw::vec3f globalPos;

@@ -14,18 +14,11 @@ namespace ffw{
 	public:
 		uiIconToggle(void* Handle, int ID, int PosX, int PosY, int Width, int Height, const ffw::uiBitmap* Bitmap);
 		~uiIconToggle();
-
-		void disable() override;
-		void enable() override;
-		void setPos(int PosX, int PosY) override;
-		void setSize(int Width, int Height) override;
-
 		bool getValue() const;
-		void setValue(bool Value) const;
+		void setValue(bool Value);
 		void setBitmap(const ffw::uiBitmap* Bitmap);
 
 		static const size_t hash;
-
 		static const int bitmapIcon = 0;
 		static const int resourceIcon = 1;
 	};

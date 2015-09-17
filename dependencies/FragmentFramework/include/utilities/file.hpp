@@ -7,9 +7,7 @@
 #ifndef FFW_FILE
 #define FFW_FILE
 
-#include "../config.h"
-#include <string>
-#include <fstream>
+#include "../common.h"
 
 /*!
     @ingroup Utilities
@@ -47,7 +45,7 @@ namespace ffw{
             @memberof file
             @ingroup Utilities
         */
-        bool read(void* Data, size_t Size);
+        size_t read(void* Data, size_t Size);
         /*!
             @memberof file
             @ingroup Utilities
@@ -57,7 +55,7 @@ namespace ffw{
             @memberof file
             @ingroup Utilities
         */
-        bool readLine(std::string* Str);
+        size_t readLine(std::string* Str);
         /*!
             @memberof file
             @ingroup Utilities

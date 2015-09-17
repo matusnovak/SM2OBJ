@@ -7,8 +7,7 @@
 #ifndef FFW_SERIAL
 #define FFW_SERIAL
 
-#include "../config.h"
-#include <string>
+#include "../common.h"
 
 /*!
     @ingroup Serial

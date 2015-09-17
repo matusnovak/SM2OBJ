@@ -7,9 +7,7 @@
 #ifndef FFW_LOAD_SAVE_IMAGE
 #define FFW_LOAD_SAVE_IMAGE
 
-#include "../config.h"
-#include "../utilities/fileUtilities.hpp"
-#include <string>
+#include "../common.h"
 
 /*!
     @ingroup Utilities
@@ -19,78 +17,78 @@ namespace ffw{
         @memberof ffw
         @ingroup Utilities
     */
-    class FFW_API imageFileLoader {
+    class FFW_API imageLoader {
     public:
-        imageFileLoader();
-        virtual ~imageFileLoader();
+        imageLoader();
+        virtual ~imageLoader();
         /*!
-            @memberof imageFileLoader
+            @memberof imageLoader
             @ingroup Utilities
             @pure
         */
         virtual bool open(const std::string& Path) = 0;
         /*!
-            @memberof imageFileLoader
+            @memberof imageLoader
             @ingroup Utilities
             @pure
         */
         virtual bool open(const std::wstring& Path) = 0;
         /*!
-            @memberof imageFileLoader
+            @memberof imageLoader
             @ingroup Utilities
             @pure
         */
         virtual void close() = 0;
         /*!
-            @memberof imageFileLoader
+            @memberof imageLoader
             @ingroup Utilities
             @pure
         */
         virtual bool readRow(unsigned char* Pixels) = 0;
         /*!
-            @memberof imageFileLoader
+            @memberof imageLoader
             @ingroup Utilities
         */
         int getRowOffset() const;
         /*!
-            @memberof imageFileLoader
+            @memberof imageLoader
             @ingroup Utilities
         */
         bool isOpend() const;
         /*!
-            @memberof imageFileLoader
+            @memberof imageLoader
             @ingroup Utilities
         */
         int getWidth() const;
         /*!
-            @memberof imageFileLoader
+            @memberof imageLoader
             @ingroup Utilities
         */
         int getHeight() const;
         /*!
-            @memberof imageFileLoader
+            @memberof imageLoader
             @ingroup Utilities
         */
         imageType getImageType() const;
         /*!
-            @memberof imageFileLoader
+            @memberof imageLoader
             @ingroup Utilities
         */
         int getBithDepth() const;
         /*!
-            @memberof imageFileLoader
+            @memberof imageLoader
             @ingroup Utilities
         */
         int getNumOfChannels() const;
 		/*!
-            @memberof imageFileLoader
+            @memberof imageLoader
             @ingroup Utilities
         */
 		operator bool() const;
 
     protected:
-		imageFileLoader(const imageFileLoader& Other) = default;
-		imageFileLoader& operator = (const imageFileLoader& Other) = default;
+		imageLoader(const imageLoader& Other) = default;
+		imageLoader& operator = (const imageLoader& Other) = default;
         bool loaded;
         int rows;
         int width;
@@ -104,84 +102,84 @@ namespace ffw{
         @memberof ffw
         @ingroup Utilities
     */
-    class FFW_API imageFileSaver {
+    class FFW_API imageSaver {
     public:
-        imageFileSaver();
-        virtual ~imageFileSaver();
+        imageSaver();
+        virtual ~imageSaver();
         /*!
-            @memberof imageFileSaver
+            @memberof imageSaver
             @ingroup Utilities
             @pure
         */
         virtual bool open(const std::string& Path, int Width, int Height, imageType Type) = 0;
         /*!
-            @memberof imageFileSaver
+            @memberof imageSaver
             @ingroup Utilities
             @pure
         */
         virtual bool open(const std::wstring& Path, int Width, int Height, imageType Type) = 0;
         /*!
-            @memberof imageFileSaver
+            @memberof imageSaver
             @ingroup Utilities
             @pure
         */
         virtual void close() = 0;
         /*!
-            @memberof imageFileSaver
+            @memberof imageSaver
             @pureer
             @ingroup Utilities
         */
         virtual bool writeRow(unsigned char* Pixels) = 0;
         /*!
-            @memberof imageFileSaver
+            @memberof imageSaver
             @ingroup Utilities
             @pure
         */
         virtual bool writeFooter() = 0;
         /*!
-            @memberof imageFileSaver
+            @memberof imageSaver
             @ingroup Utilities
         */
         int getRowOffset() const;
         /*!
-            @memberof imageFileSaver
+            @memberof imageSaver
             @ingroup Utilities
         */
         bool isOpend() const;
         /*!
-            @memberof imageFileSaver
+            @memberof imageSaver
             @ingroup Utilities
         */
         int getWidth() const;
         /*!
-            @memberof imageFileSaver
+            @memberof imageSaver
             @ingroup Utilities
         */
         int getHeight() const;
         /*!
-            @memberof imageFileSaver
+            @memberof imageSaver
             @ingroup Utilities
         */
         imageType getImageType() const;
         /*!
-            @memberof imageFileSaver
+            @memberof imageSaver
             @ingroup Utilities
         */
         int getBithDepth() const;
         /*!
-            @memberof imageFileSaver
+            @memberof imageSaver
             @ingroup Utilities
         */
         int getNumOfChannels() const;
 		/*!
-            @memberof imageFileSaver
+            @memberof imageSaver
             @ingroup Utilities
         */
 		operator bool() const;
 
     protected:
-		imageFileSaver(const imageFileSaver& Other) = default;
-		imageFileSaver& operator = (const imageFileSaver& Other) = default;
+		imageSaver(const imageSaver& Other) = default;
+		imageSaver& operator = (const imageSaver& Other) = default;
         bool loaded;
         int width;
         int height;
@@ -190,12 +188,6 @@ namespace ffw{
         int bitDepth;
         imageType type;
     };
-
-	template<class T> class imageLoader: public imageFileLoader {
-	};
-
-	template<class T> class imageSaver: public imageFileSaver {
-	};
 };
 #endif
 

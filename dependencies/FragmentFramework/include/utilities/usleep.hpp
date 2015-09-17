@@ -7,7 +7,7 @@
 #ifndef FFW_USLEEP
 #define FFW_USLEEP
 
-#include "../config.h"
+#include "../common.h"
 
 /*!
     @ingroup Utilities

@@ -14,14 +14,8 @@ namespace ffw{
 	public:
 		uiTextInput(void* Handle, int ID, int PosX, int PosY, int Width, int Height, const std::wstring& Label);
 		~uiTextInput();
-
-		void disable() override;
-		void enable() override;
-		void setPos(int PosX, int PosY) override;
-		void setSize(int Width, int Height) override;
-
-		void setValue(const std::wstring& Value) const;
-		void setLimit(size_t Limit) const;
+		void setValue(const std::wstring& Value);
+		void setLimit(size_t Limit);
 		std::wstring getValue() const;
 		int getTextLength() const;
 

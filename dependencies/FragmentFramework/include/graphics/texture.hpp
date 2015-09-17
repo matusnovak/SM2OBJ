@@ -4,11 +4,10 @@
 *   Licensed under the MIT License
 */
 
-#ifndef FFW_GRAPHICS_TEXTURE_BASE
-#define FFW_GRAPHICS_TEXTURE_BASE
+#ifndef FFW_TEXTURE_BASE
+#define FFW_TEXTURE_BASE
 
-#include "../config.h"
-#include "../gl/extensions.hpp"
+#include "../common.h"
 
 /*!
     @ingroup Graphics
@@ -33,21 +32,6 @@ namespace ffw {
         /*!
             @memberof texture
             @ingroup Graphics
-
-            @brief Initializes required GL extensions
-
-            @details This function needs to be called on
-            each instance of this class.
-
-            @warning Render context must be active and be on
-            same thread before calling this function.
-
-            @return True on success
-        */
-        bool init(const renderContext* Context);
-        /*!
-            @memberof texture
-            @ingroup Graphics
             @const
 
             @brief Returns true if texture is loaded
@@ -66,7 +50,7 @@ namespace ffw {
 
             @return True on success
         */
-        bool destroy();
+        void destroy();
         /*!
             @memberof texture
             @ingroup Graphics
@@ -78,7 +62,7 @@ namespace ffw {
             @warning Render context must be active and be on
             same thread before calling this function.
         */
-        bool bind() const;
+        void bind() const;
         /*!
             @memberof texture
             @ingroup Graphics
@@ -265,7 +249,6 @@ namespace ffw {
 
     protected:
         bool loaded;
-        bool instance;
         unsigned int textureFormat;
         unsigned int internalFormat;
         unsigned int format;

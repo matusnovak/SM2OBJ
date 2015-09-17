@@ -4,28 +4,36 @@
 *   Licensed under the MIT License
 */
 
-#ifndef FFW_BASIC_SHADERS
-#define FFW_BASIC_SHADERS
+#ifndef FFW_DRAW_SHADERS
+#define FFW_DRAW_SHADERS
 
-#include "../config.h"
+#include "../common.h"
 #include "shader.hpp"
 
 namespace ffw{
     class renderContext;
 
-    class FFW_API basicShaders {
+    class FFW_API drawShaders {
     public:
-        basicShaders();
-        ~basicShaders();
+        drawShaders();
+        ~drawShaders();
 
-        bool init(renderContext* Context);
-		void deleteShaders();
+        bool create(const renderContext* Context);
+		void destroy();
 
         shader genericShader;
         shader arcShader;
 		shader fontShader;
 		shader bezierShader;
 		shader bezierAdvShader;
+
+		mutable bool genShaderColor;
+		mutable bool arcShaderColor;
+		mutable bool fontShaderColor;
+		mutable bool bezierShaderColor;
+		mutable bool bezierAdvShaderColor;
+
+		mutable ffw::color drawColor;
 
         int arcShaderMvpLoc;
         int arcShaderPosLoc;

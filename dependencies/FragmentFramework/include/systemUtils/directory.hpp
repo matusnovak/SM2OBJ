@@ -7,9 +7,7 @@
 #ifndef FFW_DIR
 #define FFW_DIR
 
-#include "../config.h"
-#include <vector>
-#include <string>
+#include "../common.h"
 
 /*!
     @ingroup System

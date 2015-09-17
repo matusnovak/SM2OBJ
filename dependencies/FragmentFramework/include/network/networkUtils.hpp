@@ -7,9 +7,7 @@
 #ifndef FFW_NETWORK_UTILS
 #define FFW_NETWORK_UTILS
 
-#include "../config.h"
-#include <vector>
-#include <string>
+#include "../common.h"
 
 /*!
     @ingroup Network

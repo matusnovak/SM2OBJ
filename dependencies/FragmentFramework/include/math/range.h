@@ -6,35 +6,43 @@
 
 #ifndef FFW_RANGE
 #define FFW_RANGE
+
 /*!
-	@ingroup Math
-*/
+ * @ingroup Math
+ * @brief FFW
+ */
 namespace ffw{
     /*!
-		@memberof ffw
-		@ingroup Math
-	*/
+	 * @memberof ffw
+	 * @ingroup Math
+	 *
+     * @brief Range iterator
+	 */
     template <class T> class rangeIterator{
     public:
         /*!
-            @memberof rangeIterator
-            @ingroup Math
-        */
+		 * @memberof rangeIterator
+		 * @ingroup Math
+		 * @inline
+		 */
         rangeIterator(T Value);
         /*!
-            @memberof rangeIterator
-            @ingroup Math
-        */
+		 * @memberof rangeIterator
+		 * @ingroup Math
+		 * @inline
+		 */
         bool operator != (const rangeIterator& Other) const;
         /*!
-            @memberof rangeIterator
-            @ingroup Math
-        */
+		 * @memberof rangeIterator
+		 * @ingroup Math
+		 * @inline
+		 */
         const T& operator*() const;
         /*!
-            @memberof rangeIterator
-            @ingroup Math
-        */
+		 * @memberof rangeIterator
+		 * @ingroup Math
+		 * @inline
+		 */
         rangeIterator& operator ++ ();
 
     private:
@@ -42,30 +50,36 @@ namespace ffw{
     };
 
     /*!
-		@memberof ffw
-		@ingroup Math
-	*/
+	 * @memberof ffw
+	 * @ingroup Math
+	 *
+     * @brief Range for 'for' loop
+	 */
 	template <class T> class range{
     public:
         /*!
-            @memberof range
-            @ingroup Math
-        */
+		 * @memberof range
+		 * @ingroup Math
+		 * @inline
+		 */
         range(T Min, T Max);
         /*!
-            @memberof range
-            @ingroup Math
-        */
+		 * @memberof range
+		 * @ingroup Math
+		 * @inline
+		 */
         range(T Max);
         /*!
-            @memberof range
-            @ingroup Math
-        */
+		 * @memberof range
+		 * @ingroup Math
+		 * @inline
+		 */
         rangeIterator<T> begin();
         /*!
-            @memberof range
-            @ingroup Math
-        */
+		 * @memberof range
+		 * @ingroup Math
+		 * @inline
+		 */
         rangeIterator<T> end();
 
     private:

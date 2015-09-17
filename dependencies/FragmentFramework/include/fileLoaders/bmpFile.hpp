@@ -13,51 +13,50 @@
     @ingroup Utilities
 */
 namespace ffw{
-	class bmpFile{};
 	/*!
         @memberof ffw
         @ingroup Utilities
-        @sa imageFileLoader
-        @inherit imageFileLoader
+        @sa imageLoader
+        @inherit imageLoader
     */
-    template <> class FFW_API imageLoader<bmpFile>: public imageFileLoader {
+    class FFW_API bmpLoader: public imageLoader {
     public:
-        imageLoader();
+        bmpLoader();
 		/*!
-            @memberof imageLoader<bmpFile>
+            @memberof bmpLoader
             @ingroup Utilities
         */
-		imageLoader(imageLoader&& Other);
-        ~imageLoader();
+		bmpLoader(bmpLoader&& Other);
+        ~bmpLoader();
         /*!
-            @memberof imageLoader<bmpFile>
+            @memberof bmpLoader
             @ingroup Utilities
         */
         bool open(const std::string& Path) override;
         /*!
-            @memberof imageLoader<bmpFile>
+            @memberof bmpLoader
             @ingroup Utilities
         */
         bool open(const std::wstring& Path) override;
         /*!
-            @memberof imageLoader<bmpFile>
+            @memberof bmpLoader
             @ingroup Utilities
         */
         void close() override;
         /*!
-            @memberof imageLoader<bmpFile>
+            @memberof bmpLoader
             @ingroup Utilities
         */
         bool readRow(unsigned char* Pixels) override;
 		/*!
-            @memberof imageLoader<bmpFile>
+            @memberof bmpLoader
             @ingroup Utilities
         */
-		imageLoader& operator = (imageLoader&& Other);
+		bmpLoader& operator = (bmpLoader&& Other);
 		// Copy constructor is not allowed
-		imageLoader(const imageLoader& Other) = delete;
+		bmpLoader(const bmpLoader& Other) = delete;
 		// Copy assigment is not allowed
-		imageLoader& operator = (const imageLoader& Other) = delete;
+		bmpLoader& operator = (const bmpLoader& Other) = delete;
 
     private:
         class impl;
@@ -68,49 +67,49 @@ namespace ffw{
         @memberof ffw
         @ingroup Utilities
     */
-    template <> class FFW_API imageSaver<bmpFile>: public imageFileSaver {
+    class FFW_API bmpSaver: public imageSaver {
     public:
-        imageSaver();
+        bmpSaver();
 		/*!
-            @memberof imageSaver<bmpFile>
+            @memberof bmpSaver
             @ingroup Utilities
         */
-		imageSaver(imageSaver&& Other);
-        ~imageSaver();
+		bmpSaver(bmpSaver&& Other);
+        ~bmpSaver();
         /*!
-            @memberof imageSaver<bmpFile>
+            @memberof bmpSaver
             @ingroup Utilities
         */
         bool open(const std::string& Path, int Width, int Height, imageType Type) override;
         /*!
-            @memberof imageSaver<bmpFile>
+            @memberof bmpSaver
             @ingroup Utilities
         */
         bool open(const std::wstring& Path, int Width, int Height, imageType Type) override;
         /*!
-            @memberof imageSaver<bmpFile>
+            @memberof bmpSaver
             @ingroup Utilities
         */
         void close() override;
         /*!
-            @memberof imageSaver<bmpFile>
+            @memberof bmpSaver
             @ingroup Utilities
         */
         bool writeRow(unsigned char* Pixels) override;
         /*!
-            @memberof imageSaver<bmpFile>
+            @memberof bmpSaver
             @ingroup Utilities
         */
         bool writeFooter() override;
 		/*!
-            @memberof imageSaver<bmpFile>
+            @memberof bmpSaver
             @ingroup Utilities
         */
-		imageSaver& operator = (imageSaver&& Other);
+		bmpSaver& operator = (bmpSaver&& Other);
 		// Copy constructor is not allowed
-		imageSaver(const imageSaver& Other) = delete;
+		bmpSaver(const bmpSaver& Other) = delete;
 		// Copy assigment is not allowed
-		imageSaver& operator = (const imageSaver& Other) = delete;
+		bmpSaver& operator = (const bmpSaver& Other) = delete;
 
     private:
         class impl;

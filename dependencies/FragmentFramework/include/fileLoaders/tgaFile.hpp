@@ -13,51 +13,50 @@
     @ingroup Utilities
 */
 namespace ffw{
-	class tgaFile{};
 	/*!
         @memberof ffw
         @ingroup Utilities
-        @sa imageFileLoader
-        @inherit imageFileLoader
+        @sa imageLoader
+        @inherit imageLoader
     */
-    template <> class FFW_API imageLoader<tgaFile>: public imageFileLoader {
+	class FFW_API tgaLoader: public imageLoader {
     public:
-        imageLoader();
+        tgaLoader();
 		/*!
-            @memberof imageLoader<tgaFile>
+            @memberof tgaLoader
             @ingroup Utilities
         */
-		imageLoader(imageLoader&& Other);
-        ~imageLoader();
+		tgaLoader(tgaLoader&& Other);
+        ~tgaLoader();
         /*!
-            @memberof imageLoader<tgaFile>
+            @memberof tgaLoader
             @ingroup Utilities
         */
         bool open(const std::string& Path) override;
         /*!
-            @memberof imageLoader<tgaFile>
+            @memberof tgaLoader
             @ingroup Utilities
         */
         bool open(const std::wstring& Path) override;
         /*!
-            @memberof imageLoader<tgaFile>
+            @memberof tgaLoader
             @ingroup Utilities
         */
         void close() override;
         /*!
-            @memberof imageLoader<tgaFile>
+            @memberof tgaLoader
             @ingroup Utilities
         */
         bool readRow(unsigned char* Pixels) override;
 		/*!
-            @memberof imageLoader<tgaFile>
+            @memberof tgaLoader
             @ingroup Utilities
         */
-		imageLoader& operator = (imageLoader&& Other);
+		tgaLoader& operator = (tgaLoader&& Other);
 		// Copy constructor is not allowed
-		imageLoader(const imageLoader& Other) = delete;
+		tgaLoader(const tgaLoader& Other) = delete;
 		// Copy assigment is not allowed
-		imageLoader& operator = (const imageLoader& Other) = delete;
+		tgaLoader& operator = (const tgaLoader& Other) = delete;
 
     private:
         class impl;
@@ -67,52 +66,52 @@ namespace ffw{
     /*!
         @memberof ffw
         @ingroup Utilities
-        @sa imageFileSaver
-        @inherit imageFileSaver
+        @sa imageSaver
+        @inherit imageSaver
     */
-    template <> class FFW_API imageSaver<tgaFile>: public imageFileSaver {
+    class FFW_API tgaSaver: public imageSaver {
     public:
-        imageSaver();
+        tgaSaver();
 		/*!
-            @memberof imageSaver<tgaFile>
+            @memberof tgaSaver
             @ingroup Utilities
         */
-		imageSaver(imageSaver&& Other);
-        ~imageSaver();
+		tgaSaver(tgaSaver&& Other);
+        ~tgaSaver();
         /*!
-            @memberof imageSaver<tgaFile>
+            @memberof tgaSaver
             @ingroup Utilities
         */
         bool open(const std::string& Path, int Width, int Height, imageType Type) override;
         /*!
-            @memberof imageSaver<tgaFile>
+            @memberof tgaSaver
             @ingroup Utilities
         */
         bool open(const std::wstring& Path, int Width, int Height, imageType Type) override;
         /*!
-            @memberof imageSaver<tgaFile>
+            @memberof tgaSaver
             @ingroup Utilities
         */
         void close() override;
         /*!
-            @memberof imageSaver<tgaFile>
+            @memberof tgaSaver
             @ingroup Utilities
         */
         bool writeRow(unsigned char* Pixels) override;
         /*!
-            @memberof imageSaver<tgaFile>
+            @memberof tgaSaver
             @ingroup Utilities
         */
         bool writeFooter() override;
 		/*!
-            @memberof imageSaver<tgaFile>
+            @memberof tgaSaver
             @ingroup Utilities
         */
-		imageSaver& operator = (imageSaver&& Other);
+		tgaSaver& operator = (tgaSaver&& Other);
 		// Copy constructor is not allowed
-		imageSaver(const imageSaver& Other) = delete;
+		tgaSaver(const tgaSaver& Other) = delete;
 		// Copy assigment is not allowed
-		imageSaver& operator = (const imageSaver& Other) = delete;
+		tgaSaver& operator = (const tgaSaver& Other) = delete;
 
     private:
         class impl;

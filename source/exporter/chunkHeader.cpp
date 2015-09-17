@@ -19,17 +19,17 @@ bool sm2obj::loadChunkHeader(ffw::file* File, int* ChunkIndex, int* TotalChunks)
     uint64_t timeStampIndex[16][16][16];
 
     if(!File->read(&unknownInt, sizeof(uint32_t))){
-        ffw::logger().error() << "Read error at first byte in header!";
+        ffw::logError() << "Read error at first byte in header!";
         return false;
     }
 
     if(!File->read(chunkIndex, sizeof(chunkIndexS)*16*16*16)){
-        ffw::logger().error() << "Read error at chunk index in header!";
+        ffw::logError() << "Read error at chunk index in header!";
         return false;
     }
 
     if(!File->read(timeStampIndex, sizeof(uint64_t)*16*16*16)){
-        ffw::logger().error() << "Read error at time stamp in header!";
+        ffw::logError() << "Read error at time stamp in header!";
         return false;
     }
 

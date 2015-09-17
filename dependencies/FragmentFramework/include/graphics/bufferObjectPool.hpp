@@ -7,97 +7,95 @@
 #ifndef FFW_BUFFER_OBJECT_POOL
 #define FFW_BUFFER_OBJECT_POOL
 
-#include "../config.h"
-#include "../gl/extensions.hpp"
-#include <vector>
+#include "../common.h"
 
 /*!
     @ingroup Graphics
 */
 namespace ffw {
-    class renderContext;
+    //class renderContext;
     /*!
         @memberof ffw
         @ingroup Graphics
     */
-	class FFW_API bufferObjectPool {
-    public:
+	//class FFW_API bufferObjectPool {
+    //public:
 
-		bufferObjectPool();
-        ~bufferObjectPool();
+		//bufferObjectPool();
+       // ~bufferObjectPool();
         /*!
             @memberof bufferObjectPool
             @ingroup Graphics
 
         */
-        bool init(const renderContext* Context, unsigned int ObjectType, int Increment);
+       // bool init(const renderContext* Context, unsigned int ObjectType, int Increment);
         /*!
             @memberof bufferObjectPool
             @ingroup Graphics
 
         */
-        bool isCreated() const;
+        //bool isCreated() const;
         /*!
             @memberof bufferObjectPool
             @ingroup Graphics
 
         */
-        int allocate(int Size);
+		//int allocate(int Size);
         /*!
             @memberof bufferObjectPool
             @ingroup Graphics
 
         */
-        bool release(int Offset);
+        //bool release(int Offset);
         /*!
             @memberof bufferObjectPool
             @ingroup Graphics
 
         */
-        bool uploadData(const void* Data, int Offset, int Size);
+        //bool uploadData(const void* Data, int Offset, int Size);
         /*!
             @memberof bufferObjectPool
             @ingroup Graphics
 
         */
-        bool destroy();
+        //bool destroy();
         /*!
             @memberof bufferObjectPool
             @ingroup Graphics
 
         */
-        void bind() const;
+        //void bind() const;
         /*!
             @memberof bufferObjectPool
             @ingroup Graphics
 
         */
-        void unbind() const;
+        //void unbind() const;
         /*!
             @memberof bufferObjectPool
             @ingroup Graphics
 
         */
-        unsigned int getBuffer() const;
+       // unsigned int getBuffer() const;
         /*!
             @memberof bufferObjectPool
             @ingroup Graphics
 
         */
-        int getSize() const;
+        //int getSize() const;
         /*!
             @memberof bufferObjectPool
             @ingroup Graphics
 
         */
-        unsigned int getObjectType() const;
+        //unsigned int getObjectType() const;
 
-        struct block {
+        /*struct block {
             int pos;
             int size;
-        };
+        };*/
 
-    private:
+    /*private:
         int getAligned(int Value);
         void increaseSize(int Min);
         void decreaseSize(int Max);
@@ -116,7 +114,7 @@ namespace ffw {
 
         std::vector<block> blocks;
         const glExtensions* gl;
-    };
+    };*/
 };
 #endif
 

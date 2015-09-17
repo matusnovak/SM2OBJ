@@ -7,7 +7,7 @@
 #ifndef FFW_GRAPHICS_TEXT
 #define FFW_GRAPHICS_TEXT
 
-#include "../config.h"
+#include "../common.h"
 #include "bufferObject.hpp"
 
 /*!
@@ -21,20 +21,16 @@ namespace ffw {
     */
 	class FFW_API text {
     public:
-        text();
+        static bool checkCompability(const renderContext* Renderer);
+		
+		text();
         ~text();
         /*!
             @memberof text
             @ingroup Graphics
 
         */
-        bool init(const renderContext* Context);
-        /*!
-            @memberof text
-            @ingroup Graphics
-
-        */
-        bool createText(float* Vertices, size_t Size);
+        bool create(const renderContext* Renderer, float* Vertices, size_t Size);
         /*!
             @memberof text
             @ingroup Graphics
@@ -46,7 +42,7 @@ namespace ffw {
             @ingroup Graphics
 
         */
-        size_t getTextLength() const;
+        size_t getSize() const;
         /*!
             @memberof text
             @ingroup Graphics
@@ -57,16 +53,16 @@ namespace ffw {
             @memberof text
             @ingroup Graphics
         */
-        void bind();
+        void bind() const;
         /*!
             @memberof text
             @ingroup Graphics
         */
-        void unbind();
+        void unbind() const;
 
     private:
         bool loaded;
-        ffw::bufferObject vbo;
+        ffw::vbo vbo;
         unsigned int size;
 
         int shaderViewLoc;

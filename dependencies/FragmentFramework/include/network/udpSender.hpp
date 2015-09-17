@@ -7,7 +7,7 @@
 #ifndef FFW_UDP_SENDER
 #define FFW_UDP_SENDER
 
-#include "networkUtils.hpp"
+#include "../common.h"
 
 /*!
     @ingroup Network

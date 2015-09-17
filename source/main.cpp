@@ -9,7 +9,7 @@
 ///=============================================================================
 int main(){
     // Initialize logger
-    ffw::logger::initLogger();
+    ffw::logSetOutputFileDefault();
 
 	// Window instance
 	sm2obj::window win;
@@ -29,12 +29,11 @@ int main(){
 
 	// Create window
 	if(!win.create(args)){
-		ffw::logger().error() << "Failed to create window!";
+		ffw::logError() << "Failed to create window!";
 	}
 
 	// Update window while it is not closed (closed != hidden)
-	while(!win.isClosed()){
-		win.update();
+	while(win.update()){
 	}
 
 	// Destroy window after we are done

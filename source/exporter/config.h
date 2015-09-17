@@ -71,7 +71,7 @@ namespace sm2obj{
         // Position of docking in parent space
         ffw::vec3f pos;
         // Orientation of docking
-        ffw::quaternion orientation;
+        ffw::quatf orientation;
         // Position of dock module in local space
         ffw::vec3f dockModule;
         // Dock offset in local space

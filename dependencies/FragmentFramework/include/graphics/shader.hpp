@@ -7,10 +7,7 @@
 #ifndef FFW_GRAPHICS_SHADER
 #define FFW_GRAPHICS_SHADER
 
-#include "../config.h"
-#include "../math/math.h"
-#include "../gl/extensions.hpp"
-#include <string>
+#include "../common.h"
 
 /*!
     @ingroup Graphics
@@ -23,14 +20,16 @@ namespace ffw {
     */
 	class FFW_API shader {
     public:
-        shader();
+        static bool checkCompability(const renderContext* Renderer);
+		
+		shader();
         virtual ~shader();
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        bool init(renderContext* Context);
+        void setRenderer(const renderContext* Renderer);
         /*!
             @memberof shader
             @ingroup Graphics
@@ -48,25 +47,25 @@ namespace ffw {
             @ingroup Graphics
 
         */
-        bool loadFromFile(const std::string& geomPath, const std::string& vertPath, const std::string& fragPath);
+        bool createFromFile(const renderContext* Renderer, const std::string& geomPath, const std::string& vertPath, const std::string& fragPath);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        bool loadFromData(const std::string& geomData, const std::string& vertData, const std::string& fragData);
+        bool createFromData(const renderContext* Renderer, const std::string& geomData, const std::string& vertData, const std::string& fragData);
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        bool destroy();
+        void destroy();
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        unsigned int getProgram() const;
+        unsigned int getHandle() const;
         /*!
             @memberof shader
             @ingroup Graphics
@@ -114,13 +113,13 @@ namespace ffw {
             @ingroup Graphics
 
         */
-        bool begin() const;
+        void begin() const;
         /*!
             @memberof shader
             @ingroup Graphics
 
         */
-        bool end() const;
+        void end() const;
         /*!
             @memberof shader
             @ingroup Graphics
@@ -336,35 +335,21 @@ namespace ffw {
             @ingroup Graphics
 
         */
-        void setUniformMatrix4fv(int location, const mat4 mat, int length) const;
+        void setUniformMatrix4fv(int location, const mat4x4f mat, int length) const;
 
     private:
-        // Compile shader
         bool compileShader(unsigned int &thisShader, const char* data, unsigned int shaderType);
-        // Check for shader compilation errors
         bool checkForShaderErrors(unsigned int thisShader, std::string* ErrorStr);
-        // Check for program linking errors
         bool checkForProgramErrors(std::string* ErrorStr);
-        // Is shader loaded?
         bool loaded;
-        // Shader program
         unsigned int program;
-        // Geometry shader
         unsigned int geomShader;
-        // Vertex shader
         unsigned int vertShader;
-        // Fragment shader
         unsigned int fragShader;
-        // Is geometry shader loaded?
         bool usingGeom;
-        // Is vertex shader loaded?
         bool usingVert;
-        // Is fragment shader loaded?
         bool usingFrag;
 		std::string* errorLogStr;
-
-        bool initialized;
-
         const glExtensions* gl;
     };
 };

@@ -7,9 +7,7 @@
 #ifndef FFW_SYS_UI_WINDOW
 #define FFW_SYS_UI_WINDOW
 
-#include "../config.h"
-#include "../math/math.h"
-#include <string>
+#include "../common.h"
 
 #include "uiButton.hpp"
 #include "uiButtonToggle.hpp"
@@ -61,10 +59,9 @@ namespace ffw{
 		virtual ~uiWindow();
 
 		bool create(const uiWindowArgs& Info);
-		void update();
+		bool update();
 		void destroy();
-		void shouldClose();
-		bool isClosed() const;
+		void shouldClose(bool Close);
 		void hide();
 		void show();
 		void minimize();
@@ -87,11 +84,15 @@ namespace ffw{
 
 	protected:
 		virtual void setup() = 0;
-		virtual void windowCloseEvent() = 0;
-		virtual void widgetEvent(const ffw::uiWidget* Widget) = 0;
-		virtual void windowPosEvent(short PosX, short PosY) = 0;
-		virtual void windowSizeEvent(short Width, short Height) = 0;
-		bool createWindow();
+		virtual void textInputEvent(unsigned int C);
+        virtual void keyPressedEvent(ffw::key Key, ffw::mode Mode);
+        virtual void mouseMovedEvent(int MouseX, int MouseY);
+        virtual void mouseScrollEvent(int Scroll);
+        virtual void mouseButtonEvent(ffw::mouseButton Button, ffw::mode Mode);
+		virtual void windowCloseEvent();
+		virtual void widgetEvent(const ffw::uiWidget* Widget);
+		virtual void windowPosEvent(short PosX, short PosY);
+		virtual void windowSizeEvent(short Width, short Height);
 
 		void setDefaultFont(const ffw::uiFont* Font);
 		uiButton* addButton(int PosX, int PosY, int Width, int Height, const std::wstring& Label);
@@ -109,10 +110,10 @@ namespace ffw{
 		uiSlider* addSlider(int PosX, int PosY, int Width, int Height);
 		uiStaticImage* addStaticImage(int PosX, int PosY, int Width, int Height, const ffw::uiBitmap* Bitmap);
 		uiStepper* addStepper(int PosX, int PosY, int Width, int Height);
-		uiTextArea* addTextArea(int PosX, int PosY, int Width, int Height, const std::wstring& Label, bool HScroll, bool VScroll);
+		uiTextArea* addTextArea(int PosX, int PosY, int Width, int Height, const std::wstring& Label, bool HScroll, bool VScroll, bool ReadOnly);
 		uiTextInput* addTextInput(int PosX, int PosY, int Width, int Height, const std::wstring& Label);
 		bool addRenderWindow(uiRenderWindow* Widget, int PosX, int PosY, int Width, int Height, uiRenderWindow* Other = NULL);
-		bool remove(uiWidget* Widget);
+		bool deleteWidget(uiWidget* Widget);
 
 		uiMenu* addMenu();
 		uiMenuItem* addMenuItem(const uiMenu* Menu, const std::wstring& Label);
@@ -121,10 +122,6 @@ namespace ffw{
 		uiMenuFolder* addMenuFolder(const uiMenuFolder* Menu, const std::wstring& Label);
 		void showMenu(const uiMenu* Menu);
 
-		/*!
-            @memberof imageLoader<jpgFile>
-            @ingroup Utilities
-        */
 		uiWindow& operator = (uiWindow&& Other);
 		// Copy constructor is not allowed
 		uiWindow(const uiWindow& Other) = delete;

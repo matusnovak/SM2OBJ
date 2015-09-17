@@ -14,17 +14,9 @@ namespace ffw{
 	public:
 		uiProgressbar(void* Handle, int ID, int PosX, int PosY, int Width, int Height);
 		~uiProgressbar();
-
-		void disable() override;
-		void enable() override;
-		void setPos(int PosX, int PosY) override;
-		void setSize(int Width, int Height) override;
-
 		void setValue(int Value);
 
 		static const size_t hash;
-	private:
-		void* parentHwnd;
 	};
 };
 #endif

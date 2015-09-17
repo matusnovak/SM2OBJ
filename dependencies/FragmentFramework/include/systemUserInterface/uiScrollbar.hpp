@@ -14,12 +14,6 @@ namespace ffw{
 	public:
 		uiScrollbar(void* Handle, int ID, int PosX, int PosY, int Width, int Height, int Style);
 		~uiScrollbar();
-
-		void disable() override;
-		void enable() override;
-		void setPos(int PosX, int PosY) override;
-		void setSize(int Width, int Height) override;
-
 		void setValue(int Value);
 		void setRange(int Min, int Max);
 		void setStep(int Step);
@@ -27,9 +21,7 @@ namespace ffw{
 
 		static const int horizontal = 0;
 		static const int vertical = 1;
-
 		static const size_t hash;
-
 		friend class uiWindow;
 	private:
 		int step;

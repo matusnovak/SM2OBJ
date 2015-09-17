@@ -14,14 +14,9 @@ namespace ffw{
 	public:
 		uiLabel(void* Handle, int ID, int PosX, int PosY, int Width, int Height, const std::wstring& Label, const ffw::color& Color);
 		~uiLabel();
-
-		void setPos(int PosX, int PosY) override;
-		void setSize(int Width, int Height) override;
-
 		void setValue(const std::wstring& Label);
 
 		static const size_t hash;
-
 		friend class uiWindow;
 	private:
 		ffw::color col;

@@ -7,11 +7,7 @@
 #ifndef FFW_SERIALIZATION
 #define FFW_SERIALIZATION
 
-#include "../config.h"
-#include <string>
-#include <vector>
-#include <typeinfo>
-#include "../math/math.h"
+#include "../common.h"
 
 /*!
     @ingroup Utilities
@@ -27,32 +23,12 @@ namespace ffw{
             @memberof serialization
             @ingroup Utilities
         */
-        bool serializeAsVar(ffw::var* Data, bool Formated);
+        bool serialize(ffw::var* Data, bool Formated);
         /*!
             @memberof serialization
             @ingroup Utilities
         */
-        bool serializeAsJson(const std::string& Path, bool Formated);
-        /*!
-            @memberof serialization
-            @ingroup Utilities
-        */
-        bool deserializeAsVar(ffw::var* Data, std::vector<std::string>* Missing);
-        /*!
-            @memberof serialization
-            @ingroup Utilities
-        */
-        bool deserializeAsJson(const std::string& Path, std::vector<std::string>* Missing);
-        /*!
-            @memberof serialization
-            @ingroup Utilities
-        */
-        bool serializeAsJson(const std::wstring& Path, bool Formated);
-        /*!
-            @memberof serialization
-            @ingroup Utilities
-        */
-        bool deserializeAsJson(const std::wstring& Path, std::vector<std::string>* Missing);
+        bool deserialize(ffw::var* Data, std::vector<std::string>* Missing);
 
         struct item {
             item(void* Ptr, const std::string& Name, size_t Code):ptr(Ptr),name(Name),code(Code){}
@@ -70,7 +46,7 @@ namespace ffw{
             @ingroup Utilities
             @protected
         */
-        template <class T> void serialize(T* Ptr, const std::string& Name){
+        template <class T> void serializeItem(T* Ptr, const std::string& Name){
             varList.push_back(item(Ptr, Name, typeid(T).hash_code()));
         }
 

@@ -15,11 +15,6 @@ namespace ffw{
 		uiButton(void* Handle, int ID, int PosX, int PosY, int Width, int Height, const std::wstring& Label);
 		~uiButton();
 
-		void disable() override;
-		void enable() override;
-		void setPos(int PosX, int PosY) override;
-		void setSize(int Width, int Height) override;
-
 		static const size_t hash;
 	};
 };

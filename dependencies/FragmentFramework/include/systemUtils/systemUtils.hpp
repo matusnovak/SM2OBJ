@@ -7,8 +7,7 @@
 #ifndef FFW_SYS_UTILS
 #define FFW_SYS_UTILS
 
-#include "../config.h"
-#include <string>
+#include "../common.h"
 
 /*!
     @ingroup System

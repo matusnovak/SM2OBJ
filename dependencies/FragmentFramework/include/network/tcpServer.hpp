@@ -7,7 +7,7 @@
 #ifndef FFW_TCP_LISTENER
 #define FFW_TCP_LISTENER
 
-#include "networkUtils.hpp"
+#include "../common.h"
 
 /*!
     @ingroup Network
@@ -45,12 +45,12 @@ namespace ffw {
             @memberof tcpServer
             @ingroup Network
         */
-        bool closeClient(SOCKET* Client);
+        bool closeClient(unsigned int* Client);
         /*!
             @memberof tcpServer
             @ingroup Network
         */
-        bool acceptClient(SOCKET* Client, int* Address, unsigned short* Port);
+        bool acceptClient(unsigned int* Client, int* Address, unsigned short* Port);
         /*!
             @memberof tcpServer
             @ingroup Network
@@ -64,23 +64,32 @@ namespace ffw {
         /*!
             @memberof tcpServer
             @ingroup Network
+			
+			@code
+			int main() {
+			    int x;
+				int y;
+				for(){
+					// do something
+				}
+			}
         */
-        int sendMessage(SOCKET Client, const std::string& Message);
+        int sendMessage(unsigned int Client, const std::string& Message);
         /*!
             @memberof tcpServer
             @ingroup Network
         */
-        int sendMessageRaw(SOCKET Client, const char* Buffer, size_t BufferSize);
+        int sendMessageRaw(unsigned int Client, const char* Buffer, size_t BufferSize);
         /*!
             @memberof tcpServer
             @ingroup Network
         */
-        int getMessage(SOCKET Client, std::string* Message);
+        int getMessage(unsigned int Client, std::string* Message);
         /*!
             @memberof tcpServer
             @ingroup Network
         */
-        int getMessageRaw(SOCKET Client, char* Buffer, size_t BufferSize);
+        int getMessageRaw(unsigned int Client, char* Buffer, size_t BufferSize);
         /*!
             @memberof tcpServer
             @ingroup Network

@@ -13,51 +13,50 @@
     @ingroup Utilities
 */
 namespace ffw{
-	class tiffFile{};
 	/*!
         @memberof ffw
         @ingroup Utilities
-        @sa imageFileLoader
-        @inherit imageFileLoader
+        @sa imageLoader
+        @inherit imageLoader
     */
-    template <> class FFW_API imageLoader<tiffFile>: public imageFileLoader {
+    class FFW_API tiffLoader: public imageLoader {
     public:
-        imageLoader();
+        tiffLoader();
 		/*!
-            @memberof imageLoader<tiffFile>
+            @memberof tiffLoader
             @ingroup Utilities
         */
-		imageLoader(imageLoader&& Other);
-        ~imageLoader();
+		tiffLoader(tiffLoader&& Other);
+        ~tiffLoader();
         /*!
-            @memberof imageLoader<tiffFile>
+            @memberof tiffLoader
             @ingroup Utilities
         */
         bool open(const std::string& Path) override;
         /*!
-            @memberof imageLoader<tiffFile>
+            @memberof tiffLoader
             @ingroup Utilities
         */
         bool open(const std::wstring& Path) override;
         /*!
-            @memberof imageLoader<tiffFile>
+            @memberof tiffLoader
             @ingroup Utilities
         */
         void close() override;
         /*!
-            @memberof imageLoader<tiffFile>
+            @memberof tiffLoader
             @ingroup Utilities
         */
         bool readRow(unsigned char* Pixels) override;
 		/*!
-            @memberof imageLoader<tiffFile>
+            @memberof tiffLoader
             @ingroup Utilities
         */
-		imageLoader& operator = (imageLoader&& Other);
+		tiffLoader& operator = (tiffLoader&& Other);
 		// Copy constructor is not allowed
-		imageLoader(const imageLoader& Other) = delete;
+		tiffLoader(const tiffLoader& Other) = delete;
 		// Copy assigment is not allowed
-		imageLoader& operator = (const imageLoader& Other) = delete;
+		tiffLoader& operator = (const tiffLoader& Other) = delete;
 
     private:
         class impl;
@@ -67,52 +66,52 @@ namespace ffw{
     /*!
         @memberof ffw
         @ingroup Utilities
-        @sa imageFileSaver
-        @inherit imageFileSaver
+        @sa imageSaver
+        @inherit imageSaver
     */
-    template <> class FFW_API imageSaver<tiffFile>: public imageFileSaver {
+    class FFW_API tiffSaver: public imageSaver {
     public:
-        imageSaver();
+        tiffSaver();
 		/*!
-            @memberof imageSaver<tiffFile>
+            @memberof tiffSaver
             @ingroup Utilities
         */
-		imageSaver(imageSaver&& Other);
-        ~imageSaver();
+		tiffSaver(tiffSaver&& Other);
+        ~tiffSaver();
         /*!
-            @memberof imageSaver<tiffFile>
+            @memberof tiffSaver
             @ingroup Utilities
         */
         bool open(const std::string& Path, int Width, int Height, imageType Type) override;
         /*!
-            @memberof imageSaver<tiffFile>
+            @memberof tiffSaver
             @ingroup Utilities
         */
         bool open(const std::wstring& Path, int Width, int Height, imageType Type) override;
         /*!
-            @memberof imageSaver<tiffFile>
+            @memberof tiffSaver
             @ingroup Utilities
         */
         void close() override;
         /*!
-            @memberof imageSaver<tiffFile>
+            @memberof tiffSaver
             @ingroup Utilities
         */
         bool writeRow(unsigned char* Pixels) override;
         /*!
-            @memberof imageSaver<tiffFile>
+            @memberof tiffSaver
             @ingroup Utilities
         */
         bool writeFooter() override;
 		/*!
-            @memberof imageSaver<tiffFile>
+            @memberof tiffSaver
             @ingroup Utilities
         */
-		imageSaver& operator = (imageSaver&& Other);
+		tiffSaver& operator = (tiffSaver&& Other);
 		// Copy constructor is not allowed
-		imageSaver(const imageSaver& Other) = delete;
+		tiffSaver(const tiffSaver& Other) = delete;
 		// Copy assigment is not allowed
-		imageSaver& operator = (const imageSaver& Other) = delete;
+		tiffSaver& operator = (const tiffSaver& Other) = delete;
 
     private:
         class impl;

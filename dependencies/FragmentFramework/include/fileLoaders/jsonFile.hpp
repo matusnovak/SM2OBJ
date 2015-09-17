@@ -7,9 +7,7 @@
 #ifndef FFW_LOAD_SAVE_JSON
 #define FFW_LOAD_SAVE_JSON
 
-#include "../config.h"
-#include <string>
-#include "../math/math.h"
+#include "../common.h"
 
 /*!
     @ingroup Utilities

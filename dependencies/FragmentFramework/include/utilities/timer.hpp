@@ -7,8 +7,7 @@
 #ifndef FFW_TIMER
 #define FFW_TIMER
 
-#include "../config.h"
-#include <chrono>
+#include "../common.h"
 
 /*!
     @ingroup Utilities

@@ -206,3 +206,33 @@ inline ffw::varArray& ffw::var::getAsArray(){
 inline ffw::varObject& ffw::var::getAsObject(){
     return varTypeObject;
 }
+
+///=============================================================================
+inline const int& ffw::var::getAsInt() const {
+    return varTypeInt;
+}
+
+///=============================================================================
+inline const float& ffw::var::getAsFloat() const {
+    return varTypeFloat;
+}
+
+///=============================================================================
+inline const bool& ffw::var::getAsBool() const {
+    return varTypeBool;
+}
+
+///=============================================================================
+inline const std::string& ffw::var::getAsString() const {
+    return varTypeString;
+}
+
+///=============================================================================
+inline const ffw::varArray& ffw::var::getAsArray() const {
+    return varTypeArray;
+}
+
+///=============================================================================
+inline const ffw::varObject& ffw::var::getAsObject() const {
+    return varTypeObject;
+}

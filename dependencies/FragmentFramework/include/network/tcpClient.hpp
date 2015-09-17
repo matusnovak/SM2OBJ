@@ -7,7 +7,7 @@
 #ifndef FFW_TCP_CLIENT
 #define FFW_TCP_CLIENT
 
-#include "networkUtils.hpp"
+#include "../common.h"
 
 /*!
     @ingroup Network
@@ -77,7 +77,7 @@ namespace ffw {
         */
         int getMessageRaw(char* Buffer, size_t BufferSize);
         /*!
-            @memberof tcpClient
+            @memberof tcpClientT
             @ingroup Network
         */
         void setConnectionTimeout(int Seconds);

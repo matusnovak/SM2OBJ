@@ -13,51 +13,50 @@
     @ingroup Utilities
 */
 namespace ffw{
-	class pbmFile{};
 	/*!
         @memberof ffw
         @ingroup Utilities
-        @sa imageFileLoader
-        @inherit imageFileLoader
+        @sa imageLoader
+        @inherit imageLoader
     */
-    template<> class FFW_API imageLoader<pbmFile>: public imageFileLoader {
+    class FFW_API pbmLoader: public imageLoader {
     public:
-        imageLoader();
+        pbmLoader();
 		/*!
-            @memberof imageLoader<pbmFile>
+            @memberof pbmLoader
             @ingroup Utilities
         */
-		imageLoader(imageLoader&& Other);
-        ~imageLoader();
+		pbmLoader(pbmLoader&& Other);
+        ~pbmLoader();
         /*!
-            @memberof imageLoader<pbmFile>
+            @memberof pbmLoader
             @ingroup Utilities
         */
         bool open(const std::string& Path) override;
         /*!
-            @memberof imageLoader<pbmFile>
+            @memberof pbmLoader
             @ingroup Utilities
         */
         bool open(const std::wstring& Path) override;
         /*!
-            @memberof imageLoader<pbmFile>
+            @memberof pbmLoader
             @ingroup Utilities
         */
         void close() override;
         /*!
-            @memberof imageLoader<pbmFile>
+            @memberof pbmLoader
             @ingroup Utilities
         */
         bool readRow(unsigned char* Pixels) override;
 		/*!
-            @memberof imageLoader<pbmFile>
+            @memberof pbmLoader
             @ingroup Utilities
         */
-		imageLoader& operator = (imageLoader&& Other);
+		pbmLoader& operator = (pbmLoader&& Other);
 		// Copy constructor is not allowed
-		imageLoader(const imageLoader& Other) = delete;
+		pbmLoader(const pbmLoader& Other) = delete;
 		// Copy assigment is not allowed
-		imageLoader& operator = (const imageLoader& Other) = delete;
+		pbmLoader& operator = (const pbmLoader& Other) = delete;
 
     private:
         class impl;
@@ -67,52 +66,52 @@ namespace ffw{
     /*!
         @memberof ffw
         @ingroup Utilities
-        @sa imageFileSaver
-        @inherit imageFileSaver
+        @sa imageSaver
+        @inherit imageSaver
     */
-    template<> class FFW_API imageSaver<pbmFile>: public imageFileSaver {
+    class FFW_API pbmSaver: public imageSaver {
     public:
-        imageSaver();
+        pbmSaver();
 		/*!
-            @memberof imageSaver<pbmFile>
+            @memberof pbmSaver
             @ingroup Utilities
         */
-		imageSaver(imageSaver&& Other);
-        ~imageSaver();
+		pbmSaver(pbmSaver&& Other);
+        ~pbmSaver();
         /*!
-            @memberof imageSaver<pbmFile>
+            @memberof pbmSaver
             @ingroup Utilities
         */
         bool open(const std::string& Path, int Width, int Height, imageType Type) override;
         /*!
-            @memberof imageSaver<pbmFile>
+            @memberof pbmSaver
             @ingroup Utilities
         */
         bool open(const std::wstring& Path, int Width, int Height, imageType Type) override;
         /*!
-            @memberof imageSaver<pbmFile>
+            @memberof pbmSaver
             @ingroup Utilities
         */
         void close() override;
         /*!
-            @memberof imageSaver<pbmFile>
+            @memberof pbmSaver
             @ingroup Utilities
         */
         bool writeRow(unsigned char* Pixels) override;
         /*!
-            @memberof imageSaver<pbmFile>
+            @memberof pbmSaver
             @ingroup Utilities
         */
         bool writeFooter() override;
 		/*!
-            @memberof imageSaver<pbmFile>
+            @memberof pbmSaver
             @ingroup Utilities
         */
-		imageSaver& operator = (imageSaver&& Other);
+		pbmSaver& operator = (pbmSaver&& Other);
 		// Copy constructor is not allowed
-		imageSaver(const imageSaver& Other) = delete;
+		pbmSaver(const pbmSaver& Other) = delete;
 		// Copy assigment is not allowed
-		imageSaver& operator = (const imageSaver& Other) = delete;
+		pbmSaver& operator = (const pbmSaver& Other) = delete;
 
     private:
         class impl;

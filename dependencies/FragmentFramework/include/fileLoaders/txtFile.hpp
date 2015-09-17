@@ -7,9 +7,7 @@
 #ifndef FFW_LOAD_SAVE_TXT
 #define FFW_LOAD_SAVE_TXT
 
-#include "../config.h"
-#include <string>
-#include <vector>
+#include "../common.h"
 
 /*!
     @ingroup Utilities

@@ -14,14 +14,8 @@ namespace ffw{
 	public:
 		uiRadio(void* Handle, int ID, int PosX, int PosY, int Width, int Height, const std::wstring& Label);
 		~uiRadio();
-
-		void disable() override;
-		void enable() override;
-		void setPos(int PosX, int PosY) override;
-		void setSize(int Width, int Height) override;
-
 		bool getValue() const;
-		void setValue(bool Value) const;
+		void setValue(bool Value);
 
 		static const size_t hash;
 	};

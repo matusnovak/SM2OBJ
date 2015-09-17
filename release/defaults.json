@@ -1,10 +1,10 @@
 {
     "export-attachments": true,
     "exportMaterials": true,
-    "input-blueprint-folder": "E:\\Program Files (x86)\\StarMade\\StarMade\\blueprints\\BLUEPRINT_1439984067219",
+    "input-blueprint-folder": "E:\\Program Files (x86)\\StarMade\\StarMade\\blueprints\\Fighter-Small-01-v2",
     "input-data-folder": "E:\\Program Files (x86)\\StarMade\\StarMade\\data",
     "num-of-threads": "8",
-    "output-file-folder": "C:\\output",
+    "output-file-folder": "E:\\Program Files (x86)\\StarMade\\exported",
     "output-texture-folder": "C:\\output\\textures",
     "specular-highlight": false,
     "texture-export-type": 1,

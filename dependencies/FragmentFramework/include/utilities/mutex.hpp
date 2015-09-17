@@ -7,14 +7,14 @@
 #ifndef FFW_MUTEX
 #define FFW_MUTEX
 
-#include "../config.h"
+#include "../common.h"
 
-// Compile for Visual Studio
+/*// Compile for Visual Studio
 #if defined(_USING_MSVC)
 #include <mutex>
 #elif defined(_USING_MINGW)
 #include <pthread.h>
-#endif
+#endif*/
 
 namespace ffw{
 	class FFW_API mutex {
@@ -26,11 +26,13 @@ namespace ffw{
 		bool unlock();
 
 	private:
-		#if defined(_USING_MSVC)
+		class impl;
+		impl* pimpl;
+		/*#if defined(_USING_MSVC)
 		std::mutex mut;
 		#elif defined(_USING_MINGW)
 		pthread_mutex_t mut;
-		#endif
+		#endif*/
 	};
 };
 

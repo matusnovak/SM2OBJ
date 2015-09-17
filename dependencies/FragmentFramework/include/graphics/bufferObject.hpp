@@ -7,8 +7,7 @@
 #ifndef FFW_BUFFER_OBJECT
 #define FFW_BUFFER_OBJECT
 
-#include "../config.h"
-#include "../gl/extensions.hpp"
+#include "../common.h"
 
 /*!
     @ingroup Graphics
@@ -21,14 +20,10 @@ namespace ffw {
     */
 	class FFW_API bufferObject {
     public:
-        bufferObject();
-		~bufferObject();
-        /*!
-            @memberof bufferObject
-            @ingroup Graphics
-
-        */
-		bool init(const renderContext* Context, unsigned int ObjectType);
+        static bool checkCompability(const renderContext* Renderer);
+		
+		bufferObject(unsigned int ObjectType);
+		virtual ~bufferObject();
         /*!
             @memberof bufferObject
             @ingroup Graphics
@@ -40,13 +35,13 @@ namespace ffw {
             @ingroup Graphics
 
         */
-		bool createBuffer(const void* Data, int Size, unsigned int Type);
+		bool create(const renderContext* Renderer, const void* Data, int Size, unsigned int Type);
         /*!
             @memberof bufferObject
             @ingroup Graphics
 
         */
-		bool uploadData(const void* Data, int Offset, int Size);
+		bool setData(const void* Data, int Offset, int Size);
 		/*!
             @memberof bufferObject
             @ingroup Graphics
@@ -110,14 +105,25 @@ namespace ffw {
 
     private:
         unsigned int type;
-        unsigned int objectType;
+        const unsigned int objectType;
         bool loaded;
         unsigned int buffer;
         int size;
-        bool initialized;
 
         const glExtensions* gl;
     };
+
+	class FFW_API vbo: public bufferObject {
+	public:
+		vbo():bufferObject(GL_ARRAY_BUFFER){}
+		~vbo(){}
+	};
+
+	class FFW_API ibo: public bufferObject {
+	public:
+		ibo():bufferObject(GL_ELEMENT_ARRAY_BUFFER){}
+		~ibo(){}
+	};
 };
 #endif
 

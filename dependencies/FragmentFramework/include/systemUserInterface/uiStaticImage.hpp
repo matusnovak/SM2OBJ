@@ -14,9 +14,6 @@ namespace ffw{
 	public:
 		uiStaticImage(void* Handle, int ID, int PosX, int PosY, int Width, int Height, const ffw::uiBitmap* Bitmap);
 		~uiStaticImage();
-
-		void setPos(int PosX, int PosY) override;
-		void setSize(int Width, int Height) override;
 		void setBitmap(const ffw::uiBitmap* Bitmap);
 
 		static const size_t hash;

@@ -7,7 +7,12 @@
 #ifndef FFW_GL_EXTENSIONS
 #define FFW_GL_EXTENSIONS
 
-#include "../config.h"
+#if defined(_USING_MSVC)
+// Evil windows.h
+#define NOMINMAX
+#include "windows.h"
+#undef NOMINMAX
+#endif
 #include <GL/gl.h>
 #include <GL/glext.h>
 
@@ -364,6 +369,29 @@ namespace ffw{
         PFNGLGETACTIVEUNIFORMBLOCKNAMEPROC glGetActiveUniformBlockName;
         PFNGLUNIFORMBLOCKBINDINGPROC glUniformBlockBinding;
         #endif
+
+		// Group GL_VERSION_3_2
+        #if GL_VERSION_3_2 == 1
+		PFNGLDRAWELEMENTSBASEVERTEXPROC glDrawElementsBaseVertex;
+		PFNGLDRAWRANGEELEMENTSBASEVERTEXPROC glDrawRangeElementsBaseVertex;
+		PFNGLDRAWELEMENTSINSTANCEDBASEVERTEXPROC glDrawElementsInstancedBaseVertex;
+		PFNGLMULTIDRAWELEMENTSBASEVERTEXPROC glMultiDrawElementsBaseVertex;
+		PFNGLPROVOKINGVERTEXPROC glProvokingVertex;
+		PFNGLFENCESYNCPROC glFenceSync;
+		PFNGLISSYNCPROC glIsSync;
+		PFNGLDELETESYNCPROC glDeleteSync;
+		PFNGLCLIENTWAITSYNCPROC glClientWaitSync;
+		PFNGLWAITSYNCPROC glWaitSync;
+		PFNGLGETINTEGER64VPROC glGetInteger64v;
+		PFNGLGETSYNCIVPROC glGetSynciv;
+		PFNGLGETINTEGER64I_VPROC glGetInteger64i_v;
+		PFNGLGETBUFFERPARAMETERI64VPROC glGetBufferParameteri64v;
+		PFNGLFRAMEBUFFERTEXTUREPROC glFramebufferTexture;
+		PFNGLTEXIMAGE2DMULTISAMPLEPROC glTexImage2DMultisample;
+		PFNGLTEXIMAGE3DMULTISAMPLEPROC glTexImage3DMultisample;
+		PFNGLGETMULTISAMPLEFVPROC glGetMultisamplefv;
+		PFNGLSAMPLEMASKIPROC glSampleMaski;
+		#endif
 
         // Group GL_VERSION_3_3
         #if GL_VERSION_3_3 == 1

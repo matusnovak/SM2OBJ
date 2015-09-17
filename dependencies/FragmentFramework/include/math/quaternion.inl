@@ -5,7 +5,8 @@
 */
 
 ///=============================================================================
-inline ffw::quaternion::quaternion(){
+template <class T>
+inline ffw::quat<T>::quat(){
     x = 0.0f;
     y = 0.0f;
     z = 0.0f;
@@ -13,7 +14,8 @@ inline ffw::quaternion::quaternion(){
 }
 
 ///=============================================================================
-inline ffw::quaternion::quaternion(float X, float Y, float Z, float W){
+template <class T>
+inline ffw::quat<T>::quat(T X, T Y, T Z, T W){
     x = X;
     y = Y;
     z = Z;
@@ -21,7 +23,8 @@ inline ffw::quaternion::quaternion(float X, float Y, float Z, float W){
 }
 
 ///=============================================================================
-inline ffw::quaternion::quaternion(const quaternion& Quat){
+template <class T>
+inline ffw::quat<T>::quat(const quat& Quat){
     x = Quat.x;
     y = Quat.y;
     z = Quat.z;
@@ -29,7 +32,8 @@ inline ffw::quaternion::quaternion(const quaternion& Quat){
 }
 
 ///=============================================================================
-inline void ffw::quaternion::set(float X, float Y, float Z, float W){
+template <class T>
+inline void ffw::quat<T>::set(T X, T Y, T Z, T W){
     x = X;
     y = Y;
     z = Z;
@@ -37,7 +41,8 @@ inline void ffw::quaternion::set(float X, float Y, float Z, float W){
 }
 
 ///=============================================================================
-inline void ffw::quaternion::set(const quaternion& Quat){
+template <class T>
+inline void ffw::quat<T>::set(const quat& Quat){
     x = Quat.x;
     y = Quat.y;
     z = Quat.z;
@@ -45,7 +50,8 @@ inline void ffw::quaternion::set(const quaternion& Quat){
 }
 
 ///=============================================================================
-inline ffw::quaternion& ffw::quaternion::rotate(float Deg, float X, float Y, float Z){
+template <class T>
+inline ffw::quat<T>& ffw::quat<T>::rotate(T Deg, T X, T Y, T Z){
     double angle = Deg*DEG_TO_RAD;
     double result = sin(angle/2.0);
     x = float(X * result);
@@ -57,7 +63,8 @@ inline ffw::quaternion& ffw::quaternion::rotate(float Deg, float X, float Y, flo
 }
 
 ///=============================================================================
-inline ffw::quaternion& ffw::quaternion::rotateRad(float Rad, float X, float Y, float Z){
+template <class T>
+inline ffw::quat<T>& ffw::quat<T>::rotateRad(T Rad, T X, T Y, T Z){
     double result = sin(Rad/2.0);
     x = float(X * result);
     y = float(Y * result);
@@ -68,8 +75,9 @@ inline ffw::quaternion& ffw::quaternion::rotateRad(float Rad, float X, float Y, 
 }
 
 ///=============================================================================
-inline ffw::quaternion  ffw::quaternion::operator - () const{
-    quaternion result;
+template <class T>
+inline ffw::quat<T> ffw::quat<T>::operator - () const{
+    quat result;
 
     result.x = -x;
     result.y = -y;
@@ -80,8 +88,9 @@ inline ffw::quaternion  ffw::quaternion::operator - () const{
 }
 
 ///=============================================================================
-inline ffw::quaternion  ffw::quaternion::operator * (const quaternion& Quat) const{
-    quaternion result;
+template <class T>
+inline ffw::quat<T> ffw::quat<T>::operator * (const quat& Quat) const{
+    quat result;
 
     result.x = Quat.w*x + Quat.x*w + Quat.y*z - Quat.z*y;
     result.y = Quat.w*y - Quat.x*z + Quat.y*w + Quat.z*x;
@@ -92,7 +101,8 @@ inline ffw::quaternion  ffw::quaternion::operator * (const quaternion& Quat) con
 }
 
 ///=============================================================================
-inline ffw::quaternion& ffw::quaternion::operator *= (const quaternion& Quat){
+template <class T>
+inline ffw::quat<T>& ffw::quat<T>::operator *= (const quat& Quat){
     float rx = Quat.w*x + Quat.x*w + Quat.y*z - Quat.z*y;
     float ry = Quat.w*y - Quat.x*z + Quat.y*w + Quat.z*x;
     float rz = Quat.w*z + Quat.x*y - Quat.y*x + Quat.z*w;
@@ -107,8 +117,9 @@ inline ffw::quaternion& ffw::quaternion::operator *= (const quaternion& Quat){
 }
 
 ///=============================================================================
-inline ffw::quaternion  ffw::quaternion::operator * (float Value) const{
-    quaternion result;
+template <class T>
+inline ffw::quat<T> ffw::quat<T>::operator * (T Value) const{
+    quat result;
 
     result.x = x*Value;
     result.y = y*Value;
@@ -119,7 +130,8 @@ inline ffw::quaternion  ffw::quaternion::operator * (float Value) const{
 }
 
 ///=============================================================================
-inline ffw::quaternion& ffw::quaternion::operator *= (float Value){
+template <class T>
+inline ffw::quat<T>& ffw::quat<T>::operator *= (T Value){
     x *= Value;
     y *= Value;
     z *= Value;
@@ -129,8 +141,9 @@ inline ffw::quaternion& ffw::quaternion::operator *= (float Value){
 }
 
 ///=============================================================================
-inline ffw::quaternion  ffw::quaternion::operator + (const quaternion& Quat) const{
-    quaternion result;
+template <class T>
+inline ffw::quat<T> ffw::quat<T>::operator + (const quat& Quat) const{
+    quat result;
 
     result.x = x + Quat.x;
     result.y = y + Quat.y;
@@ -141,7 +154,8 @@ inline ffw::quaternion  ffw::quaternion::operator + (const quaternion& Quat) con
 }
 
 ///=============================================================================
-inline ffw::quaternion& ffw::quaternion::operator += (const quaternion& Quat){
+template <class T>
+inline ffw::quat<T>& ffw::quat<T>::operator += (const quat& Quat){
     x += Quat.x;
     y += Quat.y;
     z += Quat.z;
@@ -151,8 +165,9 @@ inline ffw::quaternion& ffw::quaternion::operator += (const quaternion& Quat){
 }
 
 ///=============================================================================
-inline ffw::quaternion  ffw::quaternion::operator - (const quaternion& Quat) const{
-    quaternion result;
+template <class T>
+inline ffw::quat<T> ffw::quat<T>::operator - (const quat& Quat) const{
+    quat result;
 
     result.x = x - Quat.x;
     result.y = y - Quat.y;
@@ -163,7 +178,8 @@ inline ffw::quaternion  ffw::quaternion::operator - (const quaternion& Quat) con
 }
 
 ///=============================================================================
-inline ffw::quaternion& ffw::quaternion::operator -= (const quaternion& Quat){
+template <class T>
+inline ffw::quat<T>& ffw::quat<T>::operator -= (const quat& Quat){
     x -= Quat.x;
     y -= Quat.y;
     z -= Quat.z;
@@ -173,8 +189,9 @@ inline ffw::quaternion& ffw::quaternion::operator -= (const quaternion& Quat){
 }
 
 ///=============================================================================
-inline ffw::quaternion  ffw::quaternion::operator / (float Value) const{
-    quaternion result;
+template <class T>
+inline ffw::quat<T> ffw::quat<T>::operator / (T Value) const{
+    quat result;
     float val = 1.0f / Value;
 
     result.x = x*val;
@@ -186,7 +203,8 @@ inline ffw::quaternion  ffw::quaternion::operator / (float Value) const{
 }
 
 ///=============================================================================
-inline ffw::quaternion& ffw::quaternion::operator /= (float Value){
+template <class T>
+inline ffw::quat<T>& ffw::quat<T>::operator /= (T Value){
     float val = 1.0f / Value;
 
     x *= val;
@@ -198,7 +216,8 @@ inline ffw::quaternion& ffw::quaternion::operator /= (float Value){
 }
 
 ///=============================================================================
-inline void ffw::quaternion::normalize(){
+template <class T>
+inline void ffw::quat<T>::normalize(){
     float n = 1.0f/sqrt(x*x+y*y+z*z+w*w);
     x = x * n;
     y = y * n;
@@ -207,9 +226,10 @@ inline void ffw::quaternion::normalize(){
 }
 
 ///=============================================================================
-inline void ffw::quaternion::getEuler(float* Roll, float* Pitch, float* Yaw) const{
-    // http://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToEuler/
-    float test = x*y + z*w;
+template <class T>
+inline void ffw::quat<T>::getEuler(T* Roll, T* Pitch, T* Yaw) const{
+    // http://www.euclideanspace.com/maths/geometry/rotations/conversions/quatToEuler/
+    T test = x*y + z*w;
     double heading;
     double attitude;
     double bank;
@@ -233,24 +253,27 @@ inline void ffw::quaternion::getEuler(float* Roll, float* Pitch, float* Yaw) con
         bank        = atan2(2.0f*x * w - 2.0f * y * z, 1.0f - 2.0f*sqx - 2.0f*sqz);
     }
 
-    *Roll   = float(attitude  *DEG_TO_RAD);
-    *Pitch  = float(heading   *DEG_TO_RAD);
-    *Yaw    = float(bank      *DEG_TO_RAD);
+    if(Roll  != NULL)*Roll   = T(attitude  *DEG_TO_RAD);
+    if(Pitch != NULL)*Pitch  = T(heading   *DEG_TO_RAD);
+    if(Yaw   != NULL)*Yaw    = T(bank      *DEG_TO_RAD);
 }
 
 ///=============================================================================
-inline float ffw::quaternion::getLength() const {
+template <class T>
+inline float ffw::quat<T>::length() const {
     return sqrt(x*x + y*y + z*z + w*w);
 }
 
 ///=============================================================================
-inline float ffw::quaternion::getLengthSquared() const {
+template <class T>
+inline float ffw::quat<T>::lengthSqrd() const {
     return x*x + y*y + z*z + w*w;
 }
 
 ///=============================================================================
-inline ffw::quaternion ffw::quaternion::getConjugate() const {
-    quaternion result;
+template <class T>
+inline ffw::quat<T> ffw::quat<T>::getConjugate() const {
+    quat result;
 
     result.x = -x;
     result.y = -y;
@@ -261,12 +284,14 @@ inline ffw::quaternion ffw::quaternion::getConjugate() const {
 }
 
 ///=============================================================================
-inline ffw::quaternion ffw::quaternion::getInversed() const {
-    return getConjugate() / getLengthSquared();
+template <class T>
+inline ffw::quat<T> ffw::quat<T>::getInversed() const {
+    return getConjugate() / lengthSqrd();
 }
 
 ///=============================================================================
-inline ffw::quaternion& ffw::quaternion::inverse(){
-    *this = getConjugate() / getLengthSquared();
+template <class T>
+inline ffw::quat<T>& ffw::quat<T>::inverse(){
+    *this = getConjugate() / lengthSqrd();
     return *this;
 }

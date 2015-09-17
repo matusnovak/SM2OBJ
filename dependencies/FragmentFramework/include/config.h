@@ -16,6 +16,7 @@
 #ifdef _MSC_VER
 #define _USING_MSVC
 #pragma warning( disable: 4251 )
+#define FFW_USE_STD_THREADS 1
 #endif
 #ifdef __MINGW32__
 #define _USING_MINGW
