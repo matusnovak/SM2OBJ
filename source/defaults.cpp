@@ -7,22 +7,16 @@
 #include "defaults.h"
 
 sm2obj::defaults::defaults(){
-    serializeItem(&inputBlueprintFolder, "input-blueprint-folder");
-    serializeItem(&inputDataFolder, "input-data-folder");
-    serializeItem(&outputFileFolder, "output-file-folder");
-    serializeItem(&uvMapsOptions, "uv-maps-options");
-    serializeItem(&exportMaterials, "exportMaterials");
-    serializeItem(&useDiffuseTextures, "use-diffuse-textures");
-    serializeItem(&useAlphaTextures, "use-alpha-textures");
-    serializeItem(&useNormalTextures, "use-normal-textures");
-    serializeItem(&useEmissiveTextures, "use-emissive-textures");
-    serializeItem(&specularHighlight, "specular-highlight");
+    serializeItem(&inputStarMadeFolder, "starmade-folder");
+    serializeItem(&outputFolder, "output-folder");
+    serializeItem(&uvMapsOptions, "uv-maps");
+    serializeItem(&useDiffuseTextures, "use-diffuse");
+    serializeItem(&useAlphaTextures, "use-alpha");
+    serializeItem(&useBumpsOrNormals, "bumps-or-normals");
+    serializeItem(&useEmissiveTextures, "use-emissive");
     serializeItem(&numOfThreads, "num-of-threads");
-    serializeItem(&outputTextureFolder, "output-texture-folder");
-    serializeItem(&textureOutputFormat, "texture-output-format");
-    serializeItem(&textureExportType, "texture-export-type");
-    serializeItem(&textureTileSize, "texture-tile-size");
-    serializeItem(&textureNormals, "texture-normals");
+    serializeItem(&textureFormat, "texture-format");
+    serializeItem(&textureSize, "texture-size");
     serializeItem(&exportAttachments, "export-attachments");
 }
 

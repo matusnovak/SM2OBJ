@@ -1,8 +1,4 @@
-/*
-*   This file is part of FragmentFramework framework.
-*   Copyright (C) 2013-2015 by Matus Novak matusnov@gmail.com
-*   Licensed under the MIT License
-*/
+/*** This file is part of FragmentFramework project ***/
 
 #ifndef FRAGMENT_FRAMEWORK
 #define FRAGMENT_FRAMEWORK
@@ -10,6 +6,7 @@
 #include "common.h"
 #include "audio/audioManager.hpp"
 #include "audio/audioStream.hpp"
+#include "audio/audioPlayer.hpp"
 #include "gl/monitors.hpp"
 #include "graphics/graphics.hpp"
 #include "graphics/bufferObjectPool.hpp"
@@ -37,18 +34,28 @@
 #include "systemUtils/directory.hpp"
 #include "systemUtils/systemUtils.hpp"
 #include "utilities/fileUtilities.hpp"
-#include "fileLoaders/bmpFile.hpp"
+#include "fileLoaders/bmpLoader.hpp"
+#include "fileLoaders/bmpSaver.hpp"
 #include "fileLoaders/jsonFile.hpp"
-#include "fileLoaders/objFile.hpp"
-#include "fileLoaders/pbmFile.hpp"
-#include "fileLoaders/pngFile.hpp"
-#include "fileLoaders/jpgFile.hpp"
+#include "fileLoaders/objLoader.hpp"
+#include "fileLoaders/pbmLoader.hpp"
+#include "fileLoaders/pbmSaver.hpp"
+#include "fileLoaders/pngLoader.hpp"
+#include "fileLoaders/pngSaver.hpp"
+#include "fileLoaders/jpgLoader.hpp"
+#include "fileLoaders/jpgSaver.hpp"
 #include "fileLoaders/txtFile.hpp"
-#include "fileLoaders/tgaFile.hpp"
-#include "fileLoaders/tiffFile.hpp"
-#include "fileLoaders/wavFile.hpp"
+#include "fileLoaders/tgaLoader.hpp"
+#include "fileLoaders/tgaSaver.hpp"
+#include "fileLoaders/tiffLoader.hpp"
+#include "fileLoaders/tiffSaver.hpp"
+#include "fileLoaders/wavLoader.hpp"
+#include "fileLoaders/wavSaver.hpp"
 #include "fileLoaders/xmlFile.hpp"
-#include "fileLoaders/oggFile.hpp"
+#include "fileLoaders/oggLoader.hpp"
+#include "fileLoaders/oggSaver.hpp"
+#include "fileLoaders/imageUtils.hpp"
+#include "fileLoaders/audioUtils.hpp"
 #include "utilities/file.hpp"
 #include "utilities/logger.hpp"
 #include "utilities/thread.hpp"

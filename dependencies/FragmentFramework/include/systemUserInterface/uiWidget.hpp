@@ -12,34 +12,87 @@
 #include "uiFont.hpp"
 #include "uiBitmap.hpp"
 
+/*!
+ * @ingroup User-Interface
+ */
 namespace ffw{
-	class uiWidget;
-};
-
-namespace ffw{
+	/*!
+	 * @memberof ffw
+	 * @ingroup User-Interface
+	 */
 	class FFW_API uiWidget{
 	public:
+		/*!
+		 * @memberof uiWidget
+		 * @ingroup User-Interface
+		 */
 		uiWidget(size_t ID);
+		uiWidget(uiWidget&& Other) = delete;
+		uiWidget(const uiWidget& Other) = delete;
 		virtual ~uiWidget();
-
+		/*!
+		 * @memberof uiWidget
+		 * @ingroup User-Interface
+		 */
 		void setFont(const ffw::uiFont* Font);
-
+		/*!
+		 * @memberof uiWidget
+		 * @ingroup User-Interface
+		 */
 		virtual void hide();
+		/*!
+		 * @memberof uiWidget
+		 * @ingroup User-Interface
+		 */
 		virtual void show();
+		/*!
+		 * @memberof uiWidget
+		 * @ingroup User-Interface
+		 */
 		virtual void enable();
+		/*!
+		 * @memberof uiWidget
+		 * @ingroup User-Interface
+		 */
 		virtual void disable();
+		/*!
+		 * @memberof uiWidget
+		 * @ingroup User-Interface
+		 */
 		virtual void setPos(int PosX, int PosY);
+		/*!
+		 * @memberof uiWidget
+		 * @ingroup User-Interface
+		 */
 		virtual void setSize(int Width, int Height);
+		/*!
+		 * @memberof uiWidget
+		 * @ingroup User-Interface
+		 * @const
+		 */
 		const ffw::vec2i& getPos() const;
+		/*!
+		 * @memberof uiWidget
+		 * @ingroup User-Interface
+		 * @const
+		 */
 		const ffw::vec2i& getSize() const;
+		/*!
+		 * @memberof uiWidget
+		 * @ingroup User-Interface
+		 * @const
+		 */
 		bool isEnabled() const;
+		/*!
+		 * @memberof uiWidget
+		 * @ingroup User-Interface
+		 * @const
+		 */
 		bool isVisible() const;
 
 		friend class uiWindow;
 
 		// Can not be moved nor copied
-		uiWidget(uiWidget&& Other) = delete;
-		uiWidget(const uiWidget& Other) = delete;
 		uiWidget& operator = (uiWidget&& Other) = delete;
 		uiWidget& operator = (const uiWidget& Other) = delete;
 	protected:

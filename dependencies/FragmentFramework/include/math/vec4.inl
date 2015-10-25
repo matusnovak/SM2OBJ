@@ -1,8 +1,4 @@
-/*
-*   This file is part of FragmentFramework framework.
-*   Copyright (C) 2013-2015 by Matus Novak matusnov@gmail.com
-*   Licensed under the MIT License
-*/
+/*** This file is part of FragmentFramework project ***/
 
 ///=============================================================================
 template <class T>

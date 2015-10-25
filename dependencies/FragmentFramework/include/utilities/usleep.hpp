@@ -10,13 +10,14 @@
 #include "../common.h"
 
 /*!
-    @ingroup Utilities
-*/
+ * @ingroup Utilities
+ */
 namespace ffw{
     /*!
-        @memberof ffw
-        @ingroup Utilities
-    */
+     * @memberof ffw
+     * @ingroup Utilities
+	 * @brief Sleeps in micro seconds
+     */
 	void FFW_API usleep(unsigned long long Micros);
 };
 #endif

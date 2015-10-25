@@ -1,14 +1,10 @@
-/*
-*   This file is part of FragmentFramework framework.
-*   Copyright (C) 2013-2015 by Matus Novak matusnov@gmail.com
-*   Licensed under the MIT License
-*/
+/*** This file is part of FragmentFramework project ***/
 
 ///=============================================================================
 template <> inline float                ffw::stringToVal<float>              (const std::string& Str){return std::stof(Str);}
 template <> inline double               ffw::stringToVal<double>             (const std::string& Str){return std::stod(Str);}
 template <> inline long double          ffw::stringToVal<long double>        (const std::string& Str){return std::stold(Str);}
-template <> inline short                ffw::stringToVal<short>              (const std::string& Str){return std::stoi(Str);}
+template <> inline short                ffw::stringToVal<short>              (const std::string& Str){return static_cast<short>(std::stoi(Str));}
 template <> inline int                  ffw::stringToVal<int>                (const std::string& Str){return std::stoi(Str);}
 template <> inline long                 ffw::stringToVal<long>               (const std::string& Str){return std::stol(Str);}
 template <> inline long long            ffw::stringToVal<long long>          (const std::string& Str){return std::stoll(Str);}

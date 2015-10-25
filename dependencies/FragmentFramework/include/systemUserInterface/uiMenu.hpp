@@ -9,9 +9,21 @@
 
 #include "uiWidget.hpp"
 
+/*!
+ * @ingroup User-Interface
+ */
 namespace ffw{
+	/*!
+	 * @memberof ffw
+	 * @ingroup User-Interface
+	 * @inherit uiWidget
+	 */
 	class FFW_API uiMenu: public uiWidget{
 	public:
+		/*!
+		 * @memberof uiMenu
+		 * @ingroup User-Interface
+		 */
 		uiMenu(void* Handle, int ID);
 		~uiMenu();
 

@@ -10,25 +10,30 @@
 #include "texture.hpp"
 
 /*!
-    @ingroup Graphics
-*/
+ * @ingroup Graphics
+ */
 namespace ffw {
 	/*!
-        @memberof ffw
-        @ingroup Graphics
-        @inherit texture
-        @sa texture
-    */
+     * @memberof ffw
+     * @ingroup Graphics
+     * @inherit texture
+     * @sa texture
+     */
 	class FFW_API texture2DMS: public texture {
     public:
+		/*!
+		 * @memberof texture2DMS
+		 * @ingroup Graphics
+		 * @static
+		 */
         static bool checkCompability(const renderContext* Renderer);
 		
 		texture2DMS();
         ~texture2DMS();
         /*!
-            @memberof texture2DMS
-            @ingroup Graphics
-        */
+         * @memberof texture2DMS
+         * @ingroup Graphics
+         */
         bool create(const ffw::renderContext* Renderer, GLsizei Width, GLsizei Height, GLenum InternalFormat, GLenum Format, GLenum PixelFormat, GLint Samples);
     };
 };

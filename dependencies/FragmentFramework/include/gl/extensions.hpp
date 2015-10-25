@@ -1,8 +1,4 @@
-/*
-*   This file is part of FragmentFramework framework.
-*   Copyright (C) 2013-2015 by Matus Novak matusnov@gmail.com
-*   Licensed under the MIT License
-*/
+/*** This file is part of FragmentFramework project ***/
 
 #ifndef FFW_GL_EXTENSIONS
 #define FFW_GL_EXTENSIONS
@@ -20,11 +16,32 @@
 #error Outdated glext.h! Expected version 20150623 or newer!
 #endif
 
+/*!
+ * @defgroup GL
+ */
+
+
+
+/*!
+ * @ingroup GL
+ */
 namespace ffw{
-    class glExtensions{
+    /*!
+	 * @memberof ffw
+	 * @ingroup GL
+	 */
+	class glExtensions{
     public:
-        typedef void* (*glextLoader)(const char*);
-		
+        /*!
+		 * @memberof glExtensions
+		 * @ingroup GL
+		 */
+		typedef void* (*glextLoader)(const char*);
+		/*!
+		 * @memberof glExtensions
+		 * @ingroup GL
+		 * @brief Initializes OpenGL extensions
+		 */
 		void init(glextLoader Loader);
 
         // Group GL_VERSION_1_2

@@ -10,31 +10,31 @@
 #include "../common.h"
 
 /*!
-    @ingroup System
-*/
+ * @ingroup System-Utilities
+ */
 namespace ffw {
     /*!
-        @memberof ffw
-        @ingroup System
-    */
+     * @memberof ffw
+     * @ingroup System-Utilities
+     */
 	class FFW_API directory {
     public:
 		directory();
 		~directory();
         /*!
-            @memberof directory
-            @ingroup System
-        */
+		 * @memberof directory
+		 * @ingroup System-Utilities
+		 */
         bool open(std::string path);
         /*!
-            @memberof directory
-            @ingroup System
-        */
+		 * @memberof directory
+		 * @ingroup System-Utilities
+		 */
 		const std::vector<std::string>& getDirs();
         /*!
-            @memberof directory
-            @ingroup System
-        */
+		 * @memberof directory
+		 * @ingroup System-Utilities
+		 */
 		const std::vector<std::string>& getFiles();
 
     private:

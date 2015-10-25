@@ -1,8 +1,4 @@
-/*
-*   This file is part of FragmentFramework framework.
-*   Copyright (C) 2013-2015 by Matus Novak matusnov@gmail.com
-*   Licensed under the MIT License
-*/
+/*** This file is part of FragmentFramework project ***/
 
 #ifndef FFW_GL_MONITORS
 #define FFW_GL_MONITORS
@@ -10,81 +6,81 @@
 #include "../common.h"
 
 /*!
-    @ingroup Graphics
-*/
+ * @ingroup GL
+ */
 namespace ffw{
     /*!
-        @memberof ffw
-        @ingroup Core
-    */
+	 * @memberof ffw
+	 * @ingroup GL
+	 */
     struct monitor{
         /*!
-            @memberof monitor
-            @ingroup Core
-        */
+		 * @memberof monitor
+		 * @ingroup GL
+		 */
         std::string name;
         /*!
-            @memberof monitor
-            @ingroup Core
-        */
+		 * @memberof monitor
+		 * @ingroup GL
+		 */
         vec2i resolution;
         /*!
-            @memberof monitor
-            @ingroup Core
-        */
+		 * @memberof monitor
+		 * @ingroup GL
+		 */
         vec3i bitDepth;
         /*!
-            @memberof monitor
-            @ingroup Core
-        */
+		 * @memberof monitor
+		 * @ingroup GL
+		 */
         int refreshRate;
         /*!
-            @memberof monitor
-            @ingroup Core
-        */
+		 * @memberof monitor
+		 * @ingroup GL
+		 */
         vec2i position;
         /*!
-            @memberof monitor
-            @ingroup Core
-        */
+		 * @memberof monitor
+		 * @ingroup GL
+		 */
         vec2i physicalSize;
         void* ptr;
     };
     /*!
-        @memberof ffw
-        @ingroup Core
-    */
+	 * @memberof ffw
+	 * @ingroup GL
+	 */
     struct monitorMode{
         /*!
-            @memberof monitorMode
-            @ingroup Core
-        */
+		 * @memberof monitorMode
+		 * @ingroup GL
+		 */
         vec2i resolution;
         /*!
-            @memberof monitorMode
-            @ingroup Core
-        */
+		 * @memberof monitorMode
+		 * @ingroup GL
+		 */
         vec3i bitDepth;
         /*!
-            @memberof monitorMode
-            @ingroup Core
-        */
+		 * @memberof monitorMode
+		 * @ingroup GL
+		 */
         int refreshRate;
     };
     /*!
-        @memberof ffw
-        @ingroup Core
-    */
+	 * @memberof ffw
+	 * @ingroup GL
+	 */
     std::vector<monitor> FFW_API getMonitors();
     /*!
-        @memberof ffw
-        @ingroup Core
-    */
+	 * @memberof ffw
+	 * @ingroup GL
+	 */
     monitor FFW_API getPrimaryMonitor();
     /*!
-        @memberof ffw
-        @ingroup Core
-    */
+	 * @memberof ffw
+	 * @ingroup GL
+	 */
     std::vector<monitorMode> FFW_API getMonitorModes(monitor Monitor);
 };
 

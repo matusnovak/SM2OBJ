@@ -24,12 +24,13 @@ int main(){
 	args.customBcgColor = false;
 	//args.bcgColor.set(0.5f, 1.6f, 0.6f);
 	args.pos.set(-1, -1);
-	args.size.set(490, 615);
+	args.size.set(500, 300);
 	args.title = L"SM2OBJ";
 
 	// Create window
 	if(!win.create(args)){
 		ffw::logError() << "Failed to create window!";
+		return -1;
 	}
 
 	// Update window while it is not closed (closed != hidden)
@@ -40,5 +41,6 @@ int main(){
 	win.destroy();
 
 	// Return success
+	//system("pause");
     return 0;
 }

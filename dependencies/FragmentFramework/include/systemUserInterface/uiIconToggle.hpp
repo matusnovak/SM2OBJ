@@ -9,18 +9,41 @@
 
 #include "uiWidget.hpp"
 
+/*!
+ * @ingroup User-Interface
+ */
 namespace ffw{
+	/*!
+	 * @memberof ffw
+	 * @ingroup User-Interface
+	 * @inherit uiWidget
+	 */
 	class FFW_API uiIconToggle: public uiWidget{
 	public:
+		/*!
+		 * @memberof uiIconToggle
+		 * @ingroup User-Interface
+		 */
 		uiIconToggle(void* Handle, int ID, int PosX, int PosY, int Width, int Height, const ffw::uiBitmap* Bitmap);
 		~uiIconToggle();
+		/*!
+		 * @memberof uiIconToggle
+		 * @ingroup User-Interface
+		 * @const
+		 */
 		bool getValue() const;
+		/*!
+		 * @memberof uiIconToggle
+		 * @ingroup User-Interface
+		 */
 		void setValue(bool Value);
+		/*!
+		 * @memberof uiIconToggle
+		 * @ingroup User-Interface
+		 */
 		void setBitmap(const ffw::uiBitmap* Bitmap);
 
 		static const size_t hash;
-		static const int bitmapIcon = 0;
-		static const int resourceIcon = 1;
 	};
 };
 #endif

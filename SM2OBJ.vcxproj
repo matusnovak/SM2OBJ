@@ -91,38 +91,37 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\blockConfig.cpp" />
+    <ClCompile Include="source\blockConstructor.cpp" />
+    <ClCompile Include="source\blockExtractor.cpp" />
+    <ClCompile Include="source\blockVerticeData.cpp" />
+    <ClCompile Include="source\chunkHeader.cpp" />
+    <ClCompile Include="source\chunkLoader.cpp" />
+    <ClCompile Include="source\chunkTempLoader.cpp" />
+    <ClCompile Include="source\config.cpp" />
     <ClCompile Include="source\defaults.cpp" />
-    <ClCompile Include="source\exporter\blockConfig.cpp" />
-    <ClCompile Include="source\exporter\blockConstructor.cpp" />
-    <ClCompile Include="source\exporter\blockExtractor.cpp" />
-    <ClCompile Include="source\exporter\blockVerticeData.cpp" />
-    <ClCompile Include="source\exporter\chunkHeader.cpp" />
-    <ClCompile Include="source\exporter\chunkLoader.cpp" />
-    <ClCompile Include="source\exporter\chunkTempLoader.cpp" />
-    <ClCompile Include="source\exporter\config.cpp" />
-    <ClCompile Include="source\exporter\exportBlueprint.cpp" />
-    <ClCompile Include="source\exporter\loadMeta.cpp" />
-    <ClCompile Include="source\exporter\materialExport.cpp" />
-    <ClCompile Include="source\exporter\polygonFiltering.cpp" />
-    <ClCompile Include="source\exporter\textureExport.cpp" />
+    <ClCompile Include="source\loadMeta.cpp" />
     <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\materialExport.cpp" />
+    <ClCompile Include="source\polygonFiltering.cpp" />
+    <ClCompile Include="source\textureExport.cpp" />
     <ClCompile Include="source\window.cpp" />
+    <ClCompile Include="source\windowExport.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\blockConfig.h" />
+    <ClInclude Include="source\blockConstructor.h" />
+    <ClInclude Include="source\blockExtractor.h" />
+    <ClInclude Include="source\blockVerticeData.h" />
+    <ClInclude Include="source\chunkHeader.h" />
+    <ClInclude Include="source\chunkLoader.h" />
+    <ClInclude Include="source\chunkTempLoader.h" />
+    <ClInclude Include="source\config.h" />
     <ClInclude Include="source\defaults.h" />
-    <ClInclude Include="source\exporter\blockConfig.h" />
-    <ClInclude Include="source\exporter\blockConstructor.h" />
-    <ClInclude Include="source\exporter\blockExtractor.h" />
-    <ClInclude Include="source\exporter\blockVerticeData.h" />
-    <ClInclude Include="source\exporter\chunkHeader.h" />
-    <ClInclude Include="source\exporter\chunkLoader.h" />
-    <ClInclude Include="source\exporter\chunkTempLoader.h" />
-    <ClInclude Include="source\exporter\config.h" />
-    <ClInclude Include="source\exporter\exportBlueprint.h" />
-    <ClInclude Include="source\exporter\loadMeta.h" />
-    <ClInclude Include="source\exporter\materialExport.h" />
-    <ClInclude Include="source\exporter\polygonFiltering.h" />
-    <ClInclude Include="source\exporter\textureExport.h" />
+    <ClInclude Include="source\loadMeta.h" />
+    <ClInclude Include="source\materialExport.h" />
+    <ClInclude Include="source\polygonFiltering.h" />
+    <ClInclude Include="source\textureExport.h" />
     <ClInclude Include="source\window.hpp" />
   </ItemGroup>
   <ItemGroup>

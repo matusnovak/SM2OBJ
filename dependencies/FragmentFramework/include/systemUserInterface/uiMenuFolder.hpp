@@ -9,13 +9,34 @@
 
 #include "uiWidget.hpp"
 
+/*!
+ * @ingroup User-Interface
+ */
 namespace ffw{
+	/*!
+	 * @memberof ffw
+	 * @ingroup User-Interface
+	 * @inherit uiWidget
+	 */
 	class FFW_API uiMenuFolder: public uiWidget{
 	public:
+		/*!
+		 * @memberof uiMenuFolder
+		 * @ingroup User-Interface
+		 */
 		uiMenuFolder(void* Handle, int ID, const std::wstring& Label);
 		~uiMenuFolder();
-
+		/*!
+		 * @memberof uiMenuFolder
+		 * @ingroup User-Interface
+		 * @override
+		 */
 		void disable() override;
+		/*!
+		 * @memberof uiMenuFolder
+		 * @ingroup User-Interface
+		 * @override
+		 */
 		void enable() override;
 
 		static const size_t hash;

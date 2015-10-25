@@ -155,7 +155,7 @@ namespace ffw {
 	 * @sa rgb
 	 */
 	color rgba(unsigned long Hex);
-	/*!
+	/*
 	 * @memberof ffw
 	 * @ingroup Math
 	 * @inline
@@ -165,8 +165,8 @@ namespace ffw {
 	 * @param Alpha - must be between 0.0 and 1.0. By default is set to 1.0
 	 * @sa hsv
 	 */
-	color FFW_API hsvf(float Hue, float Saturation, float Value, float Alpha = 1.0f);
-	/*!
+	//color FFW_API hsvf(float Hue, float Saturation, float Value, float Alpha = 1.0f);
+	/*
 	 * @memberof ffw
 	 * @ingroup Math
 	 * @inline
@@ -176,8 +176,8 @@ namespace ffw {
 	 * @param Alpha - must be between 0.0 and 1.0. By default is set to 1.0
 	 * @sa hsl
 	 */
-	color FFW_API hslf(float Hue, float Saturation, float Luminance, float Alpha = 1.0f);
-	/*!
+	//color FFW_API hslf(float Hue, float Saturation, float Luminance, float Alpha = 1.0f);
+	/*
 	 * @memberof ffw
 	 * @ingroup Math
 	 * @inline
@@ -187,8 +187,8 @@ namespace ffw {
 	 * @param Alpha - must be between 0 and 255. By default is set to 255
 	 * @sa hsvf
 	 */
-	color FFW_API hsv(unsigned char Hue, unsigned char Saturation, unsigned char Value, unsigned char Alpha = 255);
-	/*!
+	//color FFW_API hsv(unsigned char Hue, unsigned char Saturation, unsigned char Value, unsigned char Alpha = 255);
+	/*
 	 * @memberof ffw
 	 * @ingroup Math
 	 * @inline
@@ -198,7 +198,7 @@ namespace ffw {
 	 * @param Alpha - must be between 0 and 255. By default is set to 255
 	 * @sa hslf
 	 */
-	color FFW_API hsl(unsigned char Hue, unsigned char Saturation, unsigned char Luminance, unsigned char Alpha = 255);
+	//color FFW_API hsl(unsigned char Hue, unsigned char Saturation, unsigned char Luminance, unsigned char Alpha = 255);
 };
 
 #include "color.inl"

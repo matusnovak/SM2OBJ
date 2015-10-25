@@ -17,22 +17,16 @@ namespace sm2obj {
         bool load(const std::string& Path, std::vector<std::string>* Missing);
         bool save(const std::string& Path);
 
-        std::string inputBlueprintFolder;
-        std::string inputDataFolder;
-        std::string outputFileFolder;
+        std::string inputStarMadeFolder;
+        std::string outputFolder;
         int uvMapsOptions;
-        bool exportMaterials;
         bool useDiffuseTextures;
         bool useAlphaTextures;
-        bool useNormalTextures;
         bool useEmissiveTextures;
-        bool specularHighlight;
-        std::string numOfThreads;
-        std::string outputTextureFolder;
-        int textureOutputFormat;
-        int textureExportType;
-        int textureTileSize;
-        int textureNormals;
+		bool useBumpsOrNormals;
+        int numOfThreads;
+        int textureFormat;
+        int textureSize;
         bool exportAttachments;
     };
 };

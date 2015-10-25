@@ -9,25 +9,53 @@
 
 #include "../common.h"
 
+/*!
+ * @ingroup User-Interface
+ */
 namespace ffw{
 	class uiBitmap;
-
+	/*!
+	 * @memberof ffw
+	 * @ingroup User-Interface
+	 */
 	uiBitmap FFW_API createUiBitmap(unsigned char* Pixels, int Width, int Height);
+	/*!
+	 * @memberof ffw
+	 * @ingroup User-Interface
+	 */
 	uiBitmap FFW_API createUiBitmap(const std::wstring& Path, int Width, int Height);
-
+	/*!
+	 * @memberof ffw
+	 * @ingroup User-Interface
+	 */
 	class FFW_API uiBitmap{
 	public:
 		uiBitmap();
-		~uiBitmap();
-
-		operator bool() const;
-		bool isValid() const;
-
 		uiBitmap(uiBitmap&& Other);
-		uiBitmap& operator = (uiBitmap&& Other);
-
-		uiBitmap& operator = (const uiBitmap& Other) = delete;
 		uiBitmap(const uiBitmap& Other) = delete;
+		~uiBitmap();
+		/*!
+		 * @memberof uiBitmap
+		 * @ingroup User-Interface
+		 * @const
+		 */
+		operator bool() const;
+		/*!
+		 * @memberof uiBitmap
+		 * @ingroup User-Interface
+		 * @const
+		 */
+		bool isValid() const;
+		/*!
+		 * @memberof uiBitmap
+		 * @ingroup User-Interface
+		 */
+		uiBitmap& operator = (uiBitmap&& Other);
+		/*!
+		 * @memberof uiBitmap
+		 * @ingroup User-Interface
+		 */
+		uiBitmap& operator = (const uiBitmap& Other) = delete;
 
 		friend class uiWidget;
 		friend class uiWindow;

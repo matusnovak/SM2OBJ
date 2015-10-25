@@ -9,9 +9,21 @@
 
 #include "uiWidget.hpp"
 
+/*!
+ * @ingroup User-Interface
+ */
 namespace ffw{
+	/*!
+	 * @memberof ffw
+	 * @ingroup User-Interface
+	 * @inherit uiWidget
+	 */
 	class FFW_API uiGroup: public uiWidget{
 	public:
+		/*!
+		 * @memberof uiGroup
+		 * @ingroup User-Interface
+		 */
 		uiGroup(void* Handle, int ID, int PosX, int PosY, int Width, int Height, const std::wstring& Label);
 		~uiGroup();
 

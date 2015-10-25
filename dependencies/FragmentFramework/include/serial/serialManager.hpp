@@ -1,8 +1,4 @@
-/*
-*   This file is part of FragmentFramework framework.
-*   Copyright (C) 2013-2015 by Matus Novak matusnov@gmail.com
-*   Licensed under the MIT License
-*/
+/*** This file is part of FragmentFramework project ***/
 
 #ifndef FFW_SERIAL
 #define FFW_SERIAL
@@ -35,27 +31,34 @@ namespace ffw {
             @memberof serialManager
             @ingroup Serial
         */
-        unsigned int isSerialAvailable();
+        unsigned int isAvailable();
         /*!
             @memberof serialManager
             @ingroup Serial
         */
-        bool sendMessage(const std::string& message);
+        size_t write(const std::string& message);
+		bool write(char Byte);
         /*!
             @memberof serialManager
             @ingroup Serial
         */
-        bool sendBytes(char* data, unsigned int length);
+        size_t write(const char* Data, unsigned int Size);
         /*!
             @memberof serialManager
             @ingroup Serial
         */
-        bool readBytes(char* data, unsigned int length);
+        size_t read(char* Data, unsigned int Size);
+		char read();
         /*!
             @memberof serialManager
             @ingroup Serial
         */
-        bool disconnect();
+        void close();
+
+		void setTimeout(unsigned int ReadMillis, unsigned int WriteMillis);
+
+		void flushIn();
+		void flushOut();
 
     private:
         class impl;

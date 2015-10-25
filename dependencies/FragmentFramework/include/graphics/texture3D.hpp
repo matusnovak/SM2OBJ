@@ -10,35 +10,40 @@
 #include "texture.hpp"
 
 /*!
-    @ingroup Graphics
-*/
+ * @ingroup Graphics
+ */
 namespace ffw {
 	/*!
-        @memberof ffw
-        @ingroup Graphics
-        @inherit texture
-        @sa texture
-    */
+     * @memberof ffw
+     * @ingroup Graphics
+     * @inherit texture
+     * @sa texture
+     */
 	class FFW_API texture3D: public texture {
     public:
+		/*!
+		 * @memberof texture3D
+		 * @ingroup Graphics
+		 * @static
+		 */
         static bool checkCompability(const renderContext* Renderer);
 
 		texture3D();
         ~texture3D();
         /*!
-            @memberof texture3D
-            @ingroup Graphics
-        */
+         * @memberof texture3D
+         * @ingroup Graphics
+         */
         bool create(const ffw::renderContext* Renderer, GLsizei Width, GLsizei Height, GLsizei Depth, GLenum InternalFormat, GLenum Format, GLenum PixelFormat);
         /*!
-            @memberof texture3D
-            @ingroup Graphics
-        */
+         * @memberof texture3D
+         * @ingroup Graphics
+         */
         bool setPixels(GLint Level, GLint Xoffset, GLint Yoffset, GLint Zoffset, GLsizei Width, GLsizei Height, GLsizei Depth, const void* Pixels);
 		/*!
-            @memberof texture3D
-            @ingroup Graphics
-		*/
+         * @memberof texture3D
+         * @ingroup Graphics
+         */
 		bool getPixels(void* Pixels);
     };
 };
