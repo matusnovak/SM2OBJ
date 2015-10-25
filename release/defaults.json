@@ -1,13 +1,13 @@
 {
     "bumps-or-normals": false,
-    "export-attachments": true,
-    "num-of-threads": 7,
-    "output-folder": "E:\\Program Files (x86)\\StarMade\\exported",
-    "starmade-folder": "E:\\Program Files (x86)\\StarMade\\StarMade",
-    "texture-format": 0,
-    "texture-size": 2,
-    "use-alpha": true,
-    "use-diffuse": true,
-    "use-emissive": true,
-    "uv-maps": 2
+    "export-attachments": false,
+    "num-of-threads": -1,
+    "output-folder": "",
+    "starmade-folder": "",
+    "texture-format": -1,
+    "texture-size": -1,
+    "use-alpha": false,
+    "use-diffuse": false,
+    "use-emissive": false,
+    "uv-maps": 0
 }
