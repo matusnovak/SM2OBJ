@@ -12,7 +12,7 @@ sm2obj::window::window(){
 
 ///=============================================================================
 sm2obj::window::~window(){
-	exportThreadStop.store(true);
+	exportThreadStop = true;
 	exportThread.join();
 }
 
@@ -91,7 +91,7 @@ void sm2obj::window::setup(){
 	widgetFrames[6].push_back(radioMatNoBumps = this->addRadio(360, 160, 100, 20, L"None"));
 	widgetFrames[6].push_back(this->addLabel(10, 180, windowSize.x-20, 80,
 		L"Diffuse - The color of the material\nEmissive - Light generated from the material (self illuminated blocks)\nAlpha - The transparency of the material\nBumps/Normals - The detailness of the material"));
-	
+
 	// Frame 07 - System options
 	widgetFrames[7].push_back(this->addLabel(windowSize.x/2-70, windowSize.y/2, 200, 20, L"How many threads to use?"));
 	widgetFrames[7].push_back(comboNumOfThreads = this->addCombo(windowSize.x/2-50, windowSize.y/2+20, 100, 20));
@@ -235,14 +235,14 @@ bool sm2obj::window::checkoutBlueprint(){
 ///=============================================================================
 bool sm2obj::window::checkoutOutputFolder(){
 	outputFolder = ffw::wstrToAnsi(textInputOutputFolder->getValue());
-	
+
 	std::fstream test(outputFolder + "\\delete_me.txt", std::ios::trunc | std::ios::out);
 	if(!test){
 		ffw::logError() << "Please, select correct output folder before continuing!";
 		ffw::showModalError(this, L"Error!", L"Please, select correct output folder before continuing!");
 		return false;
 	}
-	
+
 	system(std::string("DEL \"" + outputFolder + "\\delete_me.txt\"").c_str());
 	return true;
 }
@@ -364,7 +364,7 @@ void sm2obj::window::nextFrame(){
 		if(!checkoutSystemSettings())return;
 		buttonNext->disable();
 	}
-	
+
 	if(currentFrame < FRAMES_TOTAL-1){
 		buttonPrev->enable();
 		for(const auto& w : widgetFrames[currentFrame]){
@@ -387,7 +387,7 @@ void sm2obj::window::prevFrame(){
 	if(currentFrame == frame::exportType){
 		buttonNext->enable();
 	}
-	
+
 	if(currentFrame > 0){
 		buttonNext->enable();
 		for(const auto& w : widgetFrames[currentFrame]){
@@ -419,7 +419,7 @@ void sm2obj::window::hideAll(){
 
 ///=============================================================================
 void sm2obj::window::windowCloseEvent(){
-	exportThreadStop.store(true);
+	exportThreadStop = true;
 	exportThread.join();
 
 	saveUserDefaults();
@@ -530,6 +530,7 @@ void sm2obj::window::widgetEvent(const ffw::uiWidget* Widget){
 	// Start export
 	if(Widget == buttonObjectPlusTextures || Widget == buttonTexturesOnly || Widget == buttonObjectOnly){
 		nextFrame();
+		exportThreadStop = false;
 		exportThread.start(NULL);
 		buttonPrev->disable();
 		buttonNext->disable();
@@ -541,7 +542,7 @@ void sm2obj::window::widgetEvent(const ffw::uiWidget* Widget){
 			this->shouldClose(true);
 		} else {
 			// Wait for thread
-			exportThreadStop.store(true);
+			exportThreadStop = true;
 			exportThread.join();
 			ffw::showModalWarning(this, L"Warning!", L"Export cancelled by user! The exported object/textures may be corrupted!");
 			this->shouldClose(true);

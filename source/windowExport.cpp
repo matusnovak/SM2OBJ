@@ -29,8 +29,8 @@ struct progressStruct {
 
 static bool recursiveMetaLoader(sm2obj::entityInfoStruct* Output, const std::string& BlueprintFolder, const std::string& BlueprintName, const std::string& SubFolder);
 static void recursiveMetaDump(sm2obj::entityInfoStruct* Output, int Indent);
-static bool recursiveChunkLoader(sm2obj::entityInfoStruct* Input, const std::string& BlueprintFolder, const std::string& OutputTemp, int& FileIndex, progressStruct& Progress, std::atomic_bool& Cancel);
-static void recursiveChunkExport(sm2obj::entityInfoStruct* Input, const std::string& InputOutputTemp, std::vector<sm2obj::threadInfoStruct*>& Threads, progressStruct& Progress, const std::vector<sm2obj::blockInfoStruct>& BlockInfo, std::atomic_bool& Cancel);
+static bool recursiveChunkLoader(sm2obj::entityInfoStruct* Input, const std::string& BlueprintFolder, const std::string& OutputTemp, int& FileIndex, progressStruct& Progress, volatile bool& Cancel);
+static void recursiveChunkExport(sm2obj::entityInfoStruct* Input, const std::string& InputOutputTemp, std::vector<sm2obj::threadInfoStruct*>& Threads, progressStruct& Progress, const std::vector<sm2obj::blockInfoStruct>& BlockInfo, volatile bool& Cancel);
 static void* processChunk(void* ThreadInfoPtr);
 static void generateEntityQueue(sm2obj::entityInfoStruct* Input, std::vector<sm2obj::entityInfoStruct*>* Output);
 static bool mergeVertices(sm2obj::entityInfoStruct* Input, const std::string& InputOutputTemp, ffw::file* Output, bool SplitTextures, bool ExportUvMaps);
@@ -158,10 +158,14 @@ void* sm2obj::window::exportThreadFunc(void* Data){
 	labelBlockConfig->setValue(L"Block config: 0/2");
 	progressBlockConfig->setValue(0);
 
+	std::cout << "checking... " << exportThreadStop << std::endl;
+
 	// Check for cancelation
-	if(exportThreadStop.load()){
+	if(exportThreadStop){
 		return NULL;
 	}
+
+	std::cout << "loading..." << std::endl;
 
 	// Load block types
 	if(!loadBlockTypes(blockTypes, blockTypesPath)){
@@ -176,7 +180,7 @@ void* sm2obj::window::exportThreadFunc(void* Data){
 	progressBlockConfig->setValue(50);
 
 	// Check for cancelation
-	if(exportThreadStop.load()){
+	if(exportThreadStop){
 		return NULL;
 	}
 
@@ -189,7 +193,7 @@ void* sm2obj::window::exportThreadFunc(void* Data){
 	}
 
 	// Check for cancelation
-	if(exportThreadStop.load()){
+	if(exportThreadStop){
 		return NULL;
 	}
 
@@ -216,7 +220,7 @@ void* sm2obj::window::exportThreadFunc(void* Data){
 		progressReadingMeta->setValue(100);
 
 		// Check for cancelation
-		if(exportThreadStop.load()){
+		if(exportThreadStop){
 			return NULL;
 		}
 
@@ -241,7 +245,7 @@ void* sm2obj::window::exportThreadFunc(void* Data){
 		}
 
 		// Check for cancelation
-		if(exportThreadStop.load()){
+		if(exportThreadStop){
 			return NULL;
 		}
 
@@ -266,7 +270,7 @@ void* sm2obj::window::exportThreadFunc(void* Data){
 		threads.clear();
 
 		// Check for cancelation
-		if(exportThreadStop.load()){
+		if(exportThreadStop){
 			return NULL;
 		}
 
@@ -313,7 +317,7 @@ void* sm2obj::window::exportThreadFunc(void* Data){
 		delete chunkRawBuffer;
 
 		// Check for cancelation
-		if(exportThreadStop.load()){
+		if(exportThreadStop){
 			return NULL;
 		}
 
@@ -339,7 +343,7 @@ void* sm2obj::window::exportThreadFunc(void* Data){
 		ffw::logSuccess() << "Creating material file...";
 
 		// Check for cancelation
-		if(exportThreadStop.load()){
+		if(exportThreadStop){
 			return NULL;
 		}
 
@@ -348,7 +352,7 @@ void* sm2obj::window::exportThreadFunc(void* Data){
 			ffw::logDebug() << "Exporting altas materials";
 			ffw::logDebug() << "Creating 3 materials...";
 			createMaterialAtlas(&mtlOutput, true, exportDiffuse, exportAlpha, exportNormals, exportEmissive, textureExtension);
-    
+
 		} else if(exportMaterials){
 			ffw::logDebug() << "Exporting block materials";
 			std::vector<ffw::vec2i> materialList;
@@ -380,7 +384,7 @@ void* sm2obj::window::exportThreadFunc(void* Data){
 		}
 
 		// Check for cancelation
-		if(exportThreadStop.load()){
+		if(exportThreadStop){
 			return NULL;
 		}
 	}
@@ -411,7 +415,7 @@ void* sm2obj::window::exportThreadFunc(void* Data){
 			}
 
 			// Check for cancelation
-			if(exportThreadStop.load()){
+			if(exportThreadStop){
 				return NULL;
 			}
 
@@ -425,7 +429,7 @@ void* sm2obj::window::exportThreadFunc(void* Data){
 			}
 
 			// Check for cancelation
-			if(exportThreadStop.load()){
+			if(exportThreadStop){
 				return NULL;
 			}
 
@@ -439,7 +443,7 @@ void* sm2obj::window::exportThreadFunc(void* Data){
 			}
 
 			// Check for cancelation
-			if(exportThreadStop.load()){
+			if(exportThreadStop){
 				return NULL;
 			}
 
@@ -450,7 +454,7 @@ void* sm2obj::window::exportThreadFunc(void* Data){
 
 				guiProgress.status++;
 				guiProgress.setProgress("Exporting textures");
-			
+
 			} else if(exportNormals){
 				exportNormalAtlas(textureFolder + "\\t000_NRM.png", textureSize, textureOutputFolder + "\\Atlas_0_bump." + textureExtension);
 				exportNormalAtlas(textureFolder + "\\t001_NRM.png", textureSize, textureOutputFolder + "\\Atlas_1_bump." + textureExtension);
@@ -468,7 +472,7 @@ void* sm2obj::window::exportThreadFunc(void* Data){
 			}
 
 			// Check for cancelation
-			if(exportThreadStop.load()){
+			if(exportThreadStop){
 				return NULL;
 			}
 
@@ -479,7 +483,7 @@ void* sm2obj::window::exportThreadFunc(void* Data){
 			}
 
 			// Check for cancelation
-			if(exportThreadStop.load()){
+			if(exportThreadStop){
 				return NULL;
 			}
 
@@ -487,7 +491,7 @@ void* sm2obj::window::exportThreadFunc(void* Data){
 				exportTileBump(blockInfo, textureFolder, textureSize, textureOutputFolder, textureExtension);
 				guiProgress.status++;
 				guiProgress.setProgress("Exporting textures");
-			
+
 			} else if(exportNormals){
 				exportTileNormals(blockInfo, textureFolder, textureSize, textureOutputFolder, textureExtension);
 				guiProgress.status++;
@@ -515,7 +519,7 @@ void* sm2obj::window::exportThreadFunc(void* Data){
 ///=============================================================================
 bool recursiveMetaLoader(sm2obj::entityInfoStruct* Output, const std::string& BlueprintFolder, const std::string& BlueprintName, const std::string& SubFolder){
     std::string path = BlueprintFolder + SubFolder + "\\meta.smbpm";
-	
+
 	if(!loadMeta(Output, path, BlueprintName)){
 		ffw::logError() << "Failed to open meta file from: " << path;
 		return false;
@@ -557,7 +561,7 @@ int getTotalEntities(const sm2obj::entityInfoStruct* Input){
 }
 
 ///=============================================================================
-bool recursiveChunkLoader(sm2obj::entityInfoStruct* Input, const std::string& BlueprintFolder, const std::string& OutputTemp, int& FileIndex, progressStruct& Progress, std::atomic_bool& Cancel){
+bool recursiveChunkLoader(sm2obj::entityInfoStruct* Input, const std::string& BlueprintFolder, const std::string& OutputTemp, int& FileIndex, progressStruct& Progress, volatile bool& Cancel){
     std::vector<std::string> allFiles;
 
     // Open target directory
@@ -672,8 +676,8 @@ bool recursiveChunkLoader(sm2obj::entityInfoStruct* Input, const std::string& Bl
 	Progress.setProgress("Loading chunks");
 
     for(auto& item : Input->attachments){
-        if(Cancel.load())return true;
-		
+        if(Cancel)return true;
+
 		if(!recursiveChunkLoader(&item, BlueprintFolder, OutputTemp, FileIndex, Progress, Cancel))return false;
     }
 
@@ -682,7 +686,7 @@ bool recursiveChunkLoader(sm2obj::entityInfoStruct* Input, const std::string& Bl
 
 
 ///=============================================================================
-void recursiveChunkExport(sm2obj::entityInfoStruct* Input, const std::string& InputOutputTemp, std::vector<sm2obj::threadInfoStruct*>& Threads, progressStruct& Progress, const std::vector<sm2obj::blockInfoStruct>& BlockInfo, std::atomic_bool& Cancel){
+void recursiveChunkExport(sm2obj::entityInfoStruct* Input, const std::string& InputOutputTemp, std::vector<sm2obj::threadInfoStruct*>& Threads, progressStruct& Progress, const std::vector<sm2obj::blockInfoStruct>& BlockInfo, volatile bool& Cancel){
     ffw::logDebug() << "Exporting: " << Input->name << " from: " << Input->path;
 
     // export chunks one by one
@@ -717,14 +721,14 @@ void recursiveChunkExport(sm2obj::entityInfoStruct* Input, const std::string& In
                     found = true;
                     break;
                 }
-				if(Cancel.load())break;
+				if(Cancel)break;
             }
-			if(Cancel.load())break;
+			if(Cancel)break;
             // An empty thread was not found, wait and then try again
             if(found)break;
             ffw::usleep(100000);
         }
-		if(Cancel.load())break;
+		if(Cancel)break;
     }
 
     ffw::logDebug() << "Waiting for threads...";
@@ -734,7 +738,7 @@ void recursiveChunkExport(sm2obj::entityInfoStruct* Input, const std::string& In
     }
 
     for(auto& item : Input->attachments){
-        if(Cancel.load())break;
+        if(Cancel)break;
 		recursiveChunkExport(&item, InputOutputTemp, Threads, Progress, BlockInfo, Cancel);
     }
 }

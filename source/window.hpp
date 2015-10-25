@@ -127,7 +127,7 @@ namespace sm2obj {
 		int currentFrame;
 
 		sm2obj::defaults userDefaults;
-		std::atomic_bool exportThreadStop;
+		volatile bool exportThreadStop;
 		ffw::thread exportThread;
 		ffw::mutex exportThreadMutex;
 		void* exportThreadFunc(void* Data);
